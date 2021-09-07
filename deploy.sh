@@ -21,4 +21,3 @@ git commit -m 'deploy'
 # deploy
 git push -f https://github.com/ducnt444/planetary.git master:gh-pages
 
-cd -
