@@ -11,6 +11,15 @@ const routes = [
     component: () => import(/* webpackChunkName: "Home" */ "../views/Home.vue"),
     props: true,
     meta: { requiresAuth: true },
+    beforeEnter: (to, from, next) => {
+      if (sessionStorage.getItem("redirect") !== null) {
+        const redirect = sessionStorage.redirect;
+        delete sessionStorage.redirect;
+        next(redirect);
+      } else {
+        next();
+      }
+    },
   },
   {
     path: "/planets",
@@ -44,9 +53,9 @@ const routes = [
       /* console.log(store.planets);
       console.log(to.params.slug); */
       const exists = store.planets.find(
-        planet => planet.slug === to.params.slug
-      )
-      exists ? next() : next({name: "NotFound"})
+        (planet) => planet.slug === to.params.slug
+      );
+      exists ? next() : next({ name: "NotFound" });
     },
     meta: { requiresAuth: true },
   },
