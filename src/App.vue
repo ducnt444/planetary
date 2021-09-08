@@ -40,7 +40,6 @@ body {
   width: 100%;
   max-width: 414px;
   height: 100vh;
-  max-height: 896px;
   margin: 0 auto auto 0;
   font-family: Roboto;
   display: flex;
@@ -103,7 +102,6 @@ body {
 .carousel-item {
   height: 100%;
 }
-
 .slide-fade-enter-active {
   transition: all 0.3s ease;
 }

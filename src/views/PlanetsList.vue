@@ -23,7 +23,7 @@
 
 <script>
 import store from "@/store.js"
-import PlanetPreview from "@/components/PlanetPreview.vue";
+import PlanetPreview from "@/views/PlanetPreview.vue";
 
 export default {
   name: "planets-list",

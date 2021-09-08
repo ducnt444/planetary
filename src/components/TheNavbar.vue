@@ -53,7 +53,7 @@ export default {
   max-width: 414px;
   height: 50px;
   z-index: 1000;
-  position: absolute;
+  position: fixed;
   bottom: 0;
   left: 0;
 }
