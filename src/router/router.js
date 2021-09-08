@@ -98,7 +98,7 @@ const routes = [
 
 const router = new Router({
   linkExactActiveClass: "active-page",
-  mode: "history",
+  // mode: "history",
   routes,
 });
 
