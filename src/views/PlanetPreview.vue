@@ -14,7 +14,9 @@
     />
     <div class="planet-text" :class="{ 'preview-mode': previewMode }">
       <div>
-        <h1 class="planets-name">{{ thisPlanet.name }}</h1>
+        <h1 class="planets-name" :class="{ 'preview-mode': previewMode }">
+          {{ thisPlanet.name }}
+        </h1>
         <h3 class="planets-title" :class="{ 'preview-mode': previewMode }">
           {{ thisPlanet.title }}
         </h3>
@@ -67,6 +69,7 @@ export default {
   methods: {
     toPreviewMode() {
       this.previewMode = !this.previewMode;
+      this.$emit("childToggleControls");
     },
   },
 };
@@ -102,7 +105,36 @@ export default {
   align-items: center;
 }
 .carousel-indicators {
-  margin: 0 auto;
+  position: fixed;
+  bottom: 60px;
+  margin: auto;
+}
+.carousel-indicators li {
+  background-color: transparent;
+  /* background-color: rgba(225, 225, 225, 0.2);
+  border-radius: 12px; */
+  border: none;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  border-radius: 12px;
+  height: 25px;
+  width: 25px;
+}
+.carousel-indicators li:nth-child(1) {
+  background-image: url("~@/assets/images/planets/Mercury/symbol-active.png");
+}
+.carousel-indicators li:nth-child(2) {
+  background-image: url("~@/assets/images/planets/Venus/symbol-active.png");
+}
+.carousel-indicators li:nth-child(3) {
+  background-image: url("~@/assets/images/planets/Mars/symbol-active.png");
+}
+@media screen and (min-width: 414px) {
+  .carousel-indicators li {
+    height: 30px;
+    width: 30px;
+  }
 }
 </style>
 
@@ -122,11 +154,14 @@ export default {
 }
 .planet-img,
 .planet-shadow {
+  /* transition: width 1s, top 1s, left 1s, opacity 1s, visibility 1s; */
   transition: all 1s;
   position: absolute;
-  height: 70%;
-  top: -20%;
+  height: 80%;
+  top: -35%;
   left: 10%;
+  /* opacity: 1;
+  visibility: visible; */
 }
 .planet-img {
   animation: spinning 120s linear infinite forwards;
@@ -152,7 +187,8 @@ export default {
 }
 .planet-text {
   min-width: 290px;
-  height: 40%;
+  padding-bottom: 70px;
+  /* height: 40%; */
   text-align: center;
   transition: all 1s;
 }
@@ -178,31 +214,42 @@ export default {
   justify-content: center;
   transition: all 0.5s;
 }
-.btn {
-  width: 40%;
-  padding: 10px 20px;
+.planet-btn-group .btn {
+  padding: 5px 15px;
   color: rgb(230, 230, 230);
   text-shadow: 0 0 15px rgb(253, 253, 253);
 }
 
 /* ===================== preview mode ===================== */
 .img.preview-mode {
-  width: 150%;
-  height: auto;
-  top: -40%;
-  left: -25%;
+  height: 100%;
+  top: 0%;
+  left: 10%;
 }
 .planet-shadow.preview-mode {
-  display: none;
+  opacity: 0;
+  visibility: hidden;
+  /* display: none; */
 }
 .planet-text.preview-mode {
-  height: 55%;
+  background-color: rgba(0, 0, 0, 0.35);
+  padding: 15px 15px 25px 15px;
+  z-index: 20;
+  width: 100%;
 }
+/* .planet-text.preview-mode .planets-name {
+  left: 0;
+} */
+.planets-name.preview-mode,
 .planets-title.preview-mode {
-  margin-bottom: 1.25rem;
+  animation: none;
+}
+
+.planets-title.preview-mode {
+  margin-bottom: 0.75rem;
 }
 .preview-content {
-  opacity: 0.85;
+  opacity: 1;
   display: grid;
   grid-template-columns: 50% 50%;
   grid-template-rows: 50% 50%;
@@ -211,7 +258,7 @@ export default {
   margin-bottom: 15px;
 }
 .cell-title {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 700;
   margin-bottom: 0px;
 }
@@ -219,16 +266,21 @@ export default {
   font-size: 14px;
   margin: 0;
 }
-.planet-btn-group.preview-mode {
-  justify-content: space-between;
+.planet-btn-group.preview-mode .planets-explore {
+  margin-right: 50px;
 }
 @media screen and (min-width: 375px) {
-  .img.preview-mode {
-    top: -35%;
-    left: -25%;
+  .planet-text {
+    padding: 15px 15px 70px 15px;
   }
+}
+@media screen and (min-width: 414px) {
+  .planet-text {
+    padding: 15px 15px 90px 15px;
+  }
+  /* ===================== preview mode ===================== */
   .planets-title.preview-mode {
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
   }
   .preview-content-cell {
     margin-bottom: 20px;

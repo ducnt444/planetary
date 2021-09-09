@@ -15,14 +15,14 @@
         v-bind:key="eachPlanet.id"
         :img-src="require('@/assets/' + eachPlanet.background)"
       >
-        <PlanetPreview :thisPlanet="eachPlanet" />
+        <PlanetPreview :thisPlanet="eachPlanet" @childToggleControls="parentToggleControls" />
       </b-carousel-slide>
     </b-carousel>
   </div>
 </template>
 
 <script>
-import store from "@/store.js"
+import store from "@/store.js";
 import PlanetPreview from "@/views/PlanetPreview.vue";
 
 export default {
@@ -34,8 +34,15 @@ export default {
       indicators: true,
       controls: true,
       noTouch: false,
-      planets: store.planets
+      planets: store.planets,
     };
+  },
+  methods: {
+    parentToggleControls() {
+      this.controls = !this.controls;
+      this.noTouch = !this.noTouch;
+      this.indicators = !this.indicators;
+    },
   },
   mounted() {
     this.interval = 0; // stop carousel

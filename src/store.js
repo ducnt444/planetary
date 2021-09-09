@@ -70,7 +70,7 @@ export default {
       slug: "mars",
       name: "Mars",
       img: "Mars/Mars.png",
-      background: "images/planets/Mars/bg.webp",
+      background: "images/planets/Mars/bg.jpg",
       title: "the Next Home",
       previewStats: {
         "Diameter": `6,792 km <br/> (${(6792 / 12742).toFixed(
