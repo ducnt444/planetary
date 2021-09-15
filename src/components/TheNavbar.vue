@@ -50,7 +50,7 @@ export default {
 .nav {
   background: #000;
   width: 100%;
-  max-width: 414px;
+  max-width: 450px;
   height: 50px;
   z-index: 1000;
   position: fixed;

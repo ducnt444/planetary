@@ -11,18 +11,18 @@ const routes = [
     component: () => import(/* webpackChunkName: "Home" */ "../views/Home.vue"),
     props: true,
     meta: { requiresAuth: true },
-    beforeEnter: (to, from, next) => {
-      if (sessionStorage.getItem("redirect") !== null) {
-        const redirect = sessionStorage.redirect;
-        delete sessionStorage.redirect;
-        next(redirect);
-      } else {
-        next();
-      }
-    },
+    // beforeEnter: (to, from, next) => {
+    //   if (sessionStorage.getItem("redirect") !== null) {
+    //     const redirect = sessionStorage.redirect;
+    //     delete sessionStorage.redirect;
+    //     next(redirect);
+    //   } else {
+    //     next();
+    //   }
+    // },
   },
   {
-    path: "/planets",
+    path: "/planets-list",
     name: "PlanetsList",
     component: () =>
       import(/* webpackChunkName: "PlanetsList" */ "../views/PlanetsList.vue"),
@@ -59,7 +59,14 @@ const routes = [
     },
     meta: { requiresAuth: true },
   },
-
+  {
+    path: "/legacy",
+    name: "Legacy",
+    component: () =>
+      import(/* webpackChunkName: "Legacy" */ "../views/PlanetsListLegacy.vue"),
+    props: true,
+    meta: { requiresAuth: true },
+  },
   {
     path: "/feed",
     name: "Feed",
@@ -100,21 +107,35 @@ const router = new Router({
   linkExactActiveClass: "active-page",
   // mode: "history",
   routes,
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition;
+    } else {
+      const position = {};
+      if (to.hash) {
+        position.selector = to.hash;
+        if (document.querySelector(to.hash)) {
+          return position;
+        }
+        return false;
+      }
+    }
+  },
 });
 
-/* router.beforeEach((to, from, next) => {
-  if (to.matched.some((record) => record.meta.requiresAuth)) {
-    if (store.user !== "abc") {
-      next({
-        name: "Login",
-        query: { redirect: to.fullPath },
-      });
-    } else {
-      next();
-    }
-  } else {
-    next();
-  }
-}); */
+// router.beforeEach((to, from, next) => {
+//   if (to.matched.some((record) => record.meta.requiresAuth)) {
+//     if (store.user !== "armstrong") {
+//       next({
+//         name: "Login",
+//         query: { redirect: to.fullPath },
+//       });
+//     } else {
+//       next();
+//     }
+//   } else {
+//     next();
+//   }
+// });
 
 export default router;

@@ -118,6 +118,7 @@ export default {
   background-position: center center;
   background-repeat: no-repeat;
   border-radius: 12px;
+  margin: 0 10px;
   height: 25px;
   width: 25px;
 }

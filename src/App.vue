@@ -17,6 +17,9 @@ export default {
   components: {
     TheNavbar,
   },
+  metaInfo: {
+    title: "Planetary",
+  },
 };
 </script>
 
@@ -36,16 +39,21 @@ body {
   height: 100vh;
   background: transparent;
 }
+p:last-child {
+  margin: 0;
+}
 #app {
   width: 100%;
-  max-width: 414px;
+  max-width: 450px;
   height: 100vh;
-  margin: 0 auto auto 0;
+  max-height: 1000px;
+  margin: 0 auto;
   font-family: Roboto;
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
+  overflow: hidden;
 }
 .img-fluid {
   height: 100% !important;
@@ -151,6 +159,7 @@ body {
 .neon-blue {
   border: #fff !important;
   animation: flicking 5s infinite reverse;
+  color: #fff !important;
   /* box-shadow: 0 0 5px #fff, inset 0 0 5px #fff,
     0 0 10px var(--neon-blue), inset 0 0 10px var(--neon-blue),
     0 0 20px var(--neon-blue), inset 0 0 20px var(--neon-blue); */

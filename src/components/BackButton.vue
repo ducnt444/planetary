@@ -1,5 +1,5 @@
 <template>
-  <button class="back-btn" @click="goBack">
+  <button class="back-btn flex-center" @click="goBack">
     <b-icon icon="arrow-left" aria-hidden="true"></b-icon>
   </button>
 </template>
@@ -13,3 +13,20 @@ export default ({
   }
 })
 </script>
+
+<style scoped>
+.back-btn {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  width: 40px;
+  height: 40px;
+  font-size: 28px;
+  font-weight: 700;
+  z-index: 20;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.4);
+  border: none;
+  border-radius: 8px;
+}
+</style>

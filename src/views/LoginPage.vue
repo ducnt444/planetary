@@ -4,7 +4,11 @@
     <div class="login neon-blue">
       <h1>Login</h1>
       <div class="login-form">
-        <input v-model="username" type="text" placeholder="Demo user: 'abc'" />
+        <input
+          v-model="username"
+          type="text"
+          placeholder="Demo user: 'armstrong'"
+        />
         <input
           v-model="password"
           type="text"
@@ -51,7 +55,7 @@ img {
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
-/*   position: relative;
+  /*   position: relative;
   z-index: 2000; */
 }
 .login {
