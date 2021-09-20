@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import store from "@/store.js";
+import localStore from "@/localStore.js";
 export default {
   data() {
     return {};
@@ -24,7 +24,7 @@ export default {
   },
   computed: {
     planet() {
-      return store.planets.find((planets) => planets.slug === this.slug);
+      return localStore.planets.find((planets) => planets.slug === this.slug);
     },
     attraction() {
       return this.planet.attractions.find((attraction) => attraction.slug === this.attractionSlug);

@@ -32,10 +32,10 @@ export default {
   box-sizing: border-box;
 }
 body {
-  display: flex;
+  /* display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0;
+  margin: 0; */
   height: 100vh;
   background: transparent;
 }
@@ -47,7 +47,6 @@ p:last-child {
   max-width: 450px;
   height: 100vh;
   max-height: 1000px;
-  margin: 0 auto;
   font-family: Roboto;
   display: flex;
   flex-direction: column;

@@ -6,7 +6,7 @@
     <div key="1" class="home">
       <video class="home-bg absolute-center" ref="videoRef" loop muted>
         <source
-          src="@/assets/videos/home/home-bg-7-min2.mp4"
+          src="@/assets/videos/home/home-bg-7-min3.mp4"
           type="video/mp4"
         />
         Your browser does not support the video tag.
@@ -26,38 +26,43 @@
         ></b-icon>
       </button>
 
-      <div class="home-content"></div>
+      <div class="home-content">testKey</div>
     </div>
   </div>
 </template>
 
 <script>
 import Loading from "@/components/Loading.vue";
+import { mapState, mapMutations } from "vuex";
+
 export default {
   name: "Home",
   components: { Loading },
-  data() {
-    return {
-      isLoading: true,
-      isMuted: false,
-    };
+  computed: {
+    ...mapState(["isLoading", "isMuted", "testKey"]),
   },
   methods: {
-    muteVolume: function () {
-      console.log(this.$refs.audioRef);
-      this.$refs.audioRef.paused
-        ? this.$refs.audioRef.play()
-        : this.$refs.audioRef.pause();
-    },
-    stopLoading: function () {
-      this.isLoading = false;
+    ...mapMutations(["loadingControl"]),
+    loadMedia: function () {
       this.$refs.videoRef.playbackRate = 0.5;
       this.$refs.videoRef.play();
       this.$refs.audioRef.play();
     },
+    stopLoading: function () {
+      this.loadingControl();
+      this.loadMedia();
+    },
+    muteVolume: function () {
+      // console.log(this.$refs.audioRef);
+      this.$refs.audioRef.paused
+        ? this.$refs.audioRef.play()
+        : this.$refs.audioRef.pause();
+    },
   },
   mounted: function () {
-    console.log(this.$router);
+    if (!this.isLoading) {
+      this.loadMedia();
+    }
   },
 };
 </script>

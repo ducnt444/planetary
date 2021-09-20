@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import store from "@/store.js";
+import localStore from "@/localStore.js";
 import PlanetPreview from "@/views/PlanetPreview.vue";
 
 export default {
@@ -34,7 +34,7 @@ export default {
       indicators: true,
       controls: true,
       noTouch: false,
-      planets: store.planets,
+      planets: localStore.planets,
     };
   },
   methods: {

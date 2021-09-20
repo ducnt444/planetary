@@ -1,60 +1,200 @@
 <template>
-  <div
-    class="
-      page-content
-      d-flex
-      flex-column
-      justify-content-center
-      align-items-center
-    "
-  >
-    <p>Welcome back</p>
-    <img
-      src="@/assets/images/misc/user-icon-white.png"
-      alt="avatar"
-      class="user-avatar"
-    />
+  <div class="page-content">
+    <div
+      class="
+        content
+        d-flex
+        flex-column
+        justify-content-center
+        align-items-center
+      "
+    >
+      <img
+        src="@/assets/images/misc/logo-white.png"
+        alt="Planetary logo"
+        class="logo"
+      />
+      <img
+        src="@/assets/images/misc/user-icon-white.png"
+        alt="avatar"
+        class="user-avatar neon-blue"
+      />
 
-    <h3 class="user-name">{{ user }}</h3>
-    <button class="neon-blue btn btn-logout">Logout</button>
+      <h2 class="user-name">{{ user }}</h2>
+
+      <div class="booking-list-wrapper neon-blue">
+        <div v-if="bookings.length === 0" class="booking-empty">
+          <p>Currently no plans yet</p>
+          <router-link
+            :to="{
+              name: 'PlanetsList',
+            }"
+            class="btn btn-explore"
+          >
+            Explore
+          </router-link>
+        </div>
+        <div v-else>
+          <div class="booking-item booking-item-header">
+            <span class="booking-order"> # </span>
+            <span class="booking-planet"> Planet </span>
+            <span class="booking-date"> Flight date </span>
+            <span class="booking-number"> Passengers </span>
+          </div>
+          <ul class="booking-list p-0">
+            <li
+              v-for="(booking, index) in bookings"
+              :key="index"
+              class="booking-item"
+            >
+              <span class="booking-order">
+                {{ index + 1 }}
+              </span>
+              <span class="booking-planet">
+                {{ booking.planet }}
+              </span>
+              <span class="booking-date">
+                {{ booking.date }}
+              </span>
+              <span class="booking-number">
+                {{ booking.number }}
+              </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <button class="neon-blue btn btn-logout" @click="logOut">Logout</button>
+    </div>
   </div>
 </template>
 
 <script>
-import store from "@/store";
+import localStore from "@/localStore";
+import { mapState } from "vuex";
+
 export default {
   name: "User",
   data() {
     return {
-      user: store.user ? store.user : "Username",
+      user: localStore.user ? localStore.user : "Username",
     };
+  },
+  computed: {
+    ...mapState(["bookings"]),
+  },
+  methods: {
+    logOut() {
+      localStore.user = null;
+      this.$router.push("/");
+    },
   },
 };
 </script>
 
 <style scoped>
 .page-content {
-  color: #fff;
   width: 100%;
   height: 100%;
+}
+.content {
+  color: #fff;
+  padding: 15px;
+  width: 100%;
+  height: 100%;
+  position: relative;
   overflow-y: scroll;
   overflow-x: hidden;
-  background-image: url(~@/assets/images/new/121212.jpg);
+  background-image: url(~@/assets/images/user/user-bg.jpg);
   background-color: #fff;
-  background-size: cover;
+  background-size: 750px;
   background-repeat: no-repeat;
-  background-position: center center;
+  animation: movingBG 45s linear infinite alternate;
 }
-.user-avatar {
+@keyframes movingBG {
+  from {
+    background-position: left center;
+  }
+  to {
+    background-position: right center;
+  }
+}
+.logo {
   width: 100px;
+  display: block;
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  transform: translate(-50%, -5%);
+}
+
+.user-avatar {
+  width: 80px;
   border: 3px solid #fff;
   border-radius: 50%;
   padding: 10px;
 }
 .user-name {
-  margin: 15px 0 50px 0;
+  margin: 10px 0 20px 0;
 }
 .btn-logout {
   padding: 7px 15px;
+}
+
+.booking-empty {
+  padding: 20px;
+  text-align: center;
+}
+.btn-explore {
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.76);
+  font-size: 14px;
+}
+
+.booking-list-wrapper {
+  list-style-type: none;
+  padding: 0;
+  margin-bottom: 45px;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 16px;
+}
+
+.booking-list {
+  overflow-x: scroll;
+  max-height: 35vh;
+  margin: 0;
+}
+
+.booking-item {
+  padding: 10px;
+  display: flex;
+  font-size: 14px;
+}
+.booking-item-header {
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  font-weight: 700;
+}
+.booking-item:last-child {
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+}
+.booking-item:hover {
+  background-color: rgba(225, 225, 225, 0.3);
+}
+.booking-item span {
+  text-align: center;
+}
+.booking-order {
+  width: 10%;
+}
+.booking-planet {
+  width: 30%;
+}
+.booking-date {
+  width: 30%;
+}
+.booking-number {
+  width: 30%;
 }
 </style>

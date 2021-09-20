@@ -7,7 +7,7 @@
     />
     <div class="feed-header">
       <img
-        src="@/assets/images/misc/logo-white-min.png"
+        src="@/assets/images/misc/feed-logo.png"
         alt="Planetary News"
         class="header-img"
       />
@@ -126,7 +126,9 @@ export default {
 
 <style scoped>
 .feed-wrapper {
+  width: 100%;
   height: 100%;
+  max-width: 100%;
   position: relative;
   z-index: 2;
   padding-top: 50px;
@@ -137,8 +139,8 @@ export default {
   top: 0;
   left: 0;
   width: 100%;
+  max-width: 450px;
   height: 100%;
-  max-height: 896px;
 }
 .feed-content {
   height: 100%;
@@ -154,15 +156,11 @@ export default {
   width: 100%;
 }
 
-.feed-bg, 
-.feed-header {
-  max-width: 414px;
-}
-
 .feed-header {
   display: flex;
   justify-content: center;
   align-items: center;
+  max-width: 450px;
   height: 50px;
   padding: 5px 0;
   background-color: #000;
@@ -241,7 +239,7 @@ export default {
 .img {
   width: 100%;
   object-fit: cover;
-  margin: 5px 0 20px 0;
+  margin: 5px 0 15px 0;
 }
 .img--highlight {
   height: 275px;

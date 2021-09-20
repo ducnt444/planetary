@@ -7,7 +7,7 @@
         <input
           v-model="username"
           type="text"
-          placeholder="Demo user: 'armstrong'"
+          placeholder="Demo user: 'user'"
         />
         <input
           v-model="password"
@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import store from "@/store";
+import localStore from "@/localStore";
 export default {
   name: "Login",
   data: function () {
@@ -32,7 +32,7 @@ export default {
   },
   methods: {
     login() {
-      store.user = this.username;
+      localStore.user = this.username;
       const redirectPath = this.$route.query.redirect || "/";
       this.$router.push(redirectPath);
     },

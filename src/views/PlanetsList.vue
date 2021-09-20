@@ -5,37 +5,25 @@
       :style="{
         'background-image':
           'url(' +
-          require(`@/assets/images/planets/${planets[currentIndex].background}`) +
+          require(`@/assets/images/planets/${currentPlanet.background}`) +
           ')',
         transition: 'all 0.7s',
       }"
     >
       <div class="screen" v-touch:swipe="swipeHandler"></div>
-      <div class="planets-img-area">
-        <div
-          class="positioned"
-          :class="dynamicClass(index)"
-          v-for="(planet, index) in planets"
-          :key="planet.id"
-          @click="clickToRight(index)"
-        >
-          <img
-            :src="require(`@/assets/images/planets/${planet.imgMin}`)"
-            class="planet-img"
-          />
-          <img
-            src="@/assets/images/planets/shadow-2.png"
-            alt="shadow"
-            class="planet-shadow"
-          />
-        </div>
-      </div>
+
+      <PlanetSlider
+        :planets="planets"
+        :currentIndex="currentPlanetIndex"
+        @childToggleClickToRight="clickToRight"
+      />
+
       <div class="planets-info-area">
         <h1 class="planets-name">
-          {{ planets[currentIndex].name }}
+          {{ currentPlanet.name }}
         </h1>
         <h3 class="planets-title">
-          {{ planets[currentIndex].title }}
+          {{ currentPlanet.title }}
         </h3>
         <div
           class="
@@ -50,12 +38,12 @@
             v-for="(planet, index) in planets"
             :key="index"
             class="symbol-wrapper flex-center mx-1 my-1"
-            :class="{ 'symbol-active': index === currentIndex }"
+            :class="{ 'symbol-active': index === currentPlanetIndex }"
           >
             <img
               :src="require(`@/assets/images/planets/${planet.symbol}`)"
               class="planets-symbol"
-              :class="{ 'symbol-active': index === currentIndex }"
+              :class="{ 'symbol-active': index === currentPlanetIndex }"
             />
           </div>
         </div>
@@ -70,7 +58,7 @@
           "
         >
           <img
-            v-for="(attraction, index) in planets[currentIndex].attractions"
+            v-for="(attraction, index) in currentPlanet.attractions"
             :key="index"
             :src="require(`@/assets/images/planets/${attraction.thumbnail}`)"
             class="attraction-img non-swipeable"
@@ -78,15 +66,13 @@
           />
           <b-modal v-model="modalShow" centered hide-footer hide-header
             ><img
-              :src="
-                require(`@/assets/images/planets/${planets[currentIndex].attractions[currentAttraction].img}`)
-              "
+              :src="require(`@/assets/images/planets/${currentAttraction.img}`)"
               class="modal-img"
           /></b-modal>
         </div>
         <div class="preview-content">
           <div
-            v-for="(value, name, key) in planets[currentIndex].stats"
+            v-for="(value, name, key) in currentPlanet.stats"
             :key="key"
             class="preview-stats"
           >
@@ -97,7 +83,7 @@
         <router-link
           :to="{
             name: 'PlanetDetails',
-            params: { slug: planets[currentIndex].slug },
+            params: { slug: currentPlanet.slug },
           }"
           class="btn planets-details neon-blue non-swipeable"
         >
@@ -109,47 +95,43 @@
 </template>
 
 <script>
-import store from "@/store.js";
+import { mapState, mapMutations } from "vuex";
+import PlanetSlider from "../components/PlanetSlider.vue";
 
 export default {
   name: "PlanetsList",
+  components: { PlanetSlider },
   data() {
     return {
-      planets: store.planets,
-      currentIndex: 0,
+      currentAttractionIndex: 0,
       modalShow: false,
-      currentAttraction: 0,
     };
   },
-  computed: {},
+  computed: {
+    currentPlanet() {
+      return this.planets[this.currentPlanetIndex];
+    },
+    currentAttraction() {
+      return this.currentPlanet.attractions[this.currentAttractionIndex];
+    },
+    ...mapState(["planets", "currentPlanetIndex"]),
+  },
   methods: {
-    dynamicClass(planetIndex) {
-      if (planetIndex === this.currentIndex) return "position-current";
-      else if (planetIndex === this.currentIndex + 1) return "position-prev";
-      else if (planetIndex === this.currentIndex - 1) return "position-next";
-      else if (planetIndex > this.currentIndex) return "position-prepare";
-      else return "position-hidden";
-    },
-    moveToRight() {
-      if (this.currentIndex < this.planets.length - 1) this.currentIndex++;
-    },
-    moveToLeft() {
-      if (this.currentIndex > 0) this.currentIndex--;
-    },
+    ...mapMutations(["toRight", "toLeft"]),
     swipeHandler(direction) {
       if (direction === "right") {
         // console.log("swipe to right");
-        this.moveToRight();
+        this.toRight();
       } else if (direction === "left") {
         // console.log("swipe to left");
-        this.moveToLeft();
+        this.toLeft();
       }
     },
     clickToRight(index) {
-      if (index === this.currentIndex + 1) this.moveToRight();
+      if (index === this.currentPlanetIndex + 1) this.toRight();
     },
     toggleModal(index) {
-      this.currentAttraction = index;
+      this.currentAttractionIndex = index;
       this.modalShow = !this.modalShow;
     },
   },
@@ -180,61 +162,6 @@ export default {
   color: #fff;
   position: relative;
 }
-.planets-img-area {
-  width: 100%;
-  height: 35%;
-  position: relative;
-  /* z-index: 2; */
-}
-@keyframes spinning {
-  from {
-    transform: rotate(180deg);
-  }
-  to {
-    transform: rotate(-360deg);
-  }
-}
-.planet-img {
-  display: block;
-  height: 100%;
-  animation: spinning 60s linear infinite forwards;
-}
-.planet-shadow {
-  display: block;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  right: -1px;
-}
-.positioned {
-  position: absolute;
-  transition: all 0.7s;
-}
-.position-hidden {
-  display: none;
-}
-.position-prepare {
-  top: 5px;
-  left: 5px;
-  height: 0%;
-}
-.position-prev {
-  top: 15px;
-  left: 15px;
-  height: 20%;
-  z-index: 20;
-}
-.position-current {
-  top: 25%;
-  left: 35%;
-  height: 120%;
-}
-.position-next {
-  top: 100%;
-  left: 100%;
-  height: 150%;
-}
 
 .planets-info-area {
   width: 100%;
@@ -248,8 +175,8 @@ export default {
 .planets-name {
   font-size: 32px;
   margin: 0;
-  position: relative;
   left: 7.5px;
+  position: relative;
   letter-spacing: 15px;
   font-family: EarthOrbiter, sans-serif;
 }
@@ -313,6 +240,7 @@ export default {
 }
 ::v-deep .modal-content {
   background-color: transparent;
+  border: none;
 }
 ::v-deep .modal-body {
   display: flex;

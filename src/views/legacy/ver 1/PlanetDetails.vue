@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import store from "@/store.js";
+import localStore from "@/localStore.js";
 import BackButton from "@/components/BackButton.vue";
 export default {
   components: { BackButton },
@@ -39,7 +39,7 @@ export default {
   },
   computed: {
     thisPlanet() {
-      return store.planets.find((planets) => planets.slug === this.slug);
+      return localStore.planets.find((planets) => planets.slug === this.slug);
     },
   },
 };

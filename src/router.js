@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
-import store from "../store";
+import store from "./localStore";
 
 Vue.use(Router);
 
@@ -8,9 +8,9 @@ const routes = [
   {
     path: "/",
     name: "Home",
-    component: () => import(/* webpackChunkName: "Home" */ "../views/Home.vue"),
+    component: () => import(/* webpackChunkName: "Home" */ "./views/Home.vue"),
     props: true,
-    meta: { requiresAuth: true },
+    // meta: { requiresAuth: true },
     // beforeEnter: (to, from, next) => {
     //   if (sessionStorage.getItem("redirect") !== null) {
     //     const redirect = sessionStorage.redirect;
@@ -25,7 +25,7 @@ const routes = [
     path: "/planets-list",
     name: "PlanetsList",
     component: () =>
-      import(/* webpackChunkName: "PlanetsList" */ "../views/PlanetsList.vue"),
+      import(/* webpackChunkName: "PlanetsList" */ "./views/PlanetsList.vue"),
     props: true,
     meta: { requiresAuth: true },
   },
@@ -34,7 +34,7 @@ const routes = [
     name: "PlanetDetails",
     component: () =>
       import(
-        /* webpackChunkName: "PlanetDetails" */ "../views/PlanetDetails.vue"
+        /* webpackChunkName: "PlanetDetails" */ "./views/PlanetDetails.vue"
       ),
     props: true,
     children: [
@@ -43,7 +43,7 @@ const routes = [
         name: "Attraction",
         component: () =>
           import(
-            /* webpackChunkName: "Attraction" */ "../views/Attraction.vue"
+            /* webpackChunkName: "Attraction" */ "./views/Attraction.vue"
           ),
         props: true,
         meta: { requiresAuth: true },
@@ -63,21 +63,21 @@ const routes = [
     path: "/legacy",
     name: "Legacy",
     component: () =>
-      import(/* webpackChunkName: "Legacy" */ "../views/PlanetsListLegacy.vue"),
+      import(/* webpackChunkName: "Legacy" */ "./views/PlanetsListLegacy.vue"),
     props: true,
     meta: { requiresAuth: true },
   },
   {
     path: "/feed",
     name: "Feed",
-    component: () => import(/* webpackChunkName: "Feed" */ "../views/Feed.vue"),
+    component: () => import(/* webpackChunkName: "Feed" */ "./views/Feed.vue"),
     props: true,
     meta: { requiresAuth: true },
   },
   {
     path: "/user",
     name: "User",
-    component: () => import(/* webpackChunkName: "User" */ "../views/User.vue"),
+    component: () => import(/* webpackChunkName: "User" */ "./views/User.vue"),
     props: true,
     meta: { requiresAuth: true }, //phải là object
   },
@@ -87,7 +87,17 @@ const routes = [
     component: () =>
       import(
         /* webpackChunkName: "LoginPage" */
-        "../views/LoginPage.vue"
+        "./views/LoginPage.vue"
+      ),
+    props: true,
+  },
+  {
+    path: "/play",
+    name: "Playground",
+    component: () =>
+      import(
+        /* webpackChunkName: "LoginPage" */
+        "./views/Playground.vue"
       ),
     props: true,
   },
@@ -98,7 +108,7 @@ const routes = [
     component: () =>
       import(
         /* webpackChunkName: "NotFound" */
-        "../views/NotFound.vue"
+        "./views/NotFound.vue"
       ),
   },
 ];
@@ -125,7 +135,7 @@ const router = new Router({
 
 // router.beforeEach((to, from, next) => {
 //   if (to.matched.some((record) => record.meta.requiresAuth)) {
-//     if (store.user !== "armstrong") {
+//     if (store.user !== "user") {
 //       next({
 //         name: "Login",
 //         query: { redirect: to.fullPath },

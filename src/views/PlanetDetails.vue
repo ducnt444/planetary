@@ -4,7 +4,7 @@
     :style="{
       'background-image':
         'url(' +
-        require(`@/assets/images/planets/${thisPlanet.background}`) +
+        require(`@/assets/images/planets/${planetSlug(slug).background}`) +
         ')',
     }"
   >
@@ -12,19 +12,19 @@
 
     <div class="img-area">
       <img
-        :src="require(`@/assets/images/planets/${thisPlanet.img}`)"
-        :alt="thisPlanet.name"
+        :src="require(`@/assets/images/planets/${planetSlug(slug).img}`)"
+        :alt="planetSlug(slug).name"
         class="planet-img"
       />
       <div class="img-area-text">
-        <h1 class="planet-name">{{ thisPlanet.name }}</h1>
-        <h2 class="planet-title">{{ thisPlanet.title }}</h2>
+        <h1 class="planet-name">{{ planetSlug(slug).name }}</h1>
+        <h2 class="planet-title">{{ planetSlug(slug).title }}</h2>
       </div>
     </div>
 
     <div class="info-area">
       <div class="section section-stats">
-        <h4 v-for="(value, name, key) in thisPlanet.stats" :key="key">
+        <h4 v-for="(value, name, key) in planetSlug(slug).stats" :key="key">
           <span class="stats-header" v-html="name + ': '"></span>
           <span class="stats-value" v-html="value.replace('<br/>', '')"></span>
         </h4>
@@ -33,7 +33,21 @@
       <div class="section section-description">
         <h3 class="header">Description:</h3>
         <p>
-          {{ thisPlanet.description }}
+          {{ planetSlug(slug).description }}
+        </p>
+      </div>
+
+      <div class="section section-flights">
+        <h3 class="header">Flights:</h3>
+        <img
+          :src="
+            require(`@/assets/images/planets/${planetSlug(slug).flights.img}`)
+          "
+          :alt="planetSlug(slug).flights.name"
+          class="flights-img"
+        />
+        <p class="mt-3">
+          {{ planetSlug(slug).flights.desc }}
         </p>
       </div>
 
@@ -41,10 +55,10 @@
         <h3 class="header">Attractions:</h3>
         <div class="attraction-grid">
           <div
-            v-for="(attraction, index) in thisPlanet.attractions"
+            v-for="(attraction, index) in planetSlug(slug).attractions"
             :key="attraction.slug"
             class="attraction-cell"
-            @click="toggleModal(index)"
+            @click="toggleModalAttraction(index)"
           >
             <img
               :src="require(`@/assets/images/planets/${attraction.img}`)"
@@ -54,37 +68,83 @@
             <span class="attraction-name">{{ attraction.name }}</span>
           </div>
         </div>
-        <b-modal v-model="modalShow" centered hide-footer
+
+        <b-modal
+          v-model="showModalAttraction"
+          modal-class="attraction-modal"
+          centered
+          hide-footer
           ><img
-            :src="
-              require(`@/assets/images/planets/${thisPlanet.attractions[currentAttraction].img}`)
-            "
+            :src="require(`@/assets/images/planets/${currentAttraction.img}`)"
             class="modal-img"
           />
-          <h3 class="header header-modal">
-            {{ thisPlanet.attractions[currentAttraction].name }}
+          <h3 class="header header-modal-text">
+            {{ currentAttraction.name }}
           </h3>
-          <p>
-            {{ thisPlanet.attractions[currentAttraction].description }}
+          <p class="text-justify">
+            {{ currentAttraction.description }}
           </p>
         </b-modal>
       </div>
 
-      <div class="section section-gallery"></div>
+      <!-- <div class="section section-price">
+        <h3 class="header">Price:</h3>
+        <div
+          class="price-wrapper"
+          v-for="(price, index) in planetSlug(slug).prices"
+          :key="index"
+        >
+          <div class="d-flex align-items-center">
+            <img
+              src="@/assets/images/misc/logo-white-min.png"
+              alt="logo"
+              class="logo"
+            />
+            <div class="price-text">
+              <p class="planetary">PLANETARY</p>
+              <p>{{ price.name }}</p>
+            </div>
+          </div>
+          <p class="price">{{ price.number }}</p>
+        </div>
+      </div> -->
+
+      <button
+        @click="toggleModalBooking"
+        class="btn neon-blue d-block mx-auto my-3"
+      >
+        Fly me to {{ planetSlug(slug).name }} !
+      </button>
+
+      <b-modal
+        v-model="showModalBooking"
+        centered
+        hide-footer
+        :modal-class="[{ success: isSuccess }, 'booking-modal']"
+      >
+        <Booking
+          :currentPlanet="planetSlug(slug)"
+          @childToggleSuccess="parrentToggleSuccess"
+        />
+      </b-modal>
     </div>
   </div>
 </template>
 
 <script>
-import store from "@/store.js";
 import BackButton from "@/components/BackButton.vue";
+import Booking from "@/components/Booking.vue";
+import { mapGetters } from "vuex";
+
 export default {
-  components: { BackButton },
+  components: { BackButton, Booking },
   name: "PlanetDetails",
   data() {
     return {
-      modalShow: false,
-      currentAttraction: 0,
+      showModalAttraction: false,
+      showModalBooking: false,
+      currentAttractionIndex: 0,
+      isSuccess: false,
     };
   },
   props: {
@@ -94,15 +154,29 @@ export default {
     },
   },
   computed: {
-    thisPlanet() {
-      return store.planets.find((planets) => planets.slug === this.slug);
+    currentAttraction() {
+      return this.planetSlug(this.slug).attractions[
+        this.currentAttractionIndex
+      ];
     },
+    ...mapGetters(["planetSlug"]),
   },
   methods: {
-    toggleModal(index) {
-      this.currentAttraction = index;
-      this.modalShow = !this.modalShow;
+    toggleModalAttraction(index) {
+      this.currentAttractionIndex = index;
+      this.showModalAttraction = !this.showModalAttraction;
     },
+    toggleModalBooking() {
+      this.showModalBooking = !this.showModalBooking;
+    },
+    parrentToggleSuccess() {
+      this.isSuccess = true;
+    },
+  },
+  mounted() {
+    this.$root.$on("bv::modal::hide", () => {
+      this.isSuccess = false;
+    });
   },
 };
 </script>
@@ -180,6 +254,10 @@ h4 {
   margin-bottom: 10px;
 }
 
+.flights-img {
+  width: 100%;
+}
+
 .attraction-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -213,27 +291,67 @@ h4 {
   padding-right: 10px;
 }
 ::v-deep .modal-dialog {
+  max-width: 420px;
   margin: 0 15px;
 }
 ::v-deep .modal-content {
-  background-color: #fff;
+  background-color: rgba(0, 0, 0, 1);
   border-radius: 12px;
+  border: #fff !important;
+  animation: flicking 5s infinite reverse;
+  color: #fff !important;
+  transition: all 0.7s;
 }
 ::v-deep .modal-header {
   padding: 5px 10px;
   border: none;
 }
 ::v-deep .modal-body {
-  padding: 0 20px 20px 20px;
-  color: #000;
+  padding: 0;
+  color: #fff;
 }
 ::v-deep .modal-img {
   width: 100%;
   border-radius: 12px;
 }
-.header-modal {
+::v-deep .close {
+  color: #fff;
+  opacity: 1;
+}
+.header-modal-text {
   margin: 5px 0 15px 0;
 }
+::v-deep .attraction-modal .modal-body {
+  padding: 5px 20px 25px 20px;
+}
+
+::v-deep .booking-modal .modal-content {
+  height: 325px;
+}
+::v-deep .success .modal-content {
+  background-image: url(~@/assets/images/misc/see-you.jpg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: bottom center;
+}
+/* .price-wrapper {
+  margin: 15px auto;
+  padding: 15px;
+  width: fit-content;
+  background-color: #000;
+  border-radius: 12px;
+}
+
+.logo {
+  width: 60px;
+  display: block;
+  margin-right: 15px;
+}
+.planetary {
+  font-family: Aware;
+  margin: 0;
+  font-size: 20px;
+} */
 @media screen and (min-width: 375px) {
   .img-area {
     height: 320px;

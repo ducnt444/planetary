@@ -22,7 +22,7 @@
         </h3>
         <div v-if="previewMode" class="preview-content">
           <div
-            v-for="(value, name, key) in thisPlanet.previewStats"
+            v-for="(value, name, key) in thisPlanet.stats"
             :key="key"
             class="preview-content-cell"
           >
