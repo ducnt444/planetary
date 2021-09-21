@@ -40,12 +40,19 @@
                 d-flex
                 align-items-center
                 justify-content-between
+                mt-4
               "
             >
-              <b-button @click="attempLogin" variant="outline-light"
-                >Back</b-button
-              >
-              <b-button @click="login(computedUser)" variant="outline-dark"
+              <b-button
+                @click="attempLogin"
+                class="back-btn flex-center p-0"
+                variant="outline-light"
+                ><b-icon icon="arrow-left" aria-hidden="true"></b-icon
+              ></b-button>
+              <b-button
+                @click="login(computedUser)"
+                class="login-submit-btn"
+                variant="dark"
                 >Log in</b-button
               >
             </div>
@@ -168,6 +175,10 @@ export default {
 .neon-blue {
   background-color: rgba(0, 0, 0, 0.301);
   color: #fff !important;
+}
+.back-btn {
+  width: 40px;
+  height: 38px;
 }
 .btn-login-submit {
   color: #fff;

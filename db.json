@@ -13,12 +13,12 @@
       "background": "Mercury/bg.jpg",
       "title": "the Swift Planet",
       "symbol": "Mercury/symbol-active.png",
-      "description": "Mercury is the smallest planet in the Solar System and the closest to the Sun. It is named after the Roman god Mercurius (Mercury), god of commerce, messenger of the gods, and mediator between gods and mortals, corresponding to the Greek god Hermes (Ἑρμῆς). The planet can only be seen near the western horizon after sunset or the eastern horizon before sunrise, usually in twilight.",
+      "description": "Mercury is the smallest planet in the Solar System and the closest to the Sun. It is named after the Roman god Mercurius (Mercury), god of commerce, messenger of the gods, and mediator between gods and mortals. The planet can only be seen near the western horizon after sunset or the eastern horizon before sunrise, usually in twilight.",
       "flights": {
         "name": "SS Discovery",
         "img": "Mercury/spacecraft.jpg",
         "tier": "A-Class",
-        "desc": "SS Discovery is one of the orbiters from NASA's Space Shuttle program. Over 27 years of service it launched and landed 39 times, aggregating more spaceflights than any other spacecraft to date. Discovery performed both research and International Space Station (ISS) assembly missions, and also carried the Hubble Space Telescope into orbit."
+        "desc": "SS Discovery is one of the orbiters from NASA's Space Shuttle program. Over 27 years of service it launched and landed 39 times, aggregating more spaceflights than any other spacecraft. Discovery performed both research and International Space Station (ISS) assembly missions, and also carried the Hubble Space Telescope into orbit."
       },
       "duration": "1 month 7 days (1 way)",
       "stats": {
@@ -40,7 +40,7 @@
           "slug": "caloris-planitia",
           "img": "Mercury/attraction-2-full.jpg",
           "thumbnail": "Mercury/attraction-2.jpg",
-          "description": "Caloris Planitia is a plain within a large impact basin on Mercury, informally named Caloris, about 1,550 km (960 mi) in diameter. It is one of the largest impact basins in the Solar System. \"Calor\" is Latin for \"heat\" and the basin is so-named because the Sun is almost directly overhead every second time Mercury passes perihelion. The crater, discovered in 1974, is surrounded by the Caloris Montes, a ring of mountains approximately 2 km (1.2 mi) tall."
+          "description": "Caloris Planitia is a plain within a large impact basin on Mercury, informally named Caloris, about 1,550 km in diameter. It is one of the largest impact basins in the Solar System. \"Calor\" is Latin for \"heat\" because the Sun is almost directly overhead every second time Mercury passes perihelion. The crater is surrounded by the Caloris Montes, a ring of mountains approximately 2 km tall."
         },
         {
           "name": "BepiColombo",
@@ -60,7 +60,7 @@
       "background": "Venus/bg.jpg",
       "title": "the Brightest One",
       "symbol": "Venus/symbol-active.png",
-      "description": "Venus is the second planet from the Sun. It is named after the Roman goddess of love and beauty. As the brightest natural object in Earth's night sky after the Moon, Venus is visible to the naked eye in broad daylight. Venus is sometimes called Earth's 'sister planet' because of their similar size, mass, and proximity to the Sun. Venus has been a major fixture in human culture. It has been made sacred to gods of many cultures, a prime inspiration for writers and poets as the 'morning star' and 'evening star'.",
+      "description": "Venus is the second planet from the Sun. It is named after the Roman goddess of love and beauty. As the brightest natural object in Earth's night sky after the Moon, Venus is visible to the naked eye in broad daylight. Venus is sometimes called Earth's 'sister planet' because of their similar size, mass, and proximity to the Sun. Venus has been a major fixture in human culture, sacred to gods of many cultures, a prime inspiration for writers and poets as the 'morning star' and 'evening star'.",
       "flights": {
         "name": "Dream Chaser",
         "img": "Venus/spacecraft.jpg",
@@ -80,21 +80,21 @@
           "slug": "maat-mons",
           "img": "Venus/attraction-1-full.jpg",
           "thumbnail": "Venus/attraction-1.jpg",
-          "description": "Maat Mons is a massive shield volcano. It is the second-highest mountain, and the highest volcano, on the planet Venus. It rises 8 kilometres (5.0 mi) above the mean planetary radius at 0.5°N 194.6°E, and nearly 5 km above the surrounding plains. It is named after the Egyptian goddess of truth and justice, Ma'at."
+          "description": "Maat Mons is a massive shield volcano. It is the second-highest mountain, and the highest volcano, on the planet Venus. It rises 8 kilometres above the mean planetary radius at 0.5°N 194.6°E, and nearly 5 km above the surrounding plains. It is named after the Egyptian goddess of truth and justice, Ma'at."
         },
         {
           "name": "Venera 14",
           "slug": "venera-14",
           "img": "Venus/attraction-2-full.jpg",
           "thumbnail": "Venus/attraction-2.jpg",
-          "description": "Venera 14 (Russian: Венера-14 meaning Venus 14) was a probe in the Soviet Venera program for the exploration of Venus. Venera 14 was identical to the Venera 13 spacecraft and built to take advantage of the 1981 Venus launch opportunity and launched five days apart. It was launched on 4 November 1981 with an on-orbit dry mass of 760 kg."
+          "description": "Venera 14 (Russian: Венера-14 meaning Venus 14) was a probe in the Soviet Venera program for the exploration of Venus. Venera 14 was built to take advantage of the 1981 Venus launch opportunity. It was launched on 4 November 1981 with an on-orbit dry mass of 760 kg."
         },
         {
           "name": "Venus Express",
           "slug": "venus-express",
           "img": "Venus/attraction-3-full.jpg",
           "thumbnail": "Venus/attraction-3.jpg",
-          "description": "Venus Express was the first Venus exploration mission of the European Space Agency. Launched in November 2005, it arrived at Venus in April 2006 and began continuously sending back science data from its polar orbit around Venus. The main objective of the mission was the long term observation of the Venusian atmosphere."
+          "description": "Venus Express was the first Venus exploration mission of the European Space Agency. Launched in November 2005, it arrived at Venus in April 2006 and began continuously sending back science data. The main objective of the mission was the long term observation of the Venusian atmosphere."
         }
       ]
     },
@@ -107,7 +107,7 @@
       "background": "Mars/bg.jpg",
       "title": "the Next Home",
       "symbol": "Mars/symbol-active.png",
-      "description": "Mars is the fourth planet from the Sun and the second-smallest planet in the Solar System. In English, Mars carries the name of the Roman God of War and is often referred to as the 'Red Planet'. The latter refers to the effect of the iron oxide prevalent on Mars's surface, which gives it a reddish appearance visible to the naked eye. Mars is a terrestrial planet with a thin atmosphere, with surface features reminiscent of the valleys, deserts and polar ice caps of Earth.",
+      "description": "Mars is the fourth planet from the Sun and the second-smallest planet in the Solar System. In English, Mars carries the name of the Roman God of War and is often referred to as the 'Red Planet'. Mars is a terrestrial planet with a thin atmosphere, with surface features reminiscent of the valleys, deserts and polar ice caps of Earth.",
       "flights": {
         "name": "Crew Dragon",
         "img": "Mars/spacecraft.jpg",
@@ -188,7 +188,7 @@
           "slug": "Juno",
           "img": "Jupiter/attraction-3-full.jpg",
           "thumbnail": "Jupiter/attraction-3.jpg",
-          "description": "Juno is a NASA space probe orbiting the planet Jupiter. Juno's mission is to measure Jupiter's composition, gravitational field, magnetic field, and polar magnetosphere. It will also search for clues about how the planet formed, including whether it has a rocky core, the amount of water present within the deep atmosphere, mass distribution, and its deep winds."
+          "description": "Juno is a NASA space probe orbiting the planet Jupiter. Juno's mission is to measure Jupiter's composition, gravitational field, and magnetic field. It will also search for clues about how the planet formed, including whether it has a rocky core, the amount of water present within the deep atmosphere, mass distribution, and its deep winds."
         }
       ]
     }
