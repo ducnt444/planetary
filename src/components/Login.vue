@@ -34,9 +34,21 @@
               type="text"
               placeholder="Demo password: '123'"
             />
-            <button @click="login(computedUser)" class="btn btn-login-submit">
-              Log in
-            </button>
+            <div
+              class="
+                logreg-btn-group
+                d-flex
+                align-items-center
+                justify-content-between
+              "
+            >
+              <b-button @click="attempLogin" variant="outline-light"
+                >Back</b-button
+              >
+              <b-button @click="login(computedUser)" variant="outline-dark"
+                >Log in</b-button
+              >
+            </div>
           </div>
         </div>
       </div>
@@ -70,7 +82,7 @@ export default {
   methods: {
     ...mapMutations(["login"]),
     attempLogin() {
-      this.isAttempLogin = true;
+      this.isAttempLogin = !this.isAttempLogin;
     },
     submitLogin() {
       // localStore.user = this.username;
@@ -79,19 +91,17 @@ export default {
     },
   },
   mounted() {
-    let url = "https://my-json-server.typicode.com/ducnt444/planetary";
-  
+    let url = "https://my-json-server.typicode.com/ducnt444/planetary/users";
+
     axios
       .get(url)
       .then((response) => {
-        this.articles = response.data.articles;
-        // console.log(this.articles);
+        console.log(response.data);
       })
       .catch((error) => {
         console.log(error);
-        this.errored = true;
-      })
-      .finally(() => (this.loading = false));
+      });
+    // .finally(() => (this.loading = false));
   },
 };
 </script>
