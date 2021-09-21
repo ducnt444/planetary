@@ -5,6 +5,7 @@ import {
   TORIGHT_TYPE,
   TOLEFT_TYPE,
   BOOKING_TYPE,
+  LOGIN_TYPE,
 } from "./mutationType";
 
 Vue.use(Vuex);
@@ -15,13 +16,11 @@ const store = new Vuex.Store({
     isLoading: true,
     isMuted: false,
     currentPlanetIndex: 0,
-
-    bookings: [
-      // {
-      //   planet: "demo name",
-      //   date: "88-88-3000",
-      //   number: "999",
-      // },
+    bookings: [],
+    isLoggedIn: false,
+    users: [
+      { username: "user", password: "123" },
+      { username: "user2", password: "1234" },
     ],
     planets: [
       {
@@ -248,10 +247,22 @@ const store = new Vuex.Store({
     planetSlug: (state) => (slug) => {
       return state.planets.find((planet) => planet.slug === slug);
     },
+    findUser: (state) => (username) => {
+      return state.users.find((user) => user.username === username);
+    },
   },
   mutations: {
+    [LOGIN_TYPE](state, payload) {
+      const userChecking = state.users.find((user) => {
+        user.username === payload.username;
+      });
+      const newObj = { ...userChecking };
+      console.log(userChecking);
+      console.log(newObj);
+      // userChecking ? (state.isLoggedIn = true) : (state.isLoggedIn = false);
+    },
     [LOADING_TYPE](state) {
-      state.isLoading = !state.isLoading;
+      state.isLoading = false;
     },
     [TORIGHT_TYPE](state) {
       if (state.currentPlanetIndex < state.planets.length - 1)

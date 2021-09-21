@@ -32,11 +32,12 @@ export default {
   box-sizing: border-box;
 }
 body {
-  /* display: flex;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 0; */
-  height: 100vh;
+  margin: 0;
   background: transparent;
 }
 p:last-child {
@@ -45,8 +46,8 @@ p:last-child {
 #app {
   width: 100%;
   max-width: 450px;
-  height: 100vh;
-  max-height: 1000px;
+  height: 100%;
+  max-height: 950px;
   font-family: Roboto;
   display: flex;
   flex-direction: column;
@@ -134,6 +135,10 @@ p:last-child {
 :root {
   --neon-blue: #08f;
   --neon-blue-flick: rgba(0, 136, 255, 0.541);
+  --neon-white: rgb(248, 252, 255);
+  --neon-white-flick: rgba(232, 237, 241, 0.746);
+  --neon-purple: rgb(187, 31, 192);
+  --neon-purple-flick: rgba(216, 19, 206, 0.746);
 }
 
 @keyframes flicking {
@@ -159,8 +164,55 @@ p:last-child {
   border: #fff !important;
   animation: flicking 5s infinite reverse;
   color: #fff !important;
-  /* box-shadow: 0 0 5px #fff, inset 0 0 5px #fff,
-    0 0 10px var(--neon-blue), inset 0 0 10px var(--neon-blue),
-    0 0 20px var(--neon-blue), inset 0 0 20px var(--neon-blue); */
+}
+
+@keyframes flickingWhite {
+  0% {
+    box-shadow: 0 0 3px #fff, inset 0 0 3px #fff, 0 0 8px var(--neon-white),
+      inset 0 0 8px var(--neon-white), 0 0 15px var(--neon-white),
+      inset 0 0 15px var(--neon-white);
+  }
+  50% {
+    box-shadow: 0 0 3px rgba(255, 255, 255, 0.596),
+      inset 0 0 3px rgba(255, 255, 255, 0.582), 0 0 8px var(--neon-white-flick),
+      inset 0 0 8px var(--neon-white-flick), 0 0 15px var(--neon-white-flick),
+      inset 0 0 15px var(--neon-white-flick);
+  }
+  100% {
+    box-shadow: 0 0 3px #fff, inset 0 0 3px #fff, 0 0 8px var(--neon-white),
+      inset 0 0 8px var(--neon-white), 0 0 15px var(--neon-white),
+      inset 0 0 15px var(--neon-white);
+  }
+}
+
+.neon-white {
+  border: #fff !important;
+  animation: flickingWhite 5s infinite reverse;
+  color: #fff !important;
+}
+
+@keyframes flickingBlack {
+  0% {
+    box-shadow: 0 0 3px #fff, inset 0 0 3px #fff, 0 0 8px var(--neon-purple),
+      inset 0 0 8px var(--neon-purple), 0 0 15px var(--neon-purple),
+      inset 0 0 15px var(--neon-purple);
+  }
+  50% {
+    box-shadow: 0 0 3px rgba(255, 255, 255, 0.596),
+      inset 0 0 3px rgba(255, 255, 255, 0.582), 0 0 8px var(--neon-purple-flick),
+      inset 0 0 8px var(--neon-purple-flick), 0 0 15px var(--neon-purple-flick),
+      inset 0 0 15px var(--neon-purple-flick);
+  }
+  100% {
+    box-shadow: 0 0 3px #fff, inset 0 0 3px #fff, 0 0 8px var(--neon-purple),
+      inset 0 0 8px var(--neon-purple), 0 0 15px var(--neon-purple),
+      inset 0 0 15px var(--neon-purple);
+  }
+}
+
+.neon-purple {
+  border: #000 !important;
+  animation: flickingBlack 5s infinite reverse;
+  color: #000 !important;
 }
 </style>

@@ -1,10 +1,10 @@
 <template>
   <div class="feed-wrapper">
-    <img
+    <!-- <img
       src="@/assets/images/feed/bg7.jpg"
       alt="feed-background"
       class="feed-bg"
-    />
+    /> -->
     <div class="feed-header">
       <img
         src="@/assets/images/misc/feed-logo.png"
@@ -62,6 +62,7 @@
             {{ article.description }}
           </h3>
         </div>
+
       </div>
     </div>
   </div>
@@ -113,7 +114,7 @@ export default {
       .get(url)
       .then((response) => {
         this.articles = response.data.articles;
-        console.log(this.articles);
+        // console.log(this.articles);
       })
       .catch((error) => {
         console.log(error);
@@ -132,16 +133,12 @@ export default {
   position: relative;
   z-index: 2;
   padding-top: 50px;
+  background-image: url(~@/assets/images/feed/bg7.jpg);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
 }
-.feed-bg {
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  width: 100%;
-  max-width: 450px;
-  height: 100%;
-}
+
 .feed-content {
   height: 100%;
   position: relative;
@@ -164,7 +161,7 @@ export default {
   height: 50px;
   padding: 5px 0;
   background-color: #000;
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   z-index: 11;

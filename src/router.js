@@ -10,7 +10,7 @@ const routes = [
     name: "Home",
     component: () => import(/* webpackChunkName: "Home" */ "./views/Home.vue"),
     props: true,
-    // meta: { requiresAuth: true },
+    meta: { requiresAuth: true },
     // beforeEnter: (to, from, next) => {
     //   if (sessionStorage.getItem("redirect") !== null) {
     //     const redirect = sessionStorage.redirect;

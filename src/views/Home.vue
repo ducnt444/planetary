@@ -4,9 +4,25 @@
       <Loading v-if="isLoading" @ready="stopLoading" />
     </transition>
     <div key="1" class="home">
+      <div class="home-content">
+        <div class="home-upper flex-center">
+          <img
+            class="logo"
+            alt="logo"
+            src="@/assets/images/misc/logo-white.png"
+          />
+        </div>
+        <div class="home-lower">
+          <transition name="fade">
+            <div v-if="isLoggedIn">Content</div>
+            <Login v-else />
+          </transition>
+        </div>
+      </div>
+
       <video class="home-bg absolute-center" ref="videoRef" loop muted>
         <source
-          src="@/assets/videos/home/home-bg-7-min3.mp4"
+          src="@/assets/videos/home/home-bg-7-min2.mp4"
           type="video/mp4"
         />
         Your browser does not support the video tag.
@@ -25,28 +41,27 @@
           volume-mute-fill"
         ></b-icon>
       </button>
-
-      <div class="home-content">testKey</div>
     </div>
   </div>
 </template>
 
 <script>
 import Loading from "@/components/Loading.vue";
+import Login from "@/components/Login.vue";
 import { mapState, mapMutations } from "vuex";
 
 export default {
   name: "Home",
-  components: { Loading },
+  components: { Loading, Login },
   computed: {
-    ...mapState(["isLoading", "isMuted", "testKey"]),
+    ...mapState(["isLoading", "isMuted", "testKey", "isLoggedIn"]),
   },
   methods: {
     ...mapMutations(["loadingControl"]),
     loadMedia: function () {
-      this.$refs.videoRef.playbackRate = 0.5;
+      this.$refs.videoRef.playbackRate = 0.75;
       this.$refs.videoRef.play();
-      this.$refs.audioRef.play();
+      // this.$refs.audioRef.play();
     },
     stopLoading: function () {
       this.loadingControl();
@@ -69,10 +84,6 @@ export default {
 
 <style scoped>
 .home-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
   width: 100%;
   height: 100%;
   position: relative;
@@ -83,22 +94,31 @@ export default {
   width: 100%;
 }
 .home-bg {
-  /*   position: absolute;
-  top: 0;
-  left: 0; */
   z-index: 1;
 }
+.home-upper {
+  width: 100%;
+  height: 40%;
+}
+.logo {
+  display: block;
+  width: 150px;
+}
 .home-content {
-  z-index: 2;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
-  color: #fff;
+  height: 100%;
+  position: relative;
+  z-index: 10;
+}
+.home-lower {
+  height: 60%;
 }
 .muteVolume {
-  position: fixed;
-  bottom: 50px;
+  position: absolute;
+  bottom: 0px;
   right: 0px;
   z-index: 3;
   color: #fff;
@@ -111,5 +131,15 @@ export default {
 .muteVolume.active {
   opacity: 1;
   background-color: rgba(0, 0, 0, 0.45);
+}
+@media screen and (min-width: 360px) {
+  .logo {
+    width: 180px;
+  }
+}
+@media screen and (min-width: 414px) {
+  .logo {
+    width: 200px;
+  }
 }
 </style>

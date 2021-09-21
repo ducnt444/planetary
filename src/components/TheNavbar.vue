@@ -1,6 +1,6 @@
 <template>
   <div class="nav-area">
-    <ul v-if="!isLoading" class="nav">
+    <ul v-if="isLoggedIn" class="nav">
       <li class="nav-items">
         <router-link class="links flex-center" :to="{ name: 'Home' }">
           <img
@@ -36,6 +36,9 @@
         /></router-link>
       </li>
     </ul>
+    <div v-else class="flex-center h-100 w-100 text-light">
+      Planetary &copy; 2021
+    </div>
   </div>
 </template>
 
@@ -44,7 +47,7 @@ import { mapState } from "vuex";
 export default {
   name: "TheNavbar",
   computed: {
-    ...mapState(["isLoading"]),
+    ...mapState(["isLoggedIn"]),
   },
 };
 </script>
@@ -59,7 +62,7 @@ export default {
   max-width: 450px;
   height: 50px;
   z-index: 1000;
-  position: fixed;
+  position: absolute;
   bottom: 0;
   left: 0;
 }

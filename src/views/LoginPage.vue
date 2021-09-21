@@ -1,100 +1,148 @@
 <template>
-  <div class="login-page">
-    <img alt="Vue logo" src="../assets/images/misc/logo-white.png" />
-    <div class="login neon-blue">
-      <h1>Login</h1>
-      <div class="login-form">
-        <input
-          v-model="username"
-          type="text"
-          placeholder="Demo user: 'user'"
-        />
-        <input
-          v-model="password"
-          type="text"
-          placeholder="Demo password: '123'"
-        />
-        <button @click="login" class="btn btn-login">Login</button>
+  <div class="login-wrapper">
+
+    <transition name="fade">
+      <Loading v-if="isLoading" @ready="stopLoading" />
+    </transition>
+    
+    <div class="login-ready">
+      <div class="login-content">
+        <div class="login-upper flex-center">
+          <img
+            class="logo"
+            alt="logo"
+            src="@/assets/images/misc/logo-white.png"
+          />
+        </div>
+        <div class="login-lower">
+          <transition name="fade">
+            <div v-if="isLoggedIn">Content</div>
+            <Login v-else />
+          </transition>
+        </div>
       </div>
+
+      <video class="login-bg absolute-center" ref="videoRef" loop muted>
+        <source
+          src="@/assets/videos/home/home-bg-7-min2.mp4"
+          type="video/mp4"
+        />
+        Your browser does not support the video tag.
+      </video>
+      <audio ref="audioRef" loop>
+        <source src="@/assets/audio/Hope-shorten.mp3" type="audio/mpeg" />
+        Your browser does not support the audio element.
+      </audio>
+      <button
+        @click="muteVolume()"
+        class="muteVolume btn"
+        :class="{ active: isMuted }"
+      >
+        <b-icon
+          icon="
+          volume-mute-fill"
+        ></b-icon>
+      </button>
     </div>
   </div>
 </template>
 
 <script>
-import localStore from "@/localStore";
+import Loading from "@/components/Loading.vue";
+import Login from "@/components/Login.vue";
+import { mapState, mapMutations } from "vuex";
+
 export default {
-  name: "Login",
-  data: function () {
-    return {
-      username: null,
-      password: null,
-    };
+  name: "Home",
+  components: { Loading, Login },
+  computed: {
+    ...mapState(["isLoading", "isMuted", "testKey", "isLoggedIn"]),
   },
   methods: {
-    login() {
-      localStore.user = this.username;
-      const redirectPath = this.$route.query.redirect || "/";
-      this.$router.push(redirectPath);
+    ...mapMutations(["loadingControl"]),
+    loadMedia: function () {
+      this.$refs.videoRef.playbackRate = 0.75;
+      this.$refs.videoRef.play();
+      // this.$refs.audioRef.play();
     },
+    stopLoading: function () {
+      this.loadingControl();
+      this.loadMedia();
+    },
+    muteVolume: function () {
+      // console.log(this.$refs.audioRef);
+      this.$refs.audioRef.paused
+        ? this.$refs.audioRef.play()
+        : this.$refs.audioRef.pause();
+    },
+  },
+  mounted: function () {
+    if (!this.isLoading) {
+      this.loadMedia();
+    }
   },
 };
 </script>
 
 <style scoped>
-img {
-  max-width: 200px;
+.login-wrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
 }
-.login-page {
+.login-ready {
+  height: 100%;
+  width: 100%;
+}
+.login-bg {
+  z-index: 1;
+}
+.login-upper {
+  width: 100%;
+  height: 40%;
+}
+.logo {
+  display: block;
+  width: 150px;
+}
+.login-content {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100%;
   height: 100%;
-  background-image: url("~@/assets/images/LoginPage/bg10.webp");
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-  /*   position: relative;
-  z-index: 2000; */
+  position: relative;
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.1);
 }
-.login {
-  margin-top: 10%;
-  padding: 30px 50px;
-  width: 80%;
+.login-lower {
+  height: 60%;
+}
+.muteVolume {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  z-index: 3;
   color: #fff;
-  background-color: rgba(0, 0, 0, 0.55);
-  border-radius: 16px;
+  font-size: 24px;
+  background-color: rgba(0, 0, 0, 0.15);
+  border-radius: 0;
+  opacity: 0.7;
 }
-.login h1 {
-  font-family: EarthOrbiter, Roboto;
-  font-size: 50px;
-  text-align: center;
-  margin-bottom: 30px;
+.muteVolume:hover,
+.muteVolume.active {
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.45);
 }
-.login-form input {
-  display: block;
-  width: 100%;
-  margin-bottom: 15px;
-  border-radius: 8px;
-  background: transparent;
-  height: 40px;
-  padding-left: 15px;
-  color: #fff;
+@media screen and (min-width: 360px) {
+  .logo {
+    width: 180px;
+  }
 }
-::-webkit-input-placeholder {
-  color: #fff;
-}
-:-ms-input-placeholder {
-  color: #fff;
-}
-::placeholder {
-  color: #fff;
-}
-.btn-login {
-  color: #fff;
-  display: block;
-  margin: 20px 0 0 auto;
-  border: 1px solid rgba(255, 255, 255, 0.829);
+@media screen and (min-width: 414px) {
+  .logo {
+    width: 200px;
+  }
 }
 </style>
