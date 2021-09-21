@@ -129,7 +129,7 @@ export default {
 }
 .author {
   font-size: 16px;
-  color: #fff;
+  color: rgba(255, 255, 255, 0.897);
   margin: 0;
 }
 .login-wrapper {
