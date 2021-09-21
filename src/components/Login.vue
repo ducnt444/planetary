@@ -51,8 +51,7 @@
               ></b-button>
               <b-button
                 @click="login(computedUser)"
-                class="login-submit-btn"
-                variant="dark"
+                class="login-submit-btn neon-white"
                 >Log in</b-button
               >
             </div>
@@ -180,12 +179,8 @@ export default {
   width: 40px;
   height: 38px;
 }
-.btn-login-submit {
-  color: #fff;
-  display: block;
-  width: 80px;
-  margin: 20px 0 0 auto;
-  border: 1px solid rgba(255, 255, 255, 0.7);
+.login-submit-btn {
+  background-color: transparent;
 }
 @media screen and (min-width: 360px) {
   .logo {
