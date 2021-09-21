@@ -6,12 +6,14 @@
         key="1"
         class="d-flex flex-column align-items-center"
       >
-        <h1 class="slogan">
-          Somewhere, <br />
-          something incredible <br />
-          is waiting to be known.
-        </h1>
-        <h2 class="author">– Carl Sagan (1934 – 1996)</h2>
+        <div class="quotes-wrapper">
+          <h1 class="quotes">
+            Somewhere, <br />
+            something incredible <br />
+            is waiting to be known.
+          </h1>
+          <h2 class="author text-right">– Carl Sagan (1934 – 1996)</h2>
+        </div>
         <button @click="attempLogin" class="btn-login btn neon-blue mb-4">
           Log in
         </button>
@@ -77,38 +79,30 @@ export default {
     },
   },
   mounted() {
-    // const newObj = { ...this.findUser("user2") };
-    // console.log(newObj);
-    // console.log(JSON.parse(JSON.stringify(this.findUser("user2"))));
-    // console.log(this.findUser("user2"));
-    let urlBase = "https://ducnt444.github.io/planetary/";
-    let urlHash = "https://ducnt444.github.io/planetary/#/";
-
+    let url = "https://my-json-server.typicode.com/ducnt444/planetary";
+  
     axios
-      .get(urlBase)
+      .get(url)
       .then((response) => {
-        console.log("https://ducnt444.github.io/planetary/");
-        console.log(response);
+        this.articles = response.data.articles;
+        // console.log(this.articles);
       })
       .catch((error) => {
         console.log(error);
-      });
-    // .finally(() => (this.loading = false));
-    axios
-      .get(urlHash)
-      .then((response) => {
-        console.log("https://ducnt444.github.io/planetary/#/");
-        console.log(response);
+        this.errored = true;
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .finally(() => (this.loading = false));
   },
 };
 </script>
 
 <style scoped>
-.slogan {
+.quotes-wrapper {
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 10%;
+}
+.quotes {
   font-size: 20px;
   font-family: Agelast;
   letter-spacing: 3px;
@@ -120,11 +114,11 @@ export default {
 .author {
   font-size: 16px;
   color: #fff;
-  align-self: flex-end;
-  margin-bottom: 50px;
+  margin: 0;
 }
 .login-wrapper {
   color: #fff;
+  padding: 0 30px;
   position: relative;
   z-index: 10;
 }

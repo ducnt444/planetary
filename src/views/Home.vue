@@ -114,6 +114,7 @@ export default {
   z-index: 10;
 }
 .home-lower {
+  width: 100%;
   height: 60%;
 }
 .muteVolume {

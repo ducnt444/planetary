@@ -117,6 +117,7 @@ export default {
   background-color: rgba(0, 0, 0, 0.1);
 }
 .login-lower {
+  width: 100%;
   height: 60%;
 }
 .muteVolume {
