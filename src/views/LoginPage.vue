@@ -1,10 +1,9 @@
 <template>
   <div class="login-wrapper">
-
     <transition name="fade">
-      <Loading v-if="isLoading" @ready="stopLoading" />
+      <Loading v-if="isLoading" @ready="stopLoadingAndLoadMedia" />
     </transition>
-    
+
     <div class="login-ready">
       <div class="login-content">
         <div class="login-upper flex-center">
@@ -15,9 +14,33 @@
           />
         </div>
         <div class="login-lower">
-          <transition name="fade">
-            <div v-if="isLoggedIn">Content</div>
-            <Login v-else />
+          <transition name="slide-fade" mode="out-in">
+            <div
+              v-if="!mode"
+              class="initial-content d-flex flex-column align-items-center"
+            >
+              <div class="quotes-wrapper">
+                <h1 class="quotes">
+                  Somewhere, <br />
+                  something incredible <br />
+                  is waiting to be known.
+                </h1>
+                <h2 class="author text-right">– Carl Sagan (1934 – 1996)</h2>
+              </div>
+              <button
+                @click="attempt('Log In')"
+                class="btn-login btn neon-blue mb-4"
+              >
+                Log in
+              </button>
+              <button
+                @click="attempt('Sign Up')"
+                class="btn-signup btn neon-white"
+              >
+                Sign up
+              </button>
+            </div>
+            <LogRegModule v-else @clickBack="attempt()" :mode="mode" />
           </transition>
         </div>
       </div>
@@ -49,34 +72,43 @@
 
 <script>
 import Loading from "@/components/Loading.vue";
-import Login from "@/components/Login.vue";
+import LogRegModule from "@/components/LogRegModule.vue";
 import { mapState, mapMutations } from "vuex";
 
 export default {
   name: "Home",
-  components: { Loading, Login },
+  components: { Loading, LogRegModule },
+  data() {
+    return {
+      mode: null,
+    };
+  },
   computed: {
-    ...mapState(["isLoading", "isMuted", "testKey", "isLoggedIn"]),
+    ...mapState(["isLoading", "isMuted", "isLoggedIn"]),
   },
   methods: {
-    ...mapMutations(["loadingControl"]),
+    attempt(action) {
+      if (action) this.mode = action;
+      else this.mode = null;
+    },
     loadMedia: function () {
       this.$refs.videoRef.playbackRate = 0.75;
       this.$refs.videoRef.play();
-      // this.$refs.audioRef.play();
+      //this.$refs.audioRef.play();
     },
-    stopLoading: function () {
-      this.loadingControl();
+    stopLoadingAndLoadMedia: function () {
+      this.stopLoading();
       this.loadMedia();
     },
     muteVolume: function () {
-      // console.log(this.$refs.audioRef);
       this.$refs.audioRef.paused
         ? this.$refs.audioRef.play()
         : this.$refs.audioRef.pause();
     },
+    ...mapMutations(["stopLoading"]),
   },
   mounted: function () {
+    //play media mỗi khi quay lại page về sau
     if (!this.isLoading) {
       this.loadMedia();
     }
@@ -120,6 +152,29 @@ export default {
   width: 100%;
   height: 60%;
 }
+.quotes-wrapper {
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 10%;
+}
+.quotes {
+  font-size: 20px;
+  font-family: Agelast;
+  letter-spacing: 3px;
+  position: relative;
+  left: 5px;
+  color: #fff;
+  text-shadow: 2px 2px 15px #000000;
+}
+.author {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.897);
+  margin: 0;
+}
+.btn {
+  width: 100px;
+}
+
 .muteVolume {
   position: absolute;
   bottom: 0px;

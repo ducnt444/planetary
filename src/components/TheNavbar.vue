@@ -37,17 +37,22 @@
       </li>
     </ul>
     <div v-else class="flex-center h-100 w-100 text-light">
-      Planetary &copy; 2021
+      <span>Planetary &copy; 2021. Powered by </span>
+      <img
+        class="d-block mx-2"
+        src="@/assets/images/misc/vue-logo.png"
+        alt="vue js"
+      />
     </div>
   </div>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapGetters } from "vuex";
 export default {
   name: "TheNavbar",
   computed: {
-    ...mapState(["isLoggedIn"]),
+    ...mapGetters(["isLoggedIn"]),
   },
 };
 </script>

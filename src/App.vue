@@ -5,20 +5,36 @@
         <router-view :key="$route.path" />
       </transition>
     </div>
+    <TestButton v-if="testMode" />
     <TheNavbar />
+    <LoadingAsync />
   </div>
 </template>
 
 <script>
+import TestButton from "@/components/TestButton.vue";
 import TheNavbar from "@/components/TheNavbar.vue";
+import LoadingAsync from "@/components/LoadingAsync.vue";
+import { mapActions } from "vuex";
 
 export default {
   name: "App",
-  components: {
-    TheNavbar,
-  },
+  components: { TestButton, TheNavbar, LoadingAsync },
   metaInfo: {
     title: "Planetary",
+  },
+  data() {
+    return {
+      testMode: true,
+    };
+  },
+  methods: {
+    ...mapActions(["getUsersAction"]),
+  },
+  created() {
+    this.getUsersAction();
+    if (!localStorage.getItem("Planetary Username"))
+      localStorage.setItem("Planetary Username", "null");
   },
 };
 </script>

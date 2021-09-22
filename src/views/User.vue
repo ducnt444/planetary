@@ -20,7 +20,7 @@
         class="user-avatar neon-blue"
       />
 
-      <h2 class="user-name">{{ user }}</h2>
+      <h2 class="user-name">{{ currentUsername }}</h2>
 
       <div class="booking-list-wrapper neon-blue">
         <div v-if="bookings.length === 0" class="booking-empty">
@@ -70,17 +70,18 @@
 
 <script>
 import localStore from "@/localStore";
-import { mapState } from "vuex";
+import { mapGetters, mapState } from "vuex";
 
 export default {
   name: "User",
   data() {
     return {
-      user: localStore.user ? localStore.user : "Username",
+      // user: localStore.user ? localStore.user : "Username",
     };
   },
   computed: {
     ...mapState(["bookings"]),
+    ...mapGetters(["currentUsername"]),
   },
   methods: {
     logOut() {

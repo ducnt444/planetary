@@ -117,20 +117,20 @@ const router = new Router({
   linkExactActiveClass: "active-page",
   // mode: "history",
   routes,
-  scrollBehavior(to, from, savedPosition) {
-    if (savedPosition) {
-      return savedPosition;
-    } else {
-      const position = {};
-      if (to.hash) {
-        position.selector = to.hash;
-        if (document.querySelector(to.hash)) {
-          return position;
-        }
-        return false;
-      }
-    }
-  },
+  // scrollBehavior(to, from, savedPosition) {
+  //   if (savedPosition) {
+  //     return savedPosition;
+  //   } else {
+  //     const position = {};
+  //     if (to.hash) {
+  //       position.selector = to.hash;
+  //       if (document.querySelector(to.hash)) {
+  //         return position;
+  //       }
+  //       return false;
+  //     }
+  //   }
+  // },
 });
 
 // router.beforeEach((to, from, next) => {

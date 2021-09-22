@@ -1,48 +1,33 @@
 <template>
-  <div class="loading-initial">
-    <transition name="fade">
-      <div v-if="isPreparing" class="loading-initial-animation" key="1">
-        <div class="layer layer-4">
-          <div class="layer layer-3">
-            <div class="layer layer-2">
-              <div class="layer layer-1"></div>
-            </div>
+  <transition name="fade">
+    <div v-if="isLoadingAsync" class="loading-async">
+      <div class="layer layer-4">
+        <div class="layer layer-3">
+          <div class="layer layer-2">
+            <div class="layer layer-1"></div>
           </div>
         </div>
-        <span class="layer loading-text absolute-center flex-center"
-          >Loading...</span
-        >
       </div>
-      <button
-        v-else
-        @click="$emit('ready')"
-        class="ready-btn btn neon-blue absolute-center"
-        key="2"
+      <span class="layer loading-text absolute-center flex-center"
+        >Loading...</span
       >
-        Ready set go!
-      </button>
-    </transition>
-  </div>
+    </div>
+  </transition>
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
-  name: "Loading",
+  name: "LoadingAsync",
   data() {
-    return {
-      isPreparing: true,
-    };
+    return {};
   },
-  mounted: function () {
-    setTimeout(() => {
-      this.isPreparing = false;
-    }, 3000);
-  },
+  computed: { ...mapState(["isLoadingAsync"]) },
 };
 </script>
 
 <style scoped>
-.loading-initial {
+.loading-async {
   height: 100%;
   width: 100%;
   display: flex;

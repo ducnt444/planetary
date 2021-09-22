@@ -1,27 +1,28 @@
+import axios from "axios";
 import Vue from "vue";
 import Vuex from "vuex";
 import {
-  LOADING_TYPE,
+  STOPLOADING_TYPE,
+  SIGNUP_TYPE,
   TORIGHT_TYPE,
   TOLEFT_TYPE,
   BOOKING_TYPE,
   LOGIN_TYPE,
+  GETALLUSERS_TYPE,
+  LOADINGASYNC_TYPE,
 } from "./mutationType";
 
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
-    testKey: "testValue",
     isLoading: true,
+    isLoadingAsync: false,
     isMuted: false,
+    isAttemptLoginError: false,
     currentPlanetIndex: 0,
     bookings: [],
-    isLoggedIn: false,
-    users: [
-      { username: "user", password: "123" },
-      { username: "user2", password: "1234" },
-    ],
+    users: [],
     planets: [
       {
         id: "1",
@@ -247,21 +248,55 @@ const store = new Vuex.Store({
     planetSlug: (state) => (slug) => {
       return state.planets.find((planet) => planet.slug === slug);
     },
-    findUser: (state) => (username) => {
-      return state.users.find((user) => user.username === username);
+    currentUser: () => {
+      return localStorage.getItem("Planetary Username");
+    },
+    currentUsername: (getters) => {
+      return getters.currentUser.username;
+    },
+    isLoggedIn: () => {
+      // if (localStorage.getItem("Planetary Username") !== "null") return true;
+      // else return false;
+      return localStorage.getItem("Planetary Username") !== "null"
+        ? true
+        : false;
     },
   },
   mutations: {
-    [LOGIN_TYPE](state, payload) {
-      const userChecking = state.users.find((user) => {
-        user.username === payload.username;
-      });
-      const newObj = { ...userChecking };
-      console.log(userChecking);
-      console.log(newObj);
-      // userChecking ? (state.isLoggedIn = true) : (state.isLoggedIn = false);
+    [GETALLUSERS_TYPE](state, payload) {
+      state.users = payload;
     },
-    [LOADING_TYPE](state) {
+    [LOADINGASYNC_TYPE](state, payload) {
+      state.isLoadingAsync = payload;
+    },
+    [LOGIN_TYPE](state, payload) {
+      const userChecking = state.users.find(
+        (user) =>
+          user.username === payload.username &&
+          user.password === payload.password
+      );
+      if (userChecking) {
+        state.currentUser = {
+          ...state.currentUser,
+          username: payload.username,
+        };
+        localStorage.setItem("Planetary Username", payload.username);
+      } else {
+        state.isAttemptLoginError = true;
+      }
+    },
+    [SIGNUP_TYPE](state, payload) {
+      state.users = [
+        ...state.users,
+        { username: payload.username, password: payload.password },
+      ];
+      state.currentUser = {
+        ...state.currentUser,
+        username: payload.username,
+      };
+      localStorage.setItem("Planetary Username", payload.username);
+    },
+    [STOPLOADING_TYPE](state) {
       state.isLoading = false;
     },
     [TORIGHT_TYPE](state) {
@@ -282,6 +317,20 @@ const store = new Vuex.Store({
           },
         ];
       }
+    },
+  },
+  actions: {
+    getUsersAction({ commit }) {
+      return axios
+        .get("https://my-json-server.typicode.com/ducnt444/planetary/users")
+        .then((res) => {
+          let users = res.data;
+          // console.log(users);
+          commit(GETALLUSERS_TYPE, users);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
 });

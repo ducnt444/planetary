@@ -1,1 +1,193 @@
-{"users":[{"username":"user","password":"123"},{"username":"user2","password":"1234"}],"planets":[{"id":"1","slug":"mercury","name":"Mercury","img":"Mercury/Mercury.png","background":"Mercury/bg.jpg","title":"the Swift Planet","symbol":"Mercury/symbol-active.png","description":"Mercury is the smallest planet in the Solar System and the closest to the Sun. It is named after the Roman god Mercurius (Mercury), god of commerce, messenger of the gods, and mediator between gods and mortals. The planet can only be seen near the western horizon after sunset or the eastern horizon before sunrise","flights":{"name":"SS Discovery","img":"Mercury/spacecraft.jpg","tier":"A-Class","desc":"SS Discovery is one of the orbiters from NASA's Space Shuttle program. Over 27 years of service, it launched more spaceflights than any other spacecraft. Discovery performed the International Space Station (ISS) missions, and carried the Hubble Space Telescope."},"duration":"1 month 7 days (1 way)","stats":{"Spacecraft":"SS Discovery<sup>TM</sup> <br/> A-Class","Preparation":"2 weeks","Flight Duration":"2 month 15 days <br/> (Round-trip)","Price":"From $50,000"},"attractions":[{"name":"MESSENGER","img":"Mercury/attraction-1-full.jpg","thumbnail":"Mercury/attraction-1.jpg","description":"MESSENGER is a NASA robotic space probe that orbited Mercury from 2011, studying Mercury's chemical composition, geology, and magnetic field. The name is a reference to the messenger god Mercury from Roman mythology."},{"name":"Caloris Planitia","img":"Mercury/attraction-2-full.jpg","thumbnail":"Mercury/attraction-2.jpg","description":"Caloris Planitia is a plain within a large impact basin on Mercury, informally named Caloris, about 1,550 km in diameter. It is one of the largest impact basins in the Solar System. \"Calor\" is Latin for \"heat\" because the Sun is almost directly overhead it."},{"name":"BepiColombo","img":"Mercury/attraction-3-full.jpg","thumbnail":"Mercury/attraction-3.jpg","description":"BepiColombo is a joint mission of the European Space Agency and the Japan Aerospace Exploration Agency to the planet Mercury. The mission will perform a comprehensive study of Mercury, including characterization of its magnetic field, magnetosphere, and both interior and surface structure."}]},{"id":"2","slug":"venus","name":"Venus","img":"Venus/Venus.png","background":"Venus/bg.jpg","title":"the Brightest One","symbol":"Venus/symbol-active.png","description":"Venus is the second planet from the Sun, named after the Roman goddess of love and beauty. It is the brightest object in Earth's night sky after the Moon. Venus is sometimes called Earth's 'sister planet' because of their similar size. Venus has been a major fixture in human culture, sacred to many cultures, a prime inspiration for writers as the \"morning sta\" and \"evening star\".","flights":{"name":"Dream Chaser","img":"Venus/spacecraft.jpg","tier":"A-Class","desc":"Dream Chaser is an American reusable lifting-body spaceplane being developed by Sierra Nevada Corporation (SNC) Space Systems. It is planned to carry up to seven people and cargo to and from low Earth orbit. The cargo Dream Chaser is designed to resupply the International Space Station with both pressurized and unpressurized cargo."},"duration":"0 month 25 days (1 way)","stats":{"Spacecraft":"Dream Chaser<sup>TM</sup> <br/> A-Class","Preparation":"2 weeks","Flight Duration":"1 month 20 days <br/> (Round-trip)","Price":"From $35,000"},"attractions":[{"name":"Maat Mons","img":"Venus/attraction-1-full.jpg","thumbnail":"Venus/attraction-1.jpg","description":"Maat Mons is a massive shield volcano. It is the second-highest mountain, and the highest volcano, on the planet Venus. It rises 8 kilometres above the mean planetary radius at 0.5°N 194.6°E, and nearly 5 km above the surrounding plains. It is named after the Egyptian goddess of truth and justice, Ma'at."},{"name":"Venera 14","img":"Venus/attraction-2-full.jpg","thumbnail":"Venus/attraction-2.jpg","description":"Venera 14 was a probe in the Soviet Venera program for the exploration of Venus. Venera 14 was built to take advantage of the 1981 Venus launch opportunity. It was launched on 4 November 1981 with an on-orbit dry mass of 760 kg."},{"name":"Venus Express","img":"Venus/attraction-3-full.jpg","thumbnail":"Venus/attraction-3.jpg","description":"Venus Express was the first Venus exploration mission of the European Space Agency. Launched in November 2005, it arrived at Venus in April 2006 and began continuously sending back data. The main objective of the mission was the bservation of the Venusian atmosphere."}]},{"id":"3","slug":"mars","name":"Mars","img":"Mars/Mars.png","background":"Mars/bg.jpg","title":"the Next Home","symbol":"Mars/symbol-active.png","description":"Mars is the fourth planet from the Sun and the second-smallest planet in the Solar System. In English, Mars carries the name of the Roman God of War and is often referred to as the 'Red Planet'. Mars is a terrestrial planet with a thin atmosphere, with surface features reminiscent of the valleys, deserts and polar ice caps of Earth.","flights":{"name":"Crew Dragon","img":"Mars/spacecraft.jpg","tier":"S-Class","desc":"Dragon 2 is a class of spacecraft developed and manufactured by SpaceX and Crew Dragon variant is a space capsule capable of ferrying up to seven astronauts. The spacecraft can autonomously dock to the International Space Station (ISS). Crew Dragon is equipped with an integrated launch escape system consisting of eight SuperDraco engines"},"duration":"3 months (1 way)","stats":{"Spacecraft":"Crew Dragon<sup>TM</sup> <br/> S-Class","Preparation":"2.5 weeks","Flight Duration":"6 months <br/> (Round-trip)","Price":"From $120,000"},"attractions":[{"name":"Hope","img":"Mars/attraction-1-full.jpg","thumbnail":"Mars/attraction-1.jpg","description":"The Hope orbiter was launched on 19 July 2020, and went into orbit on 9 February 2021. The space probe will study weather cycles, weather events in the lower atmosphere such as dust storms, and how the weather varies. It will also add to knowledge about Mars atmospheric hydrogen and oxygen loss and other reasons behind the planet's climate changes."},{"name":"Olympus Mons","img":"Mars/attraction-2-full.jpg","thumbnail":"Mars/attraction-2.jpg","description":"Olympus Mons is an enormous shield volcano on the planet Mars. The volcano has a height of over 21.9 km. Olympus Mons is about two and a half times Mount Everest's height. It is one of the largest volcanoes, the tallest planetary mountain, and the second tallest mountain currently discovered in the Solar System."},{"name":"Opportunity","img":"Mars/attraction-3-full.jpg","thumbnail":"Mars/attraction-3.jpg","description":"Opportunity, nicknamed \"Oppy\", is a robotic rover that was active on Mars from 2004 until mid-2018. Opportunity was operational on Mars for 5110 sols (5250 days; 14 years, 136 days). The Opportunity mission is considered one of NASA's most successful ventures."}]},{"id":"4","slug":"jupiter","name":"Jupiter","img":"Jupiter/Jupiter.png","background":"Jupiter/bg.jpg","title":"the Gaint","symbol":"Jupiter/symbol-active.png","description":"Jupiter is the fifth planet from the Sun and the largest in the Solar System. It is a gas giant with a mass more than 2.5 times that of all the other planets in the Solar System combined. Jupiter is the third-brightest natural object in the Earth's night sky after the Moon and Venus. It is named after the Roman god Jupiter, the king of the gods, because of its observed size.","flights":{"name":"VSS Unity","img":"Jupiter/spacecraft.jpg","tier":"A-Class","desc":"VSS Unity (Virgin Space Ship Unity) is a SpaceShipTwo-class suborbital rocket-powered crewed spaceplane. It is the second SpaceShipTwo to be built and will be used as part of the Virgin Galactic fleet. The name Unity was chosen by British physicist Stephen Hawking."},"duration":"6 months (1 way)","stats":{"Spacecraft":"VSS Unity<sup>TM</sup> <br/> A-Class","Preparation":"3.5 weeks","Flight Duration":"1 year <br/> (Round-trip)","Price":"From $500,000"},"attractions":[{"name":"Great Red Spot","img":"Jupiter/attraction-1-full.jpg","thumbnail":"Jupiter/attraction-1.jpg","description":"The Great Red Spot is a high-pressure region in the atmosphere of Jupiter, producing an anticyclonic storm that is the largest in the Solar System. Located 22 degrees south of Jupiter's equator, it produces wind-speeds up to 432 km/h. Observations from 1665 to 1713 are believed to be of the same storm, it has existed for at least 356 years."},{"name":"Europa","img":"Jupiter/attraction-2-full.jpg","thumbnail":"Jupiter/attraction-2.jpg","description":"Europa, or Jupiter II, is the smallest of the four Galilean moons orbiting Jupiter. It is also the sixth-largest moon in the Solar System. Europa was discovered in 1610 by Galileo Galilei and was named after Europa, the Phoenician mother of King Minos of Crete and lover of Zeus."},{"name":"Juno","img":"Jupiter/attraction-3-full.jpg","thumbnail":"Jupiter/attraction-3.jpg","description":"Juno is a NASA space probe orbiting the planet Jupiter. Juno's mission is to measure Jupiter's composition, gravitational field, and magnetic field. It will also search for clues about how the planet formed, including whether it has a rocky core, the amount of water, mass distribution, and its deep winds."}]}]}
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "user",
+      "password": "123"
+    },
+    {
+      "id": 2,
+      "username": "user2",
+      "password": "1234"
+    },
+    {
+      "id": 3,
+      "username": "test",
+      "password": "tessts"
+    }
+  ],
+  "planets": [
+    {
+      "id": "1",
+      "slug": "mercury",
+      "name": "Mercury",
+      "img": "Mercury/Mercury.png",
+      "background": "Mercury/bg.jpg",
+      "title": "the Swift Planet",
+      "symbol": "Mercury/symbol-active.png",
+      "description": "Mercury is the smallest planet in the Solar System and the closest to the Sun. It is named after the Roman god Mercurius (Mercury), god of commerce, messenger of the gods, and mediator between gods and mortals. The planet can only be seen near the western horizon after sunset or the eastern horizon before sunrise",
+      "flights": {
+        "name": "SS Discovery",
+        "img": "Mercury/spacecraft.jpg",
+        "tier": "A-Class",
+        "desc": "SS Discovery is one of the orbiters from NASA's Space Shuttle program. Over 27 years of service, it launched more spaceflights than any other spacecraft. Discovery performed the International Space Station (ISS) missions, and carried the Hubble Space Telescope."
+      },
+      "duration": "1 month 7 days (1 way)",
+      "stats": {
+        "Spacecraft": "SS Discovery<sup>TM</sup> <br/> A-Class",
+        "Preparation": "2 weeks",
+        "Flight Duration": "2 month 15 days <br/> (Round-trip)",
+        "Price": "From $50,000"
+      },
+      "attractions": [
+        {
+          "name": "MESSENGER",
+          "img": "Mercury/attraction-1-full.jpg",
+          "thumbnail": "Mercury/attraction-1.jpg",
+          "description": "MESSENGER is a NASA robotic space probe that orbited Mercury from 2011, studying Mercury's chemical composition, geology, and magnetic field. The name is a reference to the messenger god Mercury from Roman mythology."
+        },
+        {
+          "name": "Caloris Planitia",
+          "img": "Mercury/attraction-2-full.jpg",
+          "thumbnail": "Mercury/attraction-2.jpg",
+          "description": "Caloris Planitia is a plain within a large impact basin on Mercury, informally named Caloris, about 1,550 km in diameter. It is one of the largest impact basins in the Solar System. \"Calor\" is Latin for \"heat\" because the Sun is almost directly overhead it."
+        },
+        {
+          "name": "BepiColombo",
+          "img": "Mercury/attraction-3-full.jpg",
+          "thumbnail": "Mercury/attraction-3.jpg",
+          "description": "BepiColombo is a joint mission of the European Space Agency and the Japan Aerospace Exploration Agency to the planet Mercury. The mission will perform a comprehensive study of Mercury, including characterization of its magnetic field, magnetosphere, and both interior and surface structure."
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "slug": "venus",
+      "name": "Venus",
+      "img": "Venus/Venus.png",
+      "background": "Venus/bg.jpg",
+      "title": "the Brightest One",
+      "symbol": "Venus/symbol-active.png",
+      "description": "Venus is the second planet from the Sun, named after the Roman goddess of love and beauty. It is the brightest object in Earth's night sky after the Moon. Venus is sometimes called Earth's 'sister planet' because of their similar size. Venus has been a major fixture in human culture, sacred to many cultures, a prime inspiration for writers as the \"morning sta\" and \"evening star\".",
+      "flights": {
+        "name": "Dream Chaser",
+        "img": "Venus/spacecraft.jpg",
+        "tier": "A-Class",
+        "desc": "Dream Chaser is an American reusable lifting-body spaceplane being developed by Sierra Nevada Corporation (SNC) Space Systems. It is planned to carry up to seven people and cargo to and from low Earth orbit. The cargo Dream Chaser is designed to resupply the International Space Station with both pressurized and unpressurized cargo."
+      },
+      "duration": "0 month 25 days (1 way)",
+      "stats": {
+        "Spacecraft": "Dream Chaser<sup>TM</sup> <br/> A-Class",
+        "Preparation": "2 weeks",
+        "Flight Duration": "1 month 20 days <br/> (Round-trip)",
+        "Price": "From $35,000"
+      },
+      "attractions": [
+        {
+          "name": "Maat Mons",
+          "img": "Venus/attraction-1-full.jpg",
+          "thumbnail": "Venus/attraction-1.jpg",
+          "description": "Maat Mons is a massive shield volcano. It is the second-highest mountain, and the highest volcano, on the planet Venus. It rises 8 kilometres above the mean planetary radius at 0.5°N 194.6°E, and nearly 5 km above the surrounding plains. It is named after the Egyptian goddess of truth and justice, Ma'at."
+        },
+        {
+          "name": "Venera 14",
+          "img": "Venus/attraction-2-full.jpg",
+          "thumbnail": "Venus/attraction-2.jpg",
+          "description": "Venera 14 was a probe in the Soviet Venera program for the exploration of Venus. Venera 14 was built to take advantage of the 1981 Venus launch opportunity. It was launched on 4 November 1981 with an on-orbit dry mass of 760 kg."
+        },
+        {
+          "name": "Venus Express",
+          "img": "Venus/attraction-3-full.jpg",
+          "thumbnail": "Venus/attraction-3.jpg",
+          "description": "Venus Express was the first Venus exploration mission of the European Space Agency. Launched in November 2005, it arrived at Venus in April 2006 and began continuously sending back data. The main objective of the mission was the bservation of the Venusian atmosphere."
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "slug": "mars",
+      "name": "Mars",
+      "img": "Mars/Mars.png",
+      "background": "Mars/bg.jpg",
+      "title": "the Next Home",
+      "symbol": "Mars/symbol-active.png",
+      "description": "Mars is the fourth planet from the Sun and the second-smallest planet in the Solar System. In English, Mars carries the name of the Roman God of War and is often referred to as the 'Red Planet'. Mars is a terrestrial planet with a thin atmosphere, with surface features reminiscent of the valleys, deserts and polar ice caps of Earth.",
+      "flights": {
+        "name": "Crew Dragon",
+        "img": "Mars/spacecraft.jpg",
+        "tier": "S-Class",
+        "desc": "Dragon 2 is a class of spacecraft developed and manufactured by SpaceX and Crew Dragon variant is a space capsule capable of ferrying up to seven astronauts. The spacecraft can autonomously dock to the International Space Station (ISS). Crew Dragon is equipped with an integrated launch escape system consisting of eight SuperDraco engines"
+      },
+      "duration": "3 months (1 way)",
+      "stats": {
+        "Spacecraft": "Crew Dragon<sup>TM</sup> <br/> S-Class",
+        "Preparation": "2.5 weeks",
+        "Flight Duration": "6 months <br/> (Round-trip)",
+        "Price": "From $120,000"
+      },
+      "attractions": [
+        {
+          "name": "Hope",
+          "img": "Mars/attraction-1-full.jpg",
+          "thumbnail": "Mars/attraction-1.jpg",
+          "description": "The Hope orbiter was launched on 19 July 2020, and went into orbit on 9 February 2021. The space probe will study weather cycles, weather events in the lower atmosphere such as dust storms, and how the weather varies. It will also add to knowledge about Mars atmospheric hydrogen and oxygen loss and other reasons behind the planet's climate changes."
+        },
+        {
+          "name": "Olympus Mons",
+          "img": "Mars/attraction-2-full.jpg",
+          "thumbnail": "Mars/attraction-2.jpg",
+          "description": "Olympus Mons is an enormous shield volcano on the planet Mars. The volcano has a height of over 21.9 km. Olympus Mons is about two and a half times Mount Everest's height. It is one of the largest volcanoes, the tallest planetary mountain, and the second tallest mountain currently discovered in the Solar System."
+        },
+        {
+          "name": "Opportunity",
+          "img": "Mars/attraction-3-full.jpg",
+          "thumbnail": "Mars/attraction-3.jpg",
+          "description": "Opportunity, nicknamed \"Oppy\", is a robotic rover that was active on Mars from 2004 until mid-2018. Opportunity was operational on Mars for 5110 sols (5250 days; 14 years, 136 days). The Opportunity mission is considered one of NASA's most successful ventures."
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "slug": "jupiter",
+      "name": "Jupiter",
+      "img": "Jupiter/Jupiter.png",
+      "background": "Jupiter/bg.jpg",
+      "title": "the Gaint",
+      "symbol": "Jupiter/symbol-active.png",
+      "description": "Jupiter is the fifth planet from the Sun and the largest in the Solar System. It is a gas giant with a mass more than 2.5 times that of all the other planets in the Solar System combined. Jupiter is the third-brightest natural object in the Earth's night sky after the Moon and Venus. It is named after the Roman god Jupiter, the king of the gods, because of its observed size.",
+      "flights": {
+        "name": "VSS Unity",
+        "img": "Jupiter/spacecraft.jpg",
+        "tier": "A-Class",
+        "desc": "VSS Unity (Virgin Space Ship Unity) is a SpaceShipTwo-class suborbital rocket-powered crewed spaceplane. It is the second SpaceShipTwo to be built and will be used as part of the Virgin Galactic fleet. The name Unity was chosen by British physicist Stephen Hawking."
+      },
+      "duration": "6 months (1 way)",
+      "stats": {
+        "Spacecraft": "VSS Unity<sup>TM</sup> <br/> A-Class",
+        "Preparation": "3.5 weeks",
+        "Flight Duration": "1 year <br/> (Round-trip)",
+        "Price": "From $500,000"
+      },
+      "attractions": [
+        {
+          "name": "Great Red Spot",
+          "img": "Jupiter/attraction-1-full.jpg",
+          "thumbnail": "Jupiter/attraction-1.jpg",
+          "description": "The Great Red Spot is a high-pressure region in the atmosphere of Jupiter, producing an anticyclonic storm that is the largest in the Solar System. Located 22 degrees south of Jupiter's equator, it produces wind-speeds up to 432 km/h. Observations from 1665 to 1713 are believed to be of the same storm, it has existed for at least 356 years."
+        },
+        {
+          "name": "Europa",
+          "img": "Jupiter/attraction-2-full.jpg",
+          "thumbnail": "Jupiter/attraction-2.jpg",
+          "description": "Europa, or Jupiter II, is the smallest of the four Galilean moons orbiting Jupiter. It is also the sixth-largest moon in the Solar System. Europa was discovered in 1610 by Galileo Galilei and was named after Europa, the Phoenician mother of King Minos of Crete and lover of Zeus."
+        },
+        {
+          "name": "Juno",
+          "img": "Jupiter/attraction-3-full.jpg",
+          "thumbnail": "Jupiter/attraction-3.jpg",
+          "description": "Juno is a NASA space probe orbiting the planet Jupiter. Juno's mission is to measure Jupiter's composition, gravitational field, and magnetic field. It will also search for clues about how the planet formed, including whether it has a rocky core, the amount of water, mass distribution, and its deep winds."
+        }
+      ]
+    }
+  ]
+}

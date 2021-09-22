@@ -1,164 +1,145 @@
 <template>
-  <div class="login-module">
-    <transition name="slide-fade" mode="out-in">
-      <div
-        v-if="!isAttempLogin"
-        key="1"
-        class="d-flex flex-column align-items-center"
-      >
-        <div class="quotes-wrapper">
-          <h1 class="quotes">
-            Somewhere, <br />
-            something incredible <br />
-            is waiting to be known.
-          </h1>
-          <h2 class="author text-right">– Carl Sagan (1934 – 1996)</h2>
-        </div>
-        <button @click="attempLogin" class="btn-login btn neon-blue mb-4">
-          Log in
-        </button>
-        <button class="btn-signup btn neon-white">Sign up</button>
-      </div>
-
-      <div v-else class="login-wrapper" key="2">
-        <div class="login neon-blue">
-          <h1>Login</h1>
+  <div class="logreg-wrapper">
+    <div class="logreg-module neon-blue">
+      <transition name="fade" mode="out-in">
+        <div v-if="!currentUser.username" class="anonymous-user" key="1">
+          <h1>{{ mode }}</h1>
           <div class="login-form">
             <input
               v-model="inputUsername"
               type="text"
               placeholder="Demo user: 'user'"
+              class="mb-3"
             />
             <input
               v-model="inputPassword"
               type="text"
               placeholder="Demo password: '123'"
+              class="mb-1"
             />
+            <div
+              class="
+                error-text-wrapper
+                d-flex
+                align-items-center
+                justify-content-end
+              "
+            >
+              <span v-show="isAttemptLoginError" class="error-text"
+                >Wrong username or password</span
+              >
+            </div>
             <div
               class="
                 logreg-btn-group
                 d-flex
                 align-items-center
                 justify-content-between
-                mt-4
+                mt-2
               "
             >
               <b-button
-                @click="attempLogin"
+                @click="$emit('clickBack')"
                 class="back-btn flex-center p-0"
                 variant="outline-light"
                 ><b-icon icon="arrow-left" aria-hidden="true"></b-icon
               ></b-button>
               <b-button
-                @click="login(computedUser)"
-                class="login-submit-btn neon-white"
-                >Log in</b-button
+                @click="
+                  mode === 'Log In' ? login(computedUser) : signup(computedUser)
+                "
+                class="submit-btn btn neon-white"
+                >Confirm</b-button
               >
             </div>
           </div>
         </div>
-      </div>
-    </transition>
+        <div v-else class="logged-user flex-center flex-column" key="2">
+          <h4 class="mb-3">Welcome, {{ currentUser.username }}</h4>
+          <h6 class="m-0">Redirecting...</h6>
+        </div>
+      </transition>
+    </div>
   </div>
 </template>
 
 <script>
-import axios from "axios";
-import { mapGetters, mapMutations } from "vuex";
+// import axios from "axios";
+import { mapGetters, mapMutations, mapState } from "vuex";
 export default {
-  name: "Login",
+  name: "LogRegModule",
+  props: ["mode"],
   data() {
     return {
       inputUsername: null,
       inputPassword: null,
-      isAttempLogin: false,
     };
   },
   computed: {
-    currentAttraction() {
-      return this.planetSlug(this.slug).attractions[
-        this.currentAttractionIndex
-      ];
-    },
     computedUser() {
       return { username: this.inputUsername, password: this.inputPassword };
     },
-    ...mapGetters(["findUser"]),
+    ...mapState(["users", "currentUser", "isAttemptLoginError"]),
+    ...mapGetters(["isLoggedIn"]),
   },
   methods: {
-    ...mapMutations(["login"]),
-    attempLogin() {
-      this.isAttempLogin = !this.isAttempLogin;
-    },
-    submitLogin() {
-      // localStore.user = this.username;
+    redirect() {
+      console.log("redirected");
       // const redirectPath = this.$route.query.redirect || "/";
       // this.$router.push(redirectPath);
     },
+    ...mapMutations(["login", "signup"]),
   },
-  mounted() {
-    let url = "https://my-json-server.typicode.com/ducnt444/planetary/users";
-
-    axios
-      .get(url)
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    // .finally(() => (this.loading = false));
+  created() {
+    this.$store.watch(
+      () => {
+        return this.$store.getters.isLoggedIn; // could also put a Getter here
+      },
+      () => {
+        setTimeout(() => {
+          this.$router.push("/");
+        }, 2000);
+      },
+      //Optional Deep if you need it
+      {
+        deep: true,
+      }
+    );
   },
 };
 </script>
 
 <style scoped>
-.quotes-wrapper {
+.logreg-wrapper {
   width: 100%;
-  padding: 15px;
-  margin-bottom: 10%;
+  padding: 0 30px;
 }
-.quotes {
-  font-size: 20px;
-  font-family: Agelast;
-  letter-spacing: 3px;
-  position: relative;
-  left: 5px;
-  color: #fff;
-  text-shadow: 2px 2px 15px #000000;
-}
-.author {
-  font-size: 16px;
-  color: rgba(255, 255, 255, 0.897);
-  margin: 0;
-}
-.login-wrapper {
+.logreg-module {
   color: #fff;
   padding: 0 30px;
   position: relative;
   z-index: 10;
-}
-.login {
   padding: 20px 30px;
   background-color: rgba(0, 0, 0, 0.4);
   border-radius: 16px;
+  height: 270px;
 }
-.login h1 {
+h1 {
   font-family: EarthOrbiter, Roboto;
   font-size: 32px;
   text-align: center;
   margin-bottom: 15px;
 }
-.login-form input {
+input {
   display: block;
   width: 100%;
-  margin-bottom: 15px;
   border-radius: 8px;
   background: transparent;
   height: 40px;
   padding-left: 15px;
   color: #fff;
 }
+
 ::-webkit-input-placeholder {
   color: #fff;
 }
@@ -168,9 +149,15 @@ export default {
 ::placeholder {
   color: #fff;
 }
-.btn {
-  width: 100px;
+.error-text-wrapper {
+  height: 25px;
 }
+.error-text {
+  color: rgb(255, 52, 52);
+  font-size: 14px;
+  font-weight: 700;
+}
+
 .neon-blue {
   background-color: rgba(0, 0, 0, 0.301);
   color: #fff !important;
@@ -179,9 +166,16 @@ export default {
   width: 40px;
   height: 38px;
 }
-.login-submit-btn {
+.submit-btn {
+  width: 100px;
   background-color: transparent;
 }
+
+.logged-user {
+  height: 100%;
+  width: 100%;
+}
+
 @media screen and (min-width: 360px) {
   .logo {
     width: 180px;
