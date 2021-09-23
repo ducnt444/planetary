@@ -6,7 +6,7 @@
       </transition>
     </div>
     <TestButton v-if="testMode" />
-    <TheNavbar />
+    <TheNavbar v-if="isNavbarDisplay"/>
     <LoadingAsync />
   </div>
 </template>
@@ -15,7 +15,7 @@
 import TestButton from "@/components/TestButton.vue";
 import TheNavbar from "@/components/TheNavbar.vue";
 import LoadingAsync from "@/components/LoadingAsync.vue";
-import { mapActions } from "vuex";
+import { mapActions, mapState } from "vuex";
 
 export default {
   name: "App",
@@ -28,16 +28,28 @@ export default {
       testMode: false,
     };
   },
+  computed: {
+    localCurrent() {
+      return {
+        username: localStorage.getItem("PlanetaryUsername"),
+        password: localStorage.getItem("PlanetaryPassword"),
+      };
+    },
+    ...mapState(["isNavbarDisplay"])
+  },
   methods: {
-    ...mapActions(["updateCurrentAction", "getPlanetsAction"]),
+    ...mapActions(["getCurrentAction", "getPlanetsAction"]),
   },
   created() {
-    if (!localStorage.getItem("Planetary")) localStorage.setItem("Planetary", "")
-    this.updateCurrentAction();
+    if (!localStorage.getItem("PlanetaryUsername")) {
+      localStorage.setItem("PlanetaryUsername", "");
+      localStorage.setItem("PlanetaryPassword", "");
+    }
+    this.getCurrentAction({
+      username: localStorage.getItem("PlanetaryUsername"),
+      password: localStorage.getItem("PlanetaryPassword"),
+    });
     this.getPlanetsAction();
-    // this.getUsersAction();
-    // if (!localStorage.getItem("Planetary Username"))
-    //   localStorage.setItem("Planetary Username", "null");
   },
 };
 </script>

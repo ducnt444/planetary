@@ -1,14 +1,19 @@
 export const FINISHPREPARING_TYPE = "finishPreparing";
 
-export const GETPLANETS_TYPE = "finishPreparing";
+export const NAVBARCONTROL_TYPE = "navbarControl";
+
+export const GETPLANETS_TYPE = "getPlanets";
 
 export const SIGNUP_TYPE = "signup";
 export const LOGIN_TYPE = "login";
 export const LOGOUT_TYPE = "logout";
 export const ERRORLOGSIGN_TYPE = "errorLogSign";
 
+
 export const GETALLUSERS_TYPE = "getAllUsers";
-export const UPDATEALLUSERS_TYPE = "updateAllUsers";
+export const ADDUSER_TYPE = "addUser";
+
+export const GETCURRENTUSER_TYPE = "getCurrentUser";
 export const UPDATECURRENT_TYPE = "updateCurrentUser";
 
 export const CLICKTORIGHT_TYPE = "clickToRight";

@@ -1,6 +1,6 @@
 <template>
   <div class="nav-area">
-    <ul v-if="isLoggedIn" class="nav">
+    <ul class="nav">
       <li class="nav-items">
         <router-link class="links flex-center" :to="{ name: 'Home' }">
           <img
@@ -36,23 +36,23 @@
         /></router-link>
       </li>
     </ul>
-    <div v-else class="flex-center h-100 w-100 text-light">
+    <!-- <div v-else class="flex-center h-100 w-100 text-light">
       <span>Planetary &copy; 2021. Powered by </span>
       <img
         class="d-block mx-2"
         src="@/assets/images/misc/vue-logo.png"
         alt="vue js"
       />
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+// import { mapGetters } from "vuex";
 export default {
   name: "TheNavbar",
   computed: {
-    ...mapGetters(["isLoggedIn"]),
+    // ...mapGetters(["isLoggedIn"]),
   },
 };
 </script>

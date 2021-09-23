@@ -138,7 +138,7 @@ router.beforeEach((to, from, next) => {
     //   .catch((err) => {
     //     console.log(err);
     //   });
-    const isLoggedIn = localStorage.getItem("Planetary");
+    const isLoggedIn = localStorage.getItem("PlanetaryUsername");
     if (isLoggedIn === "") {
       next({
         name: "Login",

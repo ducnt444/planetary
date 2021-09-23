@@ -3,13 +3,13 @@
     <button @click="testGetAllUsers" class="mx-2">TEST 1</button>
     <button @click="testPostNewUser" class="mx-2">TEST 2</button>
     <button @click="logSignAction(userInput)" class="mx-2">TEST 3</button>
-    <button @click="logoutOnAPI" class="mx-2">TEST 4</button>
+    <button @click="finishPreparing" class="mx-2">TEST 4</button>
   </div>
 </template>
 
 <script>
 import axios from "axios";
-import { mapActions } from "vuex";
+import { mapActions, mapMutations } from "vuex";
 export default {
   name: "TestButton",
   data() {
@@ -66,6 +66,7 @@ export default {
         });
     },
     ...mapActions(["logSignAction"]),
+    ...mapMutations(["finishPreparing"]),
   },
 };
 </script>

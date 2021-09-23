@@ -99,9 +99,9 @@ export default {
       }
     },
     loadMedia: function () {
-      this.$refs.videoRef.playbackRate = 0.75;
+      // this.$refs.videoRef.playbackRate = 0.75;
       this.$refs.videoRef.play();
-      //this.$refs.audioRef.play();
+      this.$refs.audioRef.play();
     },
     stopLoadingAndLoadMedia: function () {
       this.finishPreparing();
@@ -112,13 +112,22 @@ export default {
         ? this.$refs.audioRef.play()
         : this.$refs.audioRef.pause();
     },
-    ...mapMutations(["stopLoading", "finishPreparing", "errorLogSign"]),
+    ...mapMutations([
+      "stopLoading",
+      "finishPreparing",
+      "errorLogSign",
+      "navbarControl",
+    ]),
+  },
+  created: function () {
+    this.navbarControl(false);
   },
   mounted: function () {
     //play media mỗi khi quay lại page về sau
-    if (!this.isLoading) {
-      this.loadMedia();
-    }
+    if (this.isFinishPreparing) this.loadMedia();
+  },
+  destroyed: function () {
+    this.navbarControl(true);
   },
 };
 </script>
@@ -188,7 +197,7 @@ export default {
   position: absolute;
   bottom: 2px;
   right: 2px;
-  z-index: 101;
+  z-index: 502;
   color: #fff;
   font-size: 24px;
   background-color: rgba(0, 0, 0, 0.15);

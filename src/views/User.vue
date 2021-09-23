@@ -20,7 +20,7 @@
         class="user-avatar neon-blue"
       />
 
-      <h2 class="user-name">{{ currentUser.username }}</h2>
+      <h2 class="user-name">&nbsp; {{ currentUser.username }} &nbsp;</h2>
 
       <div class="booking-list-wrapper neon-blue">
         <div v-if="bookings.length === 0" class="booking-empty">
@@ -84,7 +84,7 @@ export default {
     ...mapState(["bookings", "currentUser"]),
   },
   methods: {
-    ...mapMutations(["loadingAsync"]),
+    ...mapMutations(["loadingAsync", "navbarControl"]),
     ...mapActions(["logoutAction"]),
   },
   mounted() {
@@ -102,6 +102,9 @@ export default {
         deep: true,
       }
     );
+  },
+  destroyed: function () {
+    this.navbarControl(true);
   },
 };
 </script>
