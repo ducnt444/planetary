@@ -62,11 +62,11 @@ export default {
   background: rgb(93, 93, 93);
 }
 .nav-area {
-  background: #000;
+  background: rgba(0, 0, 0, 1);
   width: 100%;
   max-width: 450px;
   height: 50px;
-  z-index: 1000;
+  z-index: 100;
   position: absolute;
   bottom: 0;
   left: 0;

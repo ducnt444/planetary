@@ -1,18 +1,21 @@
 <template>
   <div class="logreg-wrapper">
-    <div class="logreg-module neon-blue">
+    <div
+      class="logreg-module"
+      :class="mode === 'Log In' ? 'neon-blue' : 'neon-white'"
+    >
       <transition name="fade" mode="out-in">
         <div v-if="!currentUser.username" class="anonymous-user" key="1">
           <h1>{{ mode }}</h1>
           <div class="login-form">
             <input
-              v-model="inputUsername"
+              v-model="usernameInput"
               type="text"
               placeholder="Demo user: 'user'"
               class="mb-3"
             />
             <input
-              v-model="inputPassword"
+              v-model="passwordInput"
               type="text"
               placeholder="Demo password: '123'"
               class="mb-1"
@@ -25,9 +28,9 @@
                 justify-content-end
               "
             >
-              <span v-show="isAttemptLoginError" class="error-text"
-                >Wrong username or password</span
-              >
+              <span v-show="isAttemptLogSignError" class="error-text">{{
+                errorMessage
+              }}</span>
             </div>
             <div
               class="
@@ -45,10 +48,9 @@
                 ><b-icon icon="arrow-left" aria-hidden="true"></b-icon
               ></b-button>
               <b-button
-                @click="
-                  mode === 'Log In' ? login(computedUser) : signup(computedUser)
-                "
-                class="submit-btn btn neon-white"
+                @click="logSignAction(computedUser)"
+                class="submit-btn btn"
+                :class="mode === 'Log In' ? 'neon-white' : 'neon-blue'"
                 >Confirm</b-button
               >
             </div>
@@ -64,43 +66,46 @@
 </template>
 
 <script>
-// import axios from "axios";
-import { mapGetters, mapMutations, mapState } from "vuex";
+import { mapActions, mapState } from "vuex";
+
 export default {
   name: "LogRegModule",
   props: ["mode"],
   data() {
     return {
-      inputUsername: null,
-      inputPassword: null,
+      usernameInput: null,
+      passwordInput: null,
     };
   },
   computed: {
-    computedUser() {
-      return { username: this.inputUsername, password: this.inputPassword };
+    errorMessage() {
+      if (this.mode === "Log In") return "Wrong username or password";
+      else return "Username already exists";
     },
-    ...mapState(["users", "currentUser", "isAttemptLoginError"]),
-    ...mapGetters(["isLoggedIn"]),
+    computedUser() {
+      return {
+        type: this.mode,
+        userData: {
+          usernameInput: this.usernameInput,
+          passwordInput: this.passwordInput,
+        },
+      };
+    },
+    ...mapState(["users", "currentUser", "isAttemptLogSignError"]),
   },
   methods: {
-    redirect() {
-      console.log("redirected");
-      // const redirectPath = this.$route.query.redirect || "/";
-      // this.$router.push(redirectPath);
-    },
-    ...mapMutations(["login", "signup"]),
+    ...mapActions(["logSignAction"]),
   },
   created() {
     this.$store.watch(
       () => {
-        return this.$store.getters.isLoggedIn; // could also put a Getter here
+        return this.$store.state.currentUser;
       },
       () => {
         setTimeout(() => {
-          this.$router.push("/");
+          this.$router.push("/").catch(() => {});
         }, 2000);
       },
-      //Optional Deep if you need it
       {
         deep: true,
       }

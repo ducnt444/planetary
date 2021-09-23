@@ -1,6 +1,13 @@
 <template>
   <transition name="fade">
-    <div v-if="isLoadingAsync" class="loading-async">
+    <div
+      v-if="isLoadingInitial || isLoadingAsync"
+      :class="{
+        'loading-initial': isLoadingInitial,
+        'loading-async': isLoadingAsync,
+      }"
+      class="loading"
+    >
       <div class="layer layer-4">
         <div class="layer layer-3">
           <div class="layer layer-2">
@@ -22,23 +29,28 @@ export default {
   data() {
     return {};
   },
-  computed: { ...mapState(["isLoadingAsync"]) },
+  computed: { ...mapState(["isLoadingAsync", "isLoadingInitial"]) },
 };
 </script>
 
 <style scoped>
-.loading-async {
+.loading {
   height: 100%;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgb(0, 0, 0);
   color: #fff;
-  z-index: 1000;
+  z-index: 10000;
   position: absolute;
   top: 0;
   left: 0;
+}
+.loading-initial {
+  background-color: rgba(0, 0, 0, 1);
+}
+.loading-async {
+  background-color: rgba(0, 0, 0, 0.65);
 }
 .loading-text {
   border-radius: 50%;
@@ -48,7 +60,7 @@ export default {
     transform: rotate(0deg);
   }
   to {
-    transform: rotate(180deg);
+    transform: rotate(120deg);
   }
 }
 .layer {
@@ -57,15 +69,15 @@ export default {
   border: 1px solid #fff;
 }
 .layer-1 {
-  animation: spnining 4s 0.5s infinite forwards;
+  animation: spnining 4s 0.25s infinite forwards;
 }
 .layer-2 {
-  animation: spnining 4s 0.6s infinite forwards;
+  animation: spnining 4s 0.4s infinite forwards;
 }
 .layer-3 {
-  animation: spnining 4s 0.7s infinite forwards;
+  animation: spnining 4s 0.5s infinite forwards;
 }
 .layer-4 {
-  animation: spnining 4s 0.8s infinite forwards;
+  animation: spnining 4s 0.6s infinite forwards;
 }
 </style>

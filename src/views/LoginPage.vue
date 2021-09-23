@@ -1,7 +1,10 @@
 <template>
   <div class="login-wrapper">
     <transition name="fade">
-      <Loading v-if="isLoading" @ready="stopLoadingAndLoadMedia" />
+      <LoadingInitial
+        v-if="!isLoggedIn && !isFinishPreparing"
+        @ready="stopLoadingAndLoadMedia"
+      />
     </transition>
 
     <div class="login-ready">
@@ -58,7 +61,7 @@
       </audio>
       <button
         @click="muteVolume()"
-        class="muteVolume btn"
+        class="muteVolume"
         :class="{ active: isMuted }"
       >
         <b-icon
@@ -71,25 +74,29 @@
 </template>
 
 <script>
-import Loading from "@/components/Loading.vue";
+import LoadingInitial from "@/components/LoadingInitial.vue";
 import LogRegModule from "@/components/LogRegModule.vue";
-import { mapState, mapMutations } from "vuex";
+import { mapState, mapMutations, mapGetters } from "vuex";
 
 export default {
   name: "Home",
-  components: { Loading, LogRegModule },
+  components: { LoadingInitial, LogRegModule },
   data() {
     return {
       mode: null,
     };
   },
   computed: {
-    ...mapState(["isLoading", "isMuted", "isLoggedIn"]),
+    ...mapState(["isMuted", "isFinishPreparing"]),
+    ...mapGetters(["isLoggedIn"]),
   },
   methods: {
     attempt(action) {
       if (action) this.mode = action;
-      else this.mode = null;
+      else {
+        this.errorLogSign(false);
+        this.mode = null;
+      }
     },
     loadMedia: function () {
       this.$refs.videoRef.playbackRate = 0.75;
@@ -97,7 +104,7 @@ export default {
       //this.$refs.audioRef.play();
     },
     stopLoadingAndLoadMedia: function () {
-      this.stopLoading();
+      this.finishPreparing();
       this.loadMedia();
     },
     muteVolume: function () {
@@ -105,7 +112,7 @@ export default {
         ? this.$refs.audioRef.play()
         : this.$refs.audioRef.pause();
     },
-    ...mapMutations(["stopLoading"]),
+    ...mapMutations(["stopLoading", "finishPreparing", "errorLogSign"]),
   },
   mounted: function () {
     //play media mỗi khi quay lại page về sau
@@ -119,16 +126,18 @@ export default {
 <style scoped>
 .login-wrapper {
   width: 100%;
-  height: 100%;
+  height: 100vh;
   position: relative;
   overflow: hidden;
 }
 .login-ready {
   height: 100%;
   width: 100%;
+  position: relative;
 }
 .login-bg {
-  z-index: 1;
+  z-index: 101;
+  height: 100vh;
 }
 .login-upper {
   width: 100%;
@@ -145,7 +154,7 @@ export default {
   align-items: center;
   height: 100%;
   position: relative;
-  z-index: 10;
+  z-index: 501;
   background-color: rgba(0, 0, 0, 0.1);
 }
 .login-lower {
@@ -177,9 +186,9 @@ export default {
 
 .muteVolume {
   position: absolute;
-  bottom: 0px;
-  right: 0px;
-  z-index: 3;
+  bottom: 2px;
+  right: 2px;
+  z-index: 101;
   color: #fff;
   font-size: 24px;
   background-color: rgba(0, 0, 0, 0.15);

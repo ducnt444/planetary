@@ -20,7 +20,7 @@
         class="user-avatar neon-blue"
       />
 
-      <h2 class="user-name">{{ currentUsername }}</h2>
+      <h2 class="user-name">{{ currentUser.username }}</h2>
 
       <div class="booking-list-wrapper neon-blue">
         <div v-if="bookings.length === 0" class="booking-empty">
@@ -63,14 +63,15 @@
           </ul>
         </div>
       </div>
-      <button class="neon-blue btn btn-logout" @click="logOut">Logout</button>
+      <button class="neon-blue btn btn-logout" @click="logoutAction">
+        Logout
+      </button>
     </div>
   </div>
 </template>
 
 <script>
-import localStore from "@/localStore";
-import { mapGetters, mapState } from "vuex";
+import { mapActions, mapMutations, mapState } from "vuex";
 
 export default {
   name: "User",
@@ -80,14 +81,27 @@ export default {
     };
   },
   computed: {
-    ...mapState(["bookings"]),
-    ...mapGetters(["currentUsername"]),
+    ...mapState(["bookings", "currentUser"]),
   },
   methods: {
-    logOut() {
-      localStore.user = null;
-      this.$router.push("/");
-    },
+    ...mapMutations(["loadingAsync"]),
+    ...mapActions(["logoutAction"]),
+  },
+  mounted() {
+    this.$store.watch(
+      () => {
+        return this.$store.state.currentUser;
+      },
+      () => {
+        setTimeout(() => {
+          this.loadingAsync(false);
+          this.$router.push("/login").catch(() => {});
+        }, 2000);
+      },
+      {
+        deep: true,
+      }
+    );
   },
 };
 </script>

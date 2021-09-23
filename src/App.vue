@@ -25,16 +25,19 @@ export default {
   },
   data() {
     return {
-      testMode: true,
+      testMode: false,
     };
   },
   methods: {
-    ...mapActions(["getUsersAction"]),
+    ...mapActions(["updateCurrentAction", "getPlanetsAction"]),
   },
   created() {
-    this.getUsersAction();
-    if (!localStorage.getItem("Planetary Username"))
-      localStorage.setItem("Planetary Username", "null");
+    if (!localStorage.getItem("Planetary")) localStorage.setItem("Planetary", "")
+    this.updateCurrentAction();
+    this.getPlanetsAction();
+    // this.getUsersAction();
+    // if (!localStorage.getItem("Planetary Username"))
+    //   localStorage.setItem("Planetary Username", "null");
   },
 };
 </script>

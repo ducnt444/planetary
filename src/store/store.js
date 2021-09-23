@@ -2,27 +2,34 @@ import axios from "axios";
 import Vue from "vue";
 import Vuex from "vuex";
 import {
-  STOPLOADING_TYPE,
+  GETPLANETS_TYPE,
+  FINISHPREPARING_TYPE,
+  ERRORLOGSIGN_TYPE,
+  LOGIN_TYPE,
   SIGNUP_TYPE,
+  GETALLUSERS_TYPE,
+  UPDATECURRENT_TYPE,
   TORIGHT_TYPE,
   TOLEFT_TYPE,
   BOOKING_TYPE,
-  LOGIN_TYPE,
-  GETALLUSERS_TYPE,
+  UPDATEALLUSERS_TYPE,
   LOADINGASYNC_TYPE,
+  LOADINGASYNCDARK_TYPE,
 } from "./mutationType";
 
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
-    isLoading: true,
     isLoadingAsync: false,
+    isLoadingAsyncDark: true,
+    isFinishPreparing: false,
     isMuted: false,
-    isAttemptLoginError: false,
+    isAttemptLogSignError: false,
     currentPlanetIndex: 0,
     bookings: [],
     users: [],
+    currentUser: { username: null, password: null },
     planets: [
       {
         id: "1",
@@ -245,60 +252,51 @@ const store = new Vuex.Store({
     ],
   },
   getters: {
+    isLoggedIn: (state) => {
+      if (state.currentUser.username) return true;
+      else return false;
+    },
     planetSlug: (state) => (slug) => {
       return state.planets.find((planet) => planet.slug === slug);
     },
-    currentUser: () => {
-      return localStorage.getItem("Planetary Username");
-    },
-    currentUsername: (getters) => {
-      return getters.currentUser.username;
-    },
-    isLoggedIn: () => {
-      // if (localStorage.getItem("Planetary Username") !== "null") return true;
-      // else return false;
-      return localStorage.getItem("Planetary Username") !== "null"
-        ? true
-        : false;
+    userChecking: (state) => (userPayload) => {
+      return state.users.find(
+        (user) =>
+          user.username === userPayload.username &&
+          user.password === userPayload.password
+      );
     },
   },
   mutations: {
+    [GETPLANETS_TYPE](state, payload) {
+      state.planets = payload;
+    },
+
+    [FINISHPREPARING_TYPE](state) {
+      state.isFinishPreparing = true;
+    },
+
     [GETALLUSERS_TYPE](state, payload) {
       state.users = payload;
     },
-    [LOADINGASYNC_TYPE](state, payload) {
-      state.isLoadingAsync = payload;
+    [UPDATEALLUSERS_TYPE](state, payload) {
+      state.users.push(payload);
     },
-    [LOGIN_TYPE](state, payload) {
-      const userChecking = state.users.find(
-        (user) =>
-          user.username === payload.username &&
-          user.password === payload.password
-      );
-      if (userChecking) {
-        state.currentUser = {
-          ...state.currentUser,
-          username: payload.username,
-        };
-        localStorage.setItem("Planetary Username", payload.username);
-      } else {
-        state.isAttemptLoginError = true;
-      }
-    },
-    [SIGNUP_TYPE](state, payload) {
-      state.users = [
-        ...state.users,
-        { username: payload.username, password: payload.password },
-      ];
+    [UPDATECURRENT_TYPE](state, payload) {
       state.currentUser = {
         ...state.currentUser,
         username: payload.username,
+        password: payload.password,
       };
-      localStorage.setItem("Planetary Username", payload.username);
     },
-    [STOPLOADING_TYPE](state) {
-      state.isLoading = false;
+
+    [LOADINGASYNC_TYPE](state, payload) {
+      state.isLoadingAsync = payload;
     },
+    [LOADINGASYNCDARK_TYPE](state, payload) {
+      state.isLoadingAsyncDark = payload;
+    },
+
     [TORIGHT_TYPE](state) {
       if (state.currentPlanetIndex < state.planets.length - 1)
         state.currentPlanetIndex++;
@@ -306,6 +304,7 @@ const store = new Vuex.Store({
     [TOLEFT_TYPE](state) {
       if (state.currentPlanetIndex > 0) state.currentPlanetIndex--;
     },
+
     [BOOKING_TYPE](state, payload) {
       if (payload.date !== "" && payload.number !== "") {
         state.bookings = [
@@ -318,15 +317,131 @@ const store = new Vuex.Store({
         ];
       }
     },
+
+    [ERRORLOGSIGN_TYPE](state, payload) {
+      state.isAttemptLogSignError = payload;
+    },
+    [SIGNUP_TYPE](state, payload) {
+      state.users = payload.usersList;
+    },
+    [LOGIN_TYPE](state, payload) {
+      state.users = payload.allUsers;
+      if (payload.isValid) {
+        state.currentUser = {
+          ...state.currentUser,
+          username: payload.username,
+          password: payload.password,
+        };
+      } else {
+        state.isAttemptLogSignError = true;
+      }
+    },
   },
   actions: {
-    getUsersAction({ commit }) {
+    getPlanetsAction({ commit }) {
       return axios
-        .get("https://my-json-server.typicode.com/ducnt444/planetary/users")
+        .get("https://test-heroku444.herokuapp.com/planets")
         .then((res) => {
-          let users = res.data;
-          // console.log(users);
-          commit(GETALLUSERS_TYPE, users);
+          let planets = res.data;
+          commit(GETPLANETS_TYPE, planets);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+
+    updateCurrentAction({ commit }) {
+      commit(LOADINGASYNCDARK_TYPE, true);
+      return axios
+        .get("https://test-heroku444.herokuapp.com/currentUser")
+        .then((res) => {
+          let currentUser = res.data;
+          commit(UPDATECURRENT_TYPE, currentUser);
+          commit(LOADINGASYNCDARK_TYPE, false);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+
+    logSignAction({ commit }, userInput) {
+      commit(LOADINGASYNC_TYPE, true);
+      return axios
+        .get("https://test-heroku444.herokuapp.com/usersList")
+        .then((res) => {
+          const allUsers = res.data;
+          console.log(allUsers);
+          const usernameInput = userInput.userData.usernameInput;
+          const passwordInput = userInput.userData.passwordInput;
+          const currentUserInput = {
+            username: usernameInput,
+            password: passwordInput,
+          };
+          const userChecking = allUsers.find(
+            (user) =>
+              user.username === usernameInput && user.password === passwordInput
+          );
+
+          commit(GETALLUSERS_TYPE, allUsers);
+
+          if (userChecking) {
+            if (userInput.type === "Log In") {
+              axios
+                .put(
+                  "https://test-heroku444.herokuapp.com/currentUser",
+                  currentUserInput
+                )
+                .then(() => {
+                  commit(UPDATECURRENT_TYPE, currentUserInput);
+                  localStorage.setItem("Planetary", currentUserInput.username);
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+            } else {
+              commit(ERRORLOGSIGN_TYPE, true);
+            }
+          } else {
+            if (userInput.type === "Log In") {
+              commit(ERRORLOGSIGN_TYPE, true);
+            } else {
+              axios
+                .post(
+                  "https://test-heroku444.herokuapp.com/usersList",
+                  currentUserInput
+                )
+                .then(() => {
+                  commit(UPDATEALLUSERS_TYPE, currentUserInput);
+                  localStorage.setItem("Planetary", currentUserInput.username);
+                  axios
+                    .put(
+                      "https://test-heroku444.herokuapp.com/currentUser",
+                      currentUserInput
+                    )
+                    .then(() => {
+                      commit(UPDATECURRENT_TYPE, currentUserInput);
+                    });
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+            }
+          }
+          commit(LOADINGASYNC_TYPE, false);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+
+    logoutAction({ commit }) {
+      commit(LOADINGASYNC_TYPE, true);
+      localStorage.setItem("Planetary", "")
+      let emptyUser = { username: null, password: null };
+      return axios
+        .put("https://test-heroku444.herokuapp.com/currentUser", emptyUser)
+        .then(() => {
+          commit(UPDATECURRENT_TYPE, emptyUser);
         })
         .catch((err) => {
           console.log(err);

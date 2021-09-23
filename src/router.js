@@ -1,6 +1,8 @@
+// import axios from "axios";
 import Vue from "vue";
 import Router from "vue-router";
-import store from "./localStore";
+// import localStore from "./localStore";
+import store from "./store/store.js";
 
 Vue.use(Router);
 
@@ -36,28 +38,25 @@ const routes = [
       import(
         /* webpackChunkName: "PlanetDetails" */ "./views/PlanetDetails.vue"
       ),
+    meta: { requiresAuth: true },
     props: true,
     children: [
       {
         path: ":attractionSlug",
         name: "Attraction",
         component: () =>
-          import(
-            /* webpackChunkName: "Attraction" */ "./views/Attraction.vue"
-          ),
+          import(/* webpackChunkName: "Attraction" */ "./views/Attraction.vue"),
         props: true,
         meta: { requiresAuth: true },
       },
     ],
     beforeEnter: (to, from, next) => {
-      /* console.log(store.planets);
-      console.log(to.params.slug); */
-      const exists = store.planets.find(
+      const exists = store.state.planets.find(
         (planet) => planet.slug === to.params.slug
       );
+      console.log(exists);
       exists ? next() : next({ name: "NotFound" });
     },
-    meta: { requiresAuth: true },
   },
   {
     path: "/legacy",
@@ -90,13 +89,16 @@ const routes = [
         "./views/LoginPage.vue"
       ),
     props: true,
+    beforeEnter: (to, from, next) => {
+      store.getters.isLoggedIn ? next({ name: "Home" }) : next();
+    },
   },
   {
     path: "/play",
     name: "Playground",
     component: () =>
       import(
-        /* webpackChunkName: "LoginPage" */
+        /* webpackChunkName: "Playground" */
         "./views/Playground.vue"
       ),
     props: true,
@@ -117,35 +119,37 @@ const router = new Router({
   linkExactActiveClass: "active-page",
   // mode: "history",
   routes,
-  // scrollBehavior(to, from, savedPosition) {
-  //   if (savedPosition) {
-  //     return savedPosition;
-  //   } else {
-  //     const position = {};
-  //     if (to.hash) {
-  //       position.selector = to.hash;
-  //       if (document.querySelector(to.hash)) {
-  //         return position;
-  //       }
-  //       return false;
-  //     }
-  //   }
-  // },
 });
 
-// router.beforeEach((to, from, next) => {
-//   if (to.matched.some((record) => record.meta.requiresAuth)) {
-//     if (store.user !== "user") {
-//       next({
-//         name: "Login",
-//         query: { redirect: to.fullPath },
-//       });
-//     } else {
-//       next();
-//     }
-//   } else {
-//     next();
-//   }
-// });
+router.beforeEach((to, from, next) => {
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    // axios
+    //   .get("https://test-heroku444.herokuapp.com/currentUser")
+    //   .then((res) => {
+    //     if (res.data.username == null) {
+    //       next({
+    //         name: "Login",
+    //         // query: { redirect: to.fullPath },
+    //       });
+    //     } else {
+    //       next();
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+    const isLoggedIn = localStorage.getItem("Planetary");
+    if (isLoggedIn === "") {
+      next({
+        name: "Login",
+        // query: { redirect: to.fullPath },
+      });
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
+});
 
 export default router;

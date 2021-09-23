@@ -27,7 +27,7 @@
 
 <script>
 export default {
-  name: "Loading",
+  name: "LoadingInitial",
   data() {
     return {
       isPreparing: true,
