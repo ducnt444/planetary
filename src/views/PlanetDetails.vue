@@ -87,28 +87,6 @@
         </b-modal>
       </div>
 
-      <!-- <div class="section section-price">
-        <h3 class="header">Price:</h3>
-        <div
-          class="price-wrapper"
-          v-for="(price, index) in planetSlug(slug).prices"
-          :key="index"
-        >
-          <div class="d-flex align-items-center">
-            <img
-              src="@/assets/images/misc/logo-white-min.png"
-              alt="logo"
-              class="logo"
-            />
-            <div class="price-text">
-              <p class="planetary">PLANETARY</p>
-              <p>{{ price.name }}</p>
-            </div>
-          </div>
-          <p class="price">{{ price.number }}</p>
-        </div>
-      </div> -->
-
       <button
         @click="toggleModalBooking"
         class="btn neon-blue d-block mx-auto my-3"

@@ -20,7 +20,9 @@
         class="user-avatar neon-blue"
       />
 
-      <h2 class="user-name">&nbsp; {{ currentUser.username }} &nbsp;</h2>
+      <h2 class="user-name">
+        &nbsp; {{ currentUser.username ? currentUser.username : "" }} &nbsp;
+      </h2>
 
       <div class="booking-list-wrapper neon-blue">
         <div v-if="bookings.length === 0" class="booking-empty">

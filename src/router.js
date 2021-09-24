@@ -1,4 +1,4 @@
-// import axios from "axios";
+import axios from "axios";
 import Vue from "vue";
 import Router from "vue-router";
 // import localStore from "./localStore";
@@ -123,30 +123,30 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some((record) => record.meta.requiresAuth)) {
-    // axios
-    //   .get("https://test-heroku444.herokuapp.com/currentUser")
-    //   .then((res) => {
-    //     if (res.data.username == null) {
-    //       next({
-    //         name: "Login",
-    //         // query: { redirect: to.fullPath },
-    //       });
-    //     } else {
-    //       next();
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
-    const isLoggedIn = localStorage.getItem("PlanetaryUsername");
-    if (isLoggedIn === "") {
-      next({
-        name: "Login",
-        // query: { redirect: to.fullPath },
+    axios
+      .get("https://test-heroku444.herokuapp.com/currentUser")
+      .then((res) => {
+        if (!res.data.username) {
+          next({
+            name: "Login",
+            // query: { redirect: to.fullPath },
+          });
+        } else {
+          next();
+        }
+      })
+      .catch((err) => {
+        console.log(err);
       });
-    } else {
-      next();
-    }
+    // const isLoggedIn = localStorage.getItem("PlanetaryUsername");
+    // if (isLoggedIn === "") {
+    //   next({
+    //     name: "Login",
+    //     // query: { redirect: to.fullPath },
+    //   });
+    // } else {
+    //   next();
+    // }
   } else {
     next();
   }

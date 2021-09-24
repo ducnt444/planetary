@@ -2,6 +2,7 @@
   <transition name="slide-fade" mode="out-in">
     <div
       class="page-content"
+      v-if="isLoggedIn"
       :style="{
         'background-image':
           'url(' +
@@ -95,7 +96,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
+import { mapState, mapMutations, mapGetters } from "vuex";
 import PlanetSlider from "../components/PlanetSlider.vue";
 
 export default {
@@ -115,15 +116,14 @@ export default {
       return this.currentPlanet.attractions[this.currentAttractionIndex];
     },
     ...mapState(["planets", "currentPlanetIndex"]),
+    ...mapGetters(["isLoggedIn"]),
   },
   methods: {
     ...mapMutations(["toRight", "toLeft"]),
     swipeHandler(direction) {
       if (direction === "right") {
-        // console.log("swipe to right");
         this.toRight();
       } else if (direction === "left") {
-        // console.log("swipe to left");
         this.toLeft();
       }
     },
@@ -134,6 +134,11 @@ export default {
       this.currentAttractionIndex = index;
       this.modalShow = !this.modalShow;
     },
+  },
+  mounted() {
+    console.log(this.planets);
+    console.log(this.currentPlanetIndex);
+    console.log(this.currentPlanet);
   },
 };
 </script>

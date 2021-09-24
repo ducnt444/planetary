@@ -1,20 +1,8 @@
 {
-  "users": [
-    {
-      "id": 1,
-      "username": "user",
-      "password": "123"
-    },
-    {
-      "id": 2,
-      "username": "user2",
-      "password": "1234"
-    },
-    {
-      "id": 3,
-      "username": "test",
-      "password": "tessts"
-    }
+  "currentUser": { "id": "null", "username": "null", "password": "null" },
+  "usersList": [
+    { "id": 0, "username": "user", "password": "123" },
+    { "id": 1, "username": "user2", "password": "1234" }
   ],
   "planets": [
     {

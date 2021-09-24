@@ -35,15 +35,19 @@
       </div>
 
       <div v-else class="booking-success" key="success">
-        <p class="booking-welcome"> All set! See you on {{ currentPlanet.name }}!</p>
-        <p class="booking-check m-0"> You can check your flight plans on User tab</p>
+        <p class="booking-welcome">
+          All set! See you on {{ currentPlanet.name }}!
+        </p>
+        <p class="booking-check m-0">
+          You can check your flight plans on User tab
+        </p>
       </div>
     </transition>
   </div>
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapActions } from "vuex";
 export default {
   name: "Booking",
   props: ["currentPlanet"],
@@ -69,12 +73,24 @@ export default {
       if (this.datepickerValue === "" || this.mumberValue === "") {
         this.bookingError = true;
       } else {
-        this.bookingSuccess = true;
         this.$emit("childToggleSuccess");
-        this.bookingConfirm(this.bookingDetails);
+        this.bookingAction(this.bookingDetails);
       }
     },
-    ...mapMutations(["bookingConfirm"]),
+    ...mapActions(["bookingAction"]),
+  },
+  mounted() {
+    this.$store.watch(
+      () => {
+        return this.$store.state.bookings;
+      },
+      () => {
+        this.bookingSuccess = true;
+      },
+      {
+        deep: true,
+      }
+    );
   },
 };
 </script>

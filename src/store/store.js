@@ -2,18 +2,15 @@ import axios from "axios";
 import Vue from "vue";
 import Vuex from "vuex";
 import {
-  GETPLANETS_TYPE,
-  FINISHPREPARING_TYPE,
-  ERRORLOGSIGN_TYPE,
-  GETALLUSERS_TYPE,
+  UPDATEPLANETS_TYPE,
   UPDATECURRENT_TYPE,
   TORIGHT_TYPE,
   TOLEFT_TYPE,
-  BOOKING_TYPE,
-  ADDUSER_TYPE,
   LOADINGASYNC_TYPE,
   LOADINGASYNCDARK_TYPE,
+  FINISHPREPARING_TYPE,
   NAVBARCONTROL_TYPE,
+  ERRORLOGSIGN_TYPE,
 } from "./mutationType";
 
 Vue.use(Vuex);
@@ -27,10 +24,10 @@ const store = new Vuex.Store({
     isAttemptLogSignError: false,
     isNavbarDisplay: true,
     currentPlanetIndex: 0,
-    bookings: [],
-    users: [],
-    currentUser: { username: null, password: null },
+    currentUser: {},
+    currentUserID: null,
     planets: [],
+    bookings: [],
   },
   getters: {
     isLoggedIn: (state) => {
@@ -42,7 +39,7 @@ const store = new Vuex.Store({
     },
   },
   mutations: {
-    [GETPLANETS_TYPE](state, payload) {
+    [UPDATEPLANETS_TYPE](state, payload) {
       state.planets = payload;
     },
 
@@ -54,18 +51,13 @@ const store = new Vuex.Store({
       state.isNavbarDisplay = payload;
     },
 
-    [GETALLUSERS_TYPE](state, payload) {
-      state.users = payload;
-    },
-    [ADDUSER_TYPE](state, payload) {
-      state.users.push(payload);
-    },
-
     [UPDATECURRENT_TYPE](state, payload) {
       state.currentUser = {
         ...state.currentUser,
+        id: payload.id,
         username: payload.username,
         password: payload.password,
+        bookings: payload.bookings,
       };
     },
 
@@ -84,79 +76,92 @@ const store = new Vuex.Store({
       if (state.currentPlanetIndex > 0) state.currentPlanetIndex--;
     },
 
-    [BOOKING_TYPE](state, payload) {
-      if (payload.date !== "" && payload.number !== "") {
-        state.bookings = [
-          ...state.bookings,
-          {
-            planet: payload.planet,
-            date: payload.date,
-            number: payload.number,
-          },
-        ];
-      }
-    },
+    // [BOOKING_TYPE](state, payload) {
+    //   if (payload.date !== "" && payload.number !== "") {
+    //     state.bookings = [
+    //       ...state.bookings,
+    //       {
+    //         planet: payload.planet,
+    //         date: payload.date,
+    //         number: payload.number,
+    //       },
+    //     ];
+    //   } else if (payload === "clear") {
+    //     state.bookings = [];
+    //   }
+    // },
 
     [ERRORLOGSIGN_TYPE](state, payload) {
       state.isAttemptLogSignError = payload;
     },
   },
   actions: {
-    getPlanetsAction({ commit }) {
+    //update current state from API
+    updateCurrentAction({ commit }) {
+      // commit(LOADINGASYNC_TYPE, true);
+      return axios
+        .get("https://test-heroku444.herokuapp.com/currentUser")
+        .then((res) => {
+          commit(UPDATECURRENT_TYPE, res.data);
+          // commit(LOADINGASYNC_TYPE, false);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+
+    //update planets state from API
+    updatePlanetsAction({ commit }) {
+      // commit(LOADINGASYNC_TYPE, true);
       return axios
         .get("https://test-heroku444.herokuapp.com/planets")
         .then((res) => {
-          let planets = res.data;
-          commit(GETPLANETS_TYPE, planets);
+          commit(UPDATEPLANETS_TYPE, res.data);
+          // commit(LOADINGASYNC_TYPE, false);
         })
         .catch((err) => {
           console.log(err);
         });
     },
 
-    getCurrentAction({ commit }, localCurrent) {
-      commit(LOADINGASYNCDARK_TYPE, true);
-      // const localCurrentUsername = localStorage.getItem("PlanetaryUsername");
-      // const localCurrentPassword = localStorage.getItem("PlanetaryPassword");
-      // const localCurrent = {
-      //   username: localCurrentUsername,
-      //   password: localCurrentPassword,
-      // };
-      commit(UPDATECURRENT_TYPE, localCurrent);
-      return axios
-        .put("https://test-heroku444.herokuapp.com/currentUser", localCurrent)
-        .then(() => {
-          commit(LOADINGASYNCDARK_TYPE, false);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-
+    // log in/sign up action
     logSignAction({ commit }, userInput) {
+      //Loading on
       commit(LOADINGASYNC_TYPE, true);
+
+      //get all user from API
       return axios
         .get("https://test-heroku444.herokuapp.com/usersList")
         .then((res) => {
           const allUsers = res.data;
+
+          //get current input
           const usernameInput = userInput.userData.usernameInput;
           const passwordInput = userInput.userData.passwordInput;
           const currentUserInput = {
+            id: null,
             username: usernameInput,
             password: passwordInput,
+            bookings: [],
           };
+
+          //user checking: whether find user in put in user list or not
           const userChecking = allUsers.find(
             (user) =>
               user.username === usernameInput && user.password === passwordInput
           );
 
-          commit(GETALLUSERS_TYPE, allUsers);
-
+          //user checking A: found user input in user list
           if (userChecking) {
+            currentUserInput.id = userChecking.id;
+            currentUserInput.bookings = userChecking.bookings;
+
+            //if request is for "log in" => accept
             if (userInput.type === "Log In") {
+              //update current state
               commit(UPDATECURRENT_TYPE, currentUserInput);
-              localStorage.setItem("PlanetaryUsername", usernameInput);
-              localStorage.setItem("PlanetaryPassword", passwordInput);
+
+              //update current api
               axios
                 .put(
                   "https://test-heroku444.herokuapp.com/currentUser",
@@ -165,23 +170,32 @@ const store = new Vuex.Store({
                 .catch((err) => {
                   console.log(err);
                 });
+
+              //if request is for "sign up" => deny
             } else {
               commit(ERRORLOGSIGN_TYPE, true);
             }
+
+            //user checking B: not found user input in user list
           } else {
+            //if request is for "log in" => deny
             if (userInput.type === "Log In") {
               commit(ERRORLOGSIGN_TYPE, true);
+
+              //if request is for "sign up" => accept
             } else {
-              commit(ADDUSER_TYPE, currentUserInput);
-              commit(UPDATECURRENT_TYPE, currentUserInput);
-              localStorage.setItem("PlanetaryUsername", usernameInput);
-              localStorage.setItem("PlanetaryPassword", passwordInput);
+              //post user list API
               axios
                 .post(
                   "https://test-heroku444.herokuapp.com/usersList",
                   currentUserInput
                 )
-                .then(() => {
+                .then((res) => {
+                  currentUserInput.id = res.data.id;
+                  //update current state
+                  commit(UPDATECURRENT_TYPE, currentUserInput);
+
+                  //update current API
                   axios.put(
                     "https://test-heroku444.herokuapp.com/currentUser",
                     currentUserInput
@@ -192,6 +206,7 @@ const store = new Vuex.Store({
                 });
             }
           }
+          //loading off
           commit(LOADINGASYNC_TYPE, false);
         })
         .catch((err) => {
@@ -199,15 +214,34 @@ const store = new Vuex.Store({
         });
     },
 
+    //log out action
     logoutAction({ commit }) {
+      //loading on
       commit(LOADINGASYNC_TYPE, true);
-      localStorage.setItem("PlanetaryUsername", "");
-      localStorage.setItem("PlanetaryPassword", "");
-      let emptyUser = { username: "", password: "" };
+
+      let emptyUser = { id: "", username: "", password: "" };
+
+      //update current state
+      commit(UPDATECURRENT_TYPE, emptyUser);
+
+      //update current API
       return axios
         .put("https://test-heroku444.herokuapp.com/currentUser", emptyUser)
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+
+    //booking confirm action
+    bookingAction({ commit }, booking) {
+      commit(LOADINGASYNC_TYPE, true);
+
+      //add booking API
+      return axios
+        .post("https://test-heroku444.herokuapp.com/bookings", booking)
         .then(() => {
-          commit(UPDATECURRENT_TYPE, emptyUser);
+          //add booking state
+          commit(LOADINGASYNC_TYPE, false);
         })
         .catch((err) => {
           console.log(err);

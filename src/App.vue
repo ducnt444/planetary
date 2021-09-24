@@ -6,7 +6,7 @@
       </transition>
     </div>
     <TestButton v-if="testMode" />
-    <TheNavbar v-if="isNavbarDisplay"/>
+    <TheNavbar v-if="isNavbarDisplay" />
     <LoadingAsync />
   </div>
 </template>
@@ -29,27 +29,14 @@ export default {
     };
   },
   computed: {
-    localCurrent() {
-      return {
-        username: localStorage.getItem("PlanetaryUsername"),
-        password: localStorage.getItem("PlanetaryPassword"),
-      };
-    },
-    ...mapState(["isNavbarDisplay"])
+    ...mapState(["isNavbarDisplay"]),
   },
   methods: {
-    ...mapActions(["getCurrentAction", "getPlanetsAction"]),
+    ...mapActions(["updatePlanetsAction", "updateCurrentAction"]),
   },
   created() {
-    if (!localStorage.getItem("PlanetaryUsername")) {
-      localStorage.setItem("PlanetaryUsername", "");
-      localStorage.setItem("PlanetaryPassword", "");
-    }
-    this.getCurrentAction({
-      username: localStorage.getItem("PlanetaryUsername"),
-      password: localStorage.getItem("PlanetaryPassword"),
-    });
-    this.getPlanetsAction();
+    this.updateCurrentAction();
+    this.updatePlanetsAction();
   },
 };
 </script>

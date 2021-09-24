@@ -91,7 +91,7 @@ export default {
         },
       };
     },
-    ...mapState(["users", "currentUser", "isAttemptLogSignError"]),
+    ...mapState(["currentUser", "isAttemptLogSignError"]),
   },
   methods: {
     ...mapActions(["logSignAction"]),
