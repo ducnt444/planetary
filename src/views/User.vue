@@ -1,31 +1,28 @@
 <template>
   <div class="page-content">
-    <div
-      class="
-        content
-        d-flex
-        flex-column
-        justify-content-center
-        align-items-center
-      "
-    >
-      <img
-        src="@/assets/images/misc/logo-white.png"
-        alt="Planetary logo"
-        class="logo"
-      />
-      <img
-        src="@/assets/images/misc/user-icon-white.png"
-        alt="avatar"
-        class="user-avatar neon-blue"
-      />
+    <div class="content d-flex flex-column align-items-center">
+      <div class="logo-wrapper flex-center">
+        <img
+          src="@/assets/images/misc/logo-white.png"
+          alt="Planetary logo"
+          class="logo"
+        />
+      </div>
+
+      <div class="avatar-wrapper flex-center">
+        <img
+          src="@/assets/images/misc/user-icon-white.png"
+          alt="avatar"
+          class="user-avatar neon-blue"
+        />
+      </div>
 
       <h2 class="user-name">
         &nbsp; {{ currentUser.username ? currentUser.username : "" }} &nbsp;
       </h2>
 
       <div class="booking-list-wrapper neon-blue">
-        <div v-if="bookings.length === 0" class="booking-empty">
+        <div v-if="currentUser.bookings.length === 0" class="booking-empty">
           <p>Currently no plans yet</p>
           <router-link
             :to="{
@@ -45,7 +42,7 @@
           </div>
           <ul class="booking-list p-0">
             <li
-              v-for="(booking, index) in bookings"
+              v-for="(booking, index) in currentUser.bookings"
               :key="index"
               class="booking-item"
             >
@@ -83,16 +80,18 @@ export default {
     };
   },
   computed: {
-    ...mapState(["bookings", "currentUser"]),
+    ...mapState(["currentUser"]),
   },
   methods: {
     ...mapMutations(["loadingAsync", "navbarControl"]),
     ...mapActions(["logoutAction"]),
   },
   mounted() {
+    this.navbarControl(true);
+
     this.$store.watch(
       () => {
-        return this.$store.state.currentUser;
+        return this.$store.state.logoutToggler;
       },
       () => {
         setTimeout(() => {
@@ -106,7 +105,7 @@ export default {
     );
   },
   destroyed: function () {
-    this.navbarControl(true);
+    this.navbarControl(false);
   },
 };
 </script>
@@ -138,23 +137,30 @@ export default {
     background-position: right center;
   }
 }
-.logo {
+
+.logo-wrapper {
+  height: 17.5%;
   width: 100px;
-  display: block;
-  position: absolute;
+}
+.logo {
+  width: 100%;
+  /* position: absolute;
   top: 5%;
   left: 50%;
-  transform: translate(-50%, -5%);
+  transform: translate(-50%, -5%); */
 }
-
-.user-avatar {
+.avatar-wrapper {
+  height: 17.5%;
   width: 80px;
-  border: 3px solid #fff;
+}
+.user-avatar {
+  width: 100%;
   border-radius: 50%;
   padding: 10px;
 }
 .user-name {
-  margin: 10px 0 20px 0;
+  height: 10%;
+  margin: 0;
 }
 .btn-logout {
   padding: 7px 15px;
@@ -173,7 +179,7 @@ export default {
 .booking-list-wrapper {
   list-style-type: none;
   padding: 0;
-  margin-bottom: 45px;
+  margin-bottom: 40px;
   width: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   border-radius: 16px;
@@ -181,7 +187,7 @@ export default {
 
 .booking-list {
   overflow-x: scroll;
-  max-height: 35vh;
+  max-height: 30vh;
   margin: 0;
 }
 
@@ -216,5 +222,16 @@ export default {
 }
 .booking-number {
   width: 30%;
+}
+@media screen and (min-width: 414px) {
+  .logo-wrapper {
+    width: 120px;
+  }
+  .avatar-wrapper {
+    width: 100px;
+  }
+  .booking-item {
+    font-size: 16px;
+  }
 }
 </style>

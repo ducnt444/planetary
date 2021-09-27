@@ -1,6 +1,6 @@
 <template>
   <div class="nav-area">
-    <ul class="nav">
+    <ul v-if="isNavbarDisplay" class="nav">
       <li class="nav-items">
         <router-link class="links flex-center" :to="{ name: 'Home' }">
           <img
@@ -15,7 +15,7 @@
           ><img
             class="links-icon"
             src="@/assets/images/misc/planets-icon-white-2.png"
-            alt="Home"
+            alt="PlanetsList"
         /></router-link>
       </li>
       <li class="nav-items">
@@ -23,7 +23,7 @@
           <img
             class="links-icon"
             src="@/assets/images/misc/feed-icon-white.png"
-            alt="Home"
+            alt="Feed"
           />
         </router-link>
       </li>
@@ -32,7 +32,7 @@
           ><img
             class="links-icon"
             src="@/assets/images/misc/user-icon-white.png"
-            alt="Home"
+            alt="User"
         /></router-link>
       </li>
     </ul>
@@ -48,11 +48,11 @@
 </template>
 
 <script>
-// import { mapGetters } from "vuex";
+import { mapState } from "vuex";
 export default {
   name: "TheNavbar",
   computed: {
-    // ...mapGetters(["isLoggedIn"]),
+    ...mapState(["isNavbarDisplay"]),
   },
 };
 </script>
@@ -62,18 +62,18 @@ export default {
   background: rgb(93, 93, 93);
 }
 .nav-area {
-  background: rgba(0, 0, 0, 1);
+  background: rgba(0, 0, 0, 0);
   width: 100%;
   max-width: 450px;
   height: 50px;
   z-index: 100;
-  position: absolute;
+  position: fixed;
   bottom: 0;
-  left: 0;
 }
 .nav {
   width: 100%;
   height: 100%;
+  background: rgba(0, 0, 0, 1);
 }
 .nav-items {
   width: 25%;

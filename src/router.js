@@ -40,22 +40,22 @@ const routes = [
       ),
     meta: { requiresAuth: true },
     props: true,
-    children: [
-      {
-        path: ":attractionSlug",
-        name: "Attraction",
-        component: () =>
-          import(/* webpackChunkName: "Attraction" */ "./views/Attraction.vue"),
-        props: true,
-        meta: { requiresAuth: true },
-      },
-    ],
+    // children: [
+    //   {
+    //     path: ":attractionSlug",
+    //     name: "Attraction",
+    //     component: () =>
+    //       import(/* webpackChunkName: "Attraction" */ "./views/Attraction.vue"),
+    //     props: true,
+    //     meta: { requiresAuth: true },
+    //   },
+    // ],
     beforeEnter: (to, from, next) => {
       const exists = store.state.planets.find(
         (planet) => planet.slug === to.params.slug
       );
-      console.log(exists);
-      exists ? next() : next({ name: "NotFound" });
+      // console.log(exists);
+      exists ? next() : next({ name: "PlanetsList" });
     },
   },
   {
@@ -123,30 +123,29 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some((record) => record.meta.requiresAuth)) {
-    axios
-      .get("https://test-heroku444.herokuapp.com/currentUser")
-      .then((res) => {
-        if (!res.data.username) {
-          next({
-            name: "Login",
-            // query: { redirect: to.fullPath },
-          });
-        } else {
-          next();
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    // const isLoggedIn = localStorage.getItem("PlanetaryUsername");
-    // if (isLoggedIn === "") {
-    //   next({
-    //     name: "Login",
-    //     // query: { redirect: to.fullPath },
-    //   });
-    // } else {
-    //   next();
-    // }
+    if (store.getters.isLoggedIn) {
+      next();
+    } else {
+      store.commit("loadingAsync", true);
+      axios
+        .get("https://test-heroku444.herokuapp.com/currentUserID")
+        .then((res) => {
+          if (res.data.id === "") {
+            next({
+              name: "Login",
+              // query: { redirect: to.fullPath },
+            });
+          } else {
+            next();
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          store.commit("loadingAsync", false);
+        });
+    }
   } else {
     next();
   }

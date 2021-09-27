@@ -8,7 +8,7 @@ export const LOADINGASYNCDARK_TYPE = "loadingInitialDark";
 // planets
 export const UPDATEPLANETS_TYPE = "updatePlanets";
 
-// currentUser (username, password, bookings)
+// currentUser (id, username, password, bookings)
 export const UPDATECURRENT_TYPE = "updateCurrent";
 
 // currentPlanetIndex
@@ -27,7 +27,13 @@ export const NAVBARCONTROL_TYPE = "navbarControl";
 // isAttemptLogSignError
 export const ERRORLOGSIGN_TYPE = "errorLogSign";
 
+// current bookings
+export const BOOKING_TYPE = "updateBookings";
 
+//login toggler
+export const LOGIN_TYPE = "loginAttempt";
 
+//logout toggler
+export const LOGOUT_TYPE = "logoutAttempt";
 
 

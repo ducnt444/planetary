@@ -119,7 +119,6 @@ export default {
     ...mapGetters(["isLoggedIn"]),
   },
   methods: {
-    ...mapMutations(["toRight", "toLeft"]),
     swipeHandler(direction) {
       if (direction === "right") {
         this.toRight();
@@ -134,11 +133,10 @@ export default {
       this.currentAttractionIndex = index;
       this.modalShow = !this.modalShow;
     },
+    ...mapMutations(["toRight", "toLeft", "navbarControl"]),
   },
   mounted() {
-    console.log(this.planets);
-    console.log(this.currentPlanetIndex);
-    console.log(this.currentPlanet);
+    this.navbarControl(true);
   },
 };
 </script>
@@ -166,6 +164,7 @@ export default {
   width: 100%;
   color: #fff;
   position: relative;
+  padding-bottom: 50px;
 }
 
 .planets-info-area {
@@ -225,12 +224,12 @@ export default {
   margin-bottom: 10px;
 }
 .cell-title {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 700;
   margin-bottom: 0px;
 }
 .cell-text {
-  font-size: 13px;
+  font-size: 12px;
   margin: 0;
 }
 .btn {
@@ -238,7 +237,7 @@ export default {
   padding: 5px;
   width: 80px;
   margin: 10px auto;
-  font-size: 14px;
+  font-size: 13px;
 }
 ::v-deep .modal-dialog {
   margin: 0;
@@ -256,6 +255,22 @@ export default {
   width: 100%;
 }
 @media screen and (min-width: 360px) {
+  .cell-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 0px;
+  }
+  .cell-text {
+    font-size: 13px;
+    margin: 0;
+  }
+  .btn {
+    display: block;
+    padding: 5px;
+    width: 80px;
+    margin: 10px auto;
+    font-size: 14px;
+  }
 }
 @media screen and (min-width: 414px) {
   .planets-name {

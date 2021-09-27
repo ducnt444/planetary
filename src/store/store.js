@@ -11,6 +11,9 @@ import {
   FINISHPREPARING_TYPE,
   NAVBARCONTROL_TYPE,
   ERRORLOGSIGN_TYPE,
+  BOOKING_TYPE,
+  LOGIN_TYPE,
+  LOGOUT_TYPE,
 } from "./mutationType";
 
 Vue.use(Vuex);
@@ -20,14 +23,13 @@ const store = new Vuex.Store({
     isLoadingAsync: false,
     isLoadingAsyncDark: true,
     isFinishPreparing: false,
-    isMuted: false,
     isAttemptLogSignError: false,
-    isNavbarDisplay: true,
+    isNavbarDisplay: false,
     currentPlanetIndex: 0,
     currentUser: {},
-    currentUserID: null,
     planets: [],
-    bookings: [],
+    logoutToggler: 0,
+    loginToggler: 0,
   },
   getters: {
     isLoggedIn: (state) => {
@@ -76,34 +78,43 @@ const store = new Vuex.Store({
       if (state.currentPlanetIndex > 0) state.currentPlanetIndex--;
     },
 
-    // [BOOKING_TYPE](state, payload) {
-    //   if (payload.date !== "" && payload.number !== "") {
-    //     state.bookings = [
-    //       ...state.bookings,
-    //       {
-    //         planet: payload.planet,
-    //         date: payload.date,
-    //         number: payload.number,
-    //       },
-    //     ];
-    //   } else if (payload === "clear") {
-    //     state.bookings = [];
-    //   }
-    // },
+    [BOOKING_TYPE](state, payload) {
+      state.currentUser = {
+        ...state.currentUser,
+        bookings: payload,
+      };
+    },
 
     [ERRORLOGSIGN_TYPE](state, payload) {
       state.isAttemptLogSignError = payload;
     },
+
+    [LOGIN_TYPE](state) {
+      state.loginToggler++;
+    },
+
+    [LOGOUT_TYPE](state) {
+      state.logoutToggler++;
+    },
   },
   actions: {
-    //update current state from API
+    // ============== Get current user ==============
     updateCurrentAction({ commit }) {
-      // commit(LOADINGASYNC_TYPE, true);
       return axios
-        .get("https://test-heroku444.herokuapp.com/currentUser")
+        .get("https://test-heroku444.herokuapp.com/currentUserID")
         .then((res) => {
-          commit(UPDATECURRENT_TYPE, res.data);
-          // commit(LOADINGASYNC_TYPE, false);
+          if (res.data.id !== "") {
+            axios
+              .get(
+                `https://test-heroku444.herokuapp.com/usersList/${res.data.id}`
+              )
+              .then((respond) => {
+                commit(UPDATECURRENT_TYPE, respond.data);
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          }
         })
         .catch((err) => {
           console.log(err);
@@ -138,7 +149,7 @@ const store = new Vuex.Store({
           //get current input
           const usernameInput = userInput.userData.usernameInput;
           const passwordInput = userInput.userData.passwordInput;
-          const currentUserInput = {
+          let currentUserInput = {
             id: null,
             username: usernameInput,
             password: passwordInput,
@@ -153,20 +164,24 @@ const store = new Vuex.Store({
 
           //user checking A: found user input in user list
           if (userChecking) {
-            currentUserInput.id = userChecking.id;
-            currentUserInput.bookings = userChecking.bookings;
+            currentUserInput = {
+              ...currentUserInput,
+              id: userChecking.id,
+              bookings: userChecking.bookings,
+            };
+            console.log(currentUserInput);
 
             //if request is for "log in" => accept
             if (userInput.type === "Log In") {
               //update current state
               commit(UPDATECURRENT_TYPE, currentUserInput);
+              commit(LOGIN_TYPE);
 
               //update current api
               axios
-                .put(
-                  "https://test-heroku444.herokuapp.com/currentUser",
-                  currentUserInput
-                )
+                .put("https://test-heroku444.herokuapp.com/currentUserID", {
+                  id: currentUserInput.id,
+                })
                 .catch((err) => {
                   console.log(err);
                 });
@@ -194,11 +209,14 @@ const store = new Vuex.Store({
                   currentUserInput.id = res.data.id;
                   //update current state
                   commit(UPDATECURRENT_TYPE, currentUserInput);
+                  commit(LOGIN_TYPE);
 
                   //update current API
                   axios.put(
-                    "https://test-heroku444.herokuapp.com/currentUser",
-                    currentUserInput
+                    "https://test-heroku444.herokuapp.com/currentUserID",
+                    {
+                      id: currentUserInput.id,
+                    }
                   );
                 })
                 .catch((err) => {
@@ -219,14 +237,19 @@ const store = new Vuex.Store({
       //loading on
       commit(LOADINGASYNC_TYPE, true);
 
-      let emptyUser = { id: "", username: "", password: "" };
-
-      //update current state
-      commit(UPDATECURRENT_TYPE, emptyUser);
-
       //update current API
       return axios
-        .put("https://test-heroku444.herokuapp.com/currentUser", emptyUser)
+        .put("https://test-heroku444.herokuapp.com/currentUserID", { id: "" })
+        .then(() => {
+          //update current state
+          commit(UPDATECURRENT_TYPE, {
+            id: "",
+            username: "",
+            password: "",
+            bookings: [],
+          });
+          commit(LOGOUT_TYPE);
+        })
         .catch((err) => {
           console.log(err);
         });
@@ -234,13 +257,15 @@ const store = new Vuex.Store({
 
     //booking confirm action
     bookingAction({ commit }, booking) {
+      //userID, planet, date, number
       commit(LOADINGASYNC_TYPE, true);
-
-      //add booking API
       return axios
-        .post("https://test-heroku444.herokuapp.com/bookings", booking)
+        .patch(
+          `https://test-heroku444.herokuapp.com/usersList/${booking.userID}`,
+          { bookings: booking.userBooking }
+        )
         .then(() => {
-          //add booking state
+          commit(BOOKING_TYPE, booking.userBooking);
           commit(LOADINGASYNC_TYPE, false);
         })
         .catch((err) => {

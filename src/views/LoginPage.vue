@@ -59,16 +59,21 @@
         <source src="@/assets/audio/Hope-shorten.mp3" type="audio/mpeg" />
         Your browser does not support the audio element.
       </audio>
-      <button
-        @click="muteVolume()"
-        class="muteVolume"
-        :class="{ active: isMuted }"
-      >
-        <b-icon
-          icon="
+      <div class="audio-control" :class="{ 'audio-playing': isPlaying }">
+        <span v-if="isPlaying">Now playing: "Hope" by Justin E. Bell</span>
+        <button @click="audioControl()" class="audio-toggler">
+          <b-icon
+            icon="
           volume-mute-fill"
-        ></b-icon>
-      </button>
+            v-if="isPlaying"
+          ></b-icon>
+          <b-icon
+            icon="
+          volume-off-fill"
+            v-else
+          ></b-icon>
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -79,15 +84,16 @@ import LogRegModule from "@/components/LogRegModule.vue";
 import { mapState, mapMutations, mapGetters } from "vuex";
 
 export default {
-  name: "Home",
+  name: "Login",
   components: { LoadingInitial, LogRegModule },
   data() {
     return {
       mode: null,
+      isPlaying: true,
     };
   },
   computed: {
-    ...mapState(["isMuted", "isFinishPreparing"]),
+    ...mapState(["isFinishPreparing"]),
     ...mapGetters(["isLoggedIn"]),
   },
   methods: {
@@ -107,7 +113,8 @@ export default {
       this.finishPreparing();
       this.loadMedia();
     },
-    muteVolume: function () {
+    audioControl: function () {
+      this.isPlaying = !this.isPlaying;
       this.$refs.audioRef.paused
         ? this.$refs.audioRef.play()
         : this.$refs.audioRef.pause();
@@ -122,10 +129,6 @@ export default {
   created: function () {
     this.navbarControl(false);
   },
-  mounted: function () {
-    //play media mỗi khi quay lại page về sau
-    if (this.isFinishPreparing) this.loadMedia();
-  },
   destroyed: function () {
     this.navbarControl(true);
   },
@@ -135,7 +138,7 @@ export default {
 <style scoped>
 .login-wrapper {
   width: 100%;
-  height: 100vh;
+  height: 100%;
   position: relative;
   overflow: hidden;
 }
@@ -146,7 +149,7 @@ export default {
 }
 .login-bg {
   z-index: 101;
-  height: 100vh;
+  width: auto;
 }
 .login-upper {
   width: 100%;
@@ -193,21 +196,31 @@ export default {
   width: 100px;
 }
 
-.muteVolume {
+.audio-control {
   position: absolute;
   bottom: 2px;
   right: 2px;
   z-index: 502;
   color: #fff;
-  font-size: 24px;
-  background-color: rgba(0, 0, 0, 0.15);
-  border-radius: 0;
-  opacity: 0.7;
 }
-.muteVolume:hover,
-.muteVolume.active {
-  opacity: 1;
-  background-color: rgba(0, 0, 0, 0.45);
+.audio-toggler {
+  font-size: 20px;
+  color: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  background-color: transparent;
+  border-radius: 0;
+  padding: 6px 8.5px;
+  margin-left: 10px;
+}
+.audio-text {
+  font-style: italic;
+}
+.audio-playing {
+  animation: blinking 1.5s infinite alternate;
+}
+.audio-playing .audio-toggler {
+  color: rgba(255, 255, 255, 1);
+  border: 1px solid rgba(255, 255, 255, 1);
 }
 @media screen and (min-width: 360px) {
   .logo {

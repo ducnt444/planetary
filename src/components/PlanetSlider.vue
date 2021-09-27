@@ -46,7 +46,7 @@ export default {
 <style scoped>
 .planets-img-area {
   width: 100%;
-  height: 35%;
+  height: 30%;
   position: relative;
   /* z-index: 2; */
 }
@@ -113,6 +113,12 @@ export default {
   left: 50%;
   transform: translate(-50%, 0%);
   animation: blinking 1s infinite alternate;
+}
+@media screen and (min-width: 360px) {
+  .planets-img-area {
+    height: 35%;
+    /* z-index: 2; */
+  }
 }
 @media screen and (min-width: 414px) {
   .position-icon {

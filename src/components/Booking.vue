@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapState } from "vuex";
 export default {
   name: "Booking",
   props: ["currentPlanet"],
@@ -60,21 +60,32 @@ export default {
     };
   },
   computed: {
-    bookingDetails() {
-      return {
-        planet: this.currentPlanet.name,
-        date: this.datepickerValue.split("-").reverse().join("-"),
-        number: this.mumberValue,
-      };
-    },
+    // bookingDetails() {
+    //   const newBookings = this.currentUser.bookings.slice();
+    //   newBookings.push({})
+    //   return {
+    //     userID: this.currentUser.id,
+    //     userBooking: newBookings,
+    //   };
+    // },
+    ...mapState(["currentUser"]),
   },
   methods: {
     confirm() {
       if (this.datepickerValue === "" || this.mumberValue === "") {
         this.bookingError = true;
       } else {
-        this.$emit("childToggleSuccess");
-        this.bookingAction(this.bookingDetails);
+        this.bookingError = false;
+        const newBookings = this.currentUser.bookings.slice();
+        newBookings.push({
+          planet: this.currentPlanet.name,
+          date: this.datepickerValue,
+          number: this.mumberValue,
+        });
+        this.bookingAction({
+          userID: this.currentUser.id,
+          userBooking: newBookings,
+        });
       }
     },
     ...mapActions(["bookingAction"]),
@@ -82,10 +93,11 @@ export default {
   mounted() {
     this.$store.watch(
       () => {
-        return this.$store.state.bookings;
+        return this.$store.state.currentUser;
       },
       () => {
         this.bookingSuccess = true;
+        this.$emit("childToggleSuccess");
       },
       {
         deep: true,

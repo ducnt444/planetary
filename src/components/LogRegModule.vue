@@ -99,7 +99,7 @@ export default {
   created() {
     this.$store.watch(
       () => {
-        return this.$store.state.currentUser;
+        return this.$store.state.loginToggler;
       },
       () => {
         setTimeout(() => {

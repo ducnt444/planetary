@@ -6,7 +6,7 @@
       </transition>
     </div>
     <TestButton v-if="testMode" />
-    <TheNavbar v-if="isNavbarDisplay" />
+    <TheNavbar />
     <LoadingAsync />
   </div>
 </template>
@@ -80,7 +80,7 @@ p:last-child {
 .page-wrapper {
   position: relative;
   width: 100%;
-  height: calc(100% - 50px);
+  height: 100%;
 }
 [v-cloak] {
   display: none;
@@ -232,5 +232,14 @@ p:last-child {
   border: #000 !important;
   animation: flickingBlack 5s infinite reverse;
   color: #000 !important;
+}
+
+@keyframes blinking {
+  from {
+    opacity: 0.6;
+  }
+  to {
+    opacity: 0.9;
+  }
 }
 </style>

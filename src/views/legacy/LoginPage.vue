@@ -30,7 +30,7 @@ export default {
     login() {
       localStore.user = this.username;
       const redirectPath = this.$route.query.redirect || "/";
-      this.$router.push(redirectPath);
+      this.$router.pus(redirectPath);
     },
   },
 };

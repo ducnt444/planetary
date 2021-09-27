@@ -62,7 +62,6 @@
             {{ article.description }}
           </h3>
         </div>
-
       </div>
     </div>
   </div>
@@ -70,6 +69,7 @@
 
 <script>
 import axios from "axios";
+import { mapMutations } from "vuex";
 
 export default {
   name: "Feed",
@@ -82,12 +82,12 @@ export default {
     };
   },
   methods: {
-    randomNumber: function (max, min) {
-      return Math.floor(Math.random() * max) + min;
-    },
+    ...mapMutations(["navbarControl"]),
   },
   mounted() {
-    let url = "https://gnews.io/api/v4/search?q=NASA&lang=en&token=8fe78f788c1fd6c0dd6b87ff2f352aad";
+    this.navbarControl(true);
+    let url =
+      "https://gnews.io/api/v4/search?q=NASA&lang=en&token=8fe78f788c1fd6c0dd6b87ff2f352aad";
 
     /*     let baseUrl =
       "http://api.mediastack.com/v1/news?access_key=cd136b252092d6a120cceb728d665c7b";

@@ -112,7 +112,7 @@
 <script>
 import BackButton from "@/components/BackButton.vue";
 import Booking from "@/components/Booking.vue";
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 
 export default {
   components: { BackButton, Booking },
@@ -150,11 +150,13 @@ export default {
     parrentToggleSuccess() {
       this.isSuccess = true;
     },
+    ...mapMutations(["navbarControl"]),
   },
   mounted() {
     this.$root.$on("bv::modal::hide", () => {
       this.isSuccess = false;
     });
+    this.navbarControl(true);
   },
 };
 </script>
@@ -169,6 +171,7 @@ export default {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
+  padding-bottom: 50px;
 }
 .img-area {
   height: 300px;

@@ -1,15 +1,12 @@
 <template>
   <div class="d-flex">
-    <button @click="testGetAllUsers" class="mx-2">TEST 1</button>
-    <button @click="testPostNewUser" class="mx-2">TEST 2</button>
-    <button @click="logSignAction(userInput)" class="mx-2">TEST 3</button>
-    <button @click="finishPreparing" class="mx-2">TEST 4</button>
+    <button @click="button3" class="mx-2">TEST 3</button>
+    <button @click="button4" class="mx-2">TEST 4</button>
   </div>
 </template>
 
 <script>
 import axios from "axios";
-import { mapActions, mapMutations } from "vuex";
 export default {
   name: "TestButton",
   data() {
@@ -27,46 +24,28 @@ export default {
     },
   },
   methods: {
-    logoutOnAPI() {
+    button3() {
       axios
-        .put("https://test-heroku444.herokuapp.com/currentUser", {
-          username: null,
-          password: null,
-        })
+        .get(`https://test-heroku444.herokuapp.com/usersList/0`)
         .then((res) => {
-          console.log(res);
+          console.log(res.data);
         })
         .catch((err) => {
           console.log(err);
         });
     },
-    testGetAllUsers() {
+    button4() {
       axios
-        .get("https://test-heroku444.herokuapp.com/posts")
+        .patch(`https://test-heroku444.herokuapp.com/usersList/0`, {
+          bookings: [{ planet: "a" }, { planet: "b" }],
+        })
         .then((res) => {
-          this.users = res.data;
-          console.log(this.users);
+          console.log(res.data);
         })
         .catch((err) => {
           console.log(err);
         });
     },
-    testPostNewUser() {
-      axios
-        .post("https://test-heroku444.herokuapp.com/posts", {
-          username: "test",
-          password: "tessts",
-        })
-        .then((res) => {
-          let users = res.data;
-          console.log(users);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-    ...mapActions(["logSignAction"]),
-    ...mapMutations(["finishPreparing"]),
   },
 };
 </script>
