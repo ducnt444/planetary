@@ -64,12 +64,12 @@
         <b-icon
           v-if="isMuted"
           icon="
-          volume-mute-fill"
+          volume-off-fill"
         ></b-icon>
         <b-icon
           v-else
           icon="
-          volume-off-fill"
+          volume-mute-fill"
         ></b-icon>
       </button>
     </div>

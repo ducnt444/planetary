@@ -1,24 +1,11 @@
-# planetary
+# PLANETARY
+*"The cosmos is within us"* - Carl Sagan (1934 - 1996)
 
-## Project setup
-```
-yarn install
-```
+## About:
+- PLANETARY is a personal demo project, powered by **Vue.JS** (with **Vue router**, **Vuex**, **Bootstrap-Vue**)
+- Due to time and resources limitations, Planetary is only designed for **mobile viewports.**
+- Upon exiting the app, all data will be reset after **30 mins.**
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
-
-### Compiles and minifies for production
-```
-yarn build
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## My other projects:
+- [HALO](https://ducnt444.github.io/halo/): demo camera shop website (static content, as practicing Pug, CSS, JS)
+- [Changeable list](https://changeable-list.herokuapp.com/): demo list manager (practicing DOM manipulation, Jquery, basic uses of REST API)
