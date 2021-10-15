@@ -128,6 +128,8 @@ export default {
   background-color: rgba(0, 0, 0, 0.4);
   border-radius: 16px;
   height: 270px;
+  max-width: 400px;
+  margin: auto;
 }
 h1 {
   font-family: EarthOrbiter, Roboto;
@@ -197,6 +199,15 @@ input {
   .login h1 {
     font-size: 50px;
     margin-bottom: 30px;
+  }
+}
+@media screen and (min-width: 768px) {
+  .logreg-module {
+    height: 290px;
+  }
+  h1 {
+    font-size: 42px;
+    margin-bottom: 15px;
   }
 }
 </style>

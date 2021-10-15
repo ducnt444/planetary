@@ -1,13 +1,21 @@
 <template>
   <div class="page-content">
-    <div class="content d-flex flex-column align-items-center">
-      <div class="logo-wrapper flex-center">
+    <div
+      class="
+        content
+        d-flex
+        flex-column
+        align-items-center
+        justify-content-center
+      "
+    >
+      <!-- <div class="logo-wrapper flex-center">
         <img
           src="@/assets/images/misc/logo-white.png"
           alt="Planetary logo"
           class="logo"
         />
-      </div>
+      </div> -->
 
       <div class="avatar-wrapper flex-center">
         <img
@@ -53,7 +61,7 @@
                 {{ booking.planet }}
               </span>
               <span class="booking-date">
-                {{ booking.date }}
+                {{ booking.date.split("-").reverse().join("-") }}
               </span>
               <span class="booking-number">
                 {{ booking.number }}
@@ -62,6 +70,7 @@
           </ul>
         </div>
       </div>
+
       <button class="neon-blue btn btn-logout" @click="logoutAction">
         Logout
       </button>
@@ -123,11 +132,11 @@ export default {
   position: relative;
   overflow-y: scroll;
   overflow-x: hidden;
-  background-image: url(~@/assets/images/user/user-bg.jpg);
+  background-image: url(~@/assets/images/user/new-bg.jpg);
   background-color: #fff;
-  background-size: 750px;
+  background-size: cover;
   background-repeat: no-repeat;
-  animation: movingBG 45s linear infinite alternate;
+  animation: movingBG 40s linear infinite alternate;
 }
 @keyframes movingBG {
   from {
@@ -139,19 +148,14 @@ export default {
 }
 
 .logo-wrapper {
-  height: 17.5%;
-  width: 100px;
+  width: 80px;
 }
 .logo {
   width: 100%;
-  /* position: absolute;
-  top: 5%;
-  left: 50%;
-  transform: translate(-50%, -5%); */
 }
 .avatar-wrapper {
-  height: 17.5%;
   width: 80px;
+  margin: 30px 0 5px 0;
 }
 .user-avatar {
   width: 100%;
@@ -159,7 +163,6 @@ export default {
   padding: 10px;
 }
 .user-name {
-  height: 10%;
   margin: 0;
 }
 .btn-logout {
@@ -178,32 +181,34 @@ export default {
 
 .booking-list-wrapper {
   list-style-type: none;
-  padding: 0;
-  margin-bottom: 40px;
+  padding: 10px;
   width: 100%;
+  max-width: 500px;
   background-color: rgba(0, 0, 0, 0.5);
   border-radius: 16px;
+  margin: 20px 0;
 }
 
 .booking-list {
-  overflow-x: scroll;
-  max-height: 30vh;
+  overflow-y: auto;
+  max-height: 20vh;
   margin: 0;
 }
 
 .booking-item {
-  padding: 10px;
+  padding: 10px 0;
   display: flex;
   font-size: 14px;
 }
 .booking-item-header {
-  border-top-left-radius: 16px;
-  border-top-right-radius: 16px;
+  /* border-top-left-radius: 16px;
+  border-top-right-radius: 16px; */
   font-weight: 700;
+  /* padding-top: 0; */
 }
 .booking-item:last-child {
-  border-bottom-left-radius: 16px;
-  border-bottom-right-radius: 16px;
+  /* border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px; */
 }
 .booking-item:hover {
   background-color: rgba(225, 225, 225, 0.3);
@@ -223,15 +228,79 @@ export default {
 .booking-number {
   width: 30%;
 }
+@media screen and (min-width: 360px) {
+  .logo-wrapper {
+    width: 100px;
+  }
+  .booking-list {
+    max-height: 25vh;
+  }
+}
 @media screen and (min-width: 414px) {
   .logo-wrapper {
     width: 120px;
   }
-  .avatar-wrapper {
-    width: 100px;
+  .booking-list-wrapper {
+    margin: 30px 0;
+  }
+  .booking-list {
+    max-height: 30vh;
   }
   .booking-item {
     font-size: 16px;
+  }
+}
+@media screen and (min-width: 768px) {
+  .logo {
+    width: 150px;
+  }
+  .avatar-wrapper {
+    width: 100px;
+  }
+}
+@media screen and (min-width: 1366px) {
+  .logo-wrapper {
+  }
+  .logo {
+    width: 80px;
+  }
+  .avatar-wrapper {
+    width: 80px;
+  }
+  /* width */
+  ::-webkit-scrollbar {
+    width: 5px;
+    position: relative;
+    right: 5px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+}
+@media screen and (min-width: 1920px) {
+  .logo-wrapper {
+    align-items: flex-end;
+  }
+  .logo {
+    width: 120px;
+  }
+  .avatar-wrapper {
+    align-items: flex-end;
+    width: 100px;
+  }
+  .user-name {
   }
 }
 </style>

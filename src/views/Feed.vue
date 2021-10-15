@@ -33,6 +33,7 @@
             :alt="articles[0].description"
             class="img img--highlight"
           />
+
           <h2 class="title title--highlight">
             {{ articles[0].title }}
           </h2>
@@ -46,9 +47,6 @@
           :key="index"
           class="feed-articles"
         >
-          <h2 class="title title--articles">
-            {{ article.title }}
-          </h2>
           <img
             :src="
               article.image
@@ -58,9 +56,14 @@
             :alt="article.title"
             class="img img--articles"
           />
-          <h3 class="description description--articles">
-            {{ article.description }}
-          </h3>
+          <div class="articles-content">
+            <h2 class="title title--articles">
+              {{ article.title }}
+            </h2>
+            <h3 class="description description--articles">
+              {{ article.description }}
+            </h3>
+          </div>
         </div>
       </div>
     </div>
@@ -133,7 +136,7 @@ export default {
   position: relative;
   z-index: 2;
   padding-top: 50px;
-  background-image: url(~@/assets/images/feed/bg7.jpg);
+  background-image: url(~@/assets/images/feed/bg.jpg);
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -157,7 +160,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  max-width: 450px;
+  /* max-width: 450px; */
   height: 50px;
   padding: 5px 0;
   background-color: #000;
@@ -228,6 +231,7 @@ export default {
 
 .title--articles {
   font-size: 16px;
+  margin-bottom: 10px;
 }
 .description--articles {
   font-size: 14px;
@@ -236,7 +240,7 @@ export default {
 .img {
   width: 100%;
   object-fit: cover;
-  margin: 5px 0 15px 0;
+  margin-bottom: 15px;
 }
 .img--highlight {
   height: 275px;
@@ -244,5 +248,84 @@ export default {
 }
 .img--articles {
   height: 150px;
+}
+
+@media screen and (min-width: 768px) {
+  .feed-articles {
+    display: flex;
+    /* justify-content: space-between; */
+    flex-wrap: wrap;
+    padding: 25px 30px;
+  }
+  .img--articles {
+    width: 40%;
+    margin: 0 20px 0 0;
+  }
+  .articles-content {
+    width: 55%;
+  }
+  .title--articles {
+    font-size: 20px;
+  }
+  .description--articles {
+    font-size: 16px;
+  }
+  .feed-wrapper {
+    padding-bottom: 75px;
+  }
+}
+
+@media screen and (min-width: 1366px) {
+  .feed-header {
+    display: none;
+  }
+  .feed-wrapper {
+    padding: 0;
+  }
+  .content-ready {
+    overflow-x: hidden;
+  }
+  .feed-highlight {
+    padding-top: 80px;
+  }
+  .img--highlight {
+    height: 350px;
+  }
+  .feed-highlight {
+    max-width: 1000px;
+    margin: auto;
+  }
+  .title--highlight,
+  .description--highlight {
+    padding: 0;
+  }
+
+  .feed-articles {
+    padding: 25px 0;
+    max-width: 1000px;
+    margin: auto;
+  }
+  .img--articles {
+    height: 200px;
+  }
+  .title {
+    font-size: 22px;
+  }
+  .description {
+    font-size: 18px;
+  }
+}
+
+@media screen and (min-width: 1920px) {
+  .feed-highlight {
+    max-width: 1200px;
+  }
+  .feed-articles {
+    padding: 35px 0;
+    max-width: 1200px;
+  }
+  .img--articles {
+    height: 220px;
+  }
 }
 </style>

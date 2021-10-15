@@ -32,7 +32,7 @@
               </div>
               <button
                 @click="attempt('Log In')"
-                class="btn-login btn neon-blue mb-4"
+                class="btn-login btn neon-blue mb-4 mb-md-5 mb-lg-4 mb-xl-4"
               >
                 Log in
               </button>
@@ -48,11 +48,13 @@
         </div>
       </div>
 
-      <video class="login-bg absolute-center" ref="videoRef" loop muted>
-        <source
-          src="@/assets/videos/home/home-bg-7-min2.mp4"
-          type="video/mp4"
-        />
+      <video
+        class="login-bg absolute-center"
+        ref="videoRef"
+        loop
+        muted
+      >
+        <source src="@/assets/videos/home/bg-1920-5.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
       <audio ref="audioRef" loop>
@@ -105,7 +107,7 @@ export default {
       }
     },
     loadMedia: function () {
-      // this.$refs.videoRef.playbackRate = 0.75;
+      this.$refs.videoRef.playbackRate = 0.75;
       this.$refs.videoRef.play();
       this.$refs.audioRef.play();
     },
@@ -125,9 +127,13 @@ export default {
       "errorLogSign",
       "navbarControl",
     ]),
+
   },
   created: function () {
     this.navbarControl(false);
+  },
+  mounted: function () {
+    if (this.isPlaying) this.loadMedia();
   },
   destroyed: function () {
     this.navbarControl(true);
@@ -149,11 +155,15 @@ export default {
 }
 .login-bg {
   z-index: 101;
-  width: auto;
+  /* position: fixed;
+  right: 0;
+  bottom: 0; */
+  min-width: 100%;
+  min-height: 100%;
 }
 .login-upper {
   width: 100%;
-  height: 40%;
+  height: 20%;
 }
 .logo {
   display: block;
@@ -167,7 +177,7 @@ export default {
   height: 100%;
   position: relative;
   z-index: 501;
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.15);
 }
 .login-lower {
   width: 100%;
@@ -189,7 +199,7 @@ export default {
 }
 .author {
   font-size: 16px;
-  color: rgba(255, 255, 255, 0.897);
+  color: rgba(255, 255, 255, 0.825);
   margin: 0;
 }
 .btn {
@@ -198,7 +208,7 @@ export default {
 
 .audio-control {
   position: absolute;
-  bottom: 2px;
+  bottom: 52px;
   right: 2px;
   z-index: 502;
   color: #fff;
@@ -226,10 +236,107 @@ export default {
   .logo {
     width: 180px;
   }
+  .login-upper {
+    height: 40%;
+  }
 }
 @media screen and (min-width: 414px) {
   .logo {
     width: 200px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .login-upper {
+    height: 30%;
+  }
+  .login-lower {
+    height: 70%;
+  }
+  .quotes-wrapper {
+    padding: 15px 50px;
+  }
+  .quotes {
+    font-size: 36px;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  .author {
+    font-size: 28px;
+  }
+  .btn {
+    font-size: 28px;
+    width: 150px;
+    color: rgba(255, 255, 255, 0.9);
+  }
+}
+
+@media screen and (min-width: 1366px) {
+  .logo {
+    width: 125px;
+  }
+  .login-upper {
+    height: 25%;
+  }
+  .login-lower {
+    height: 75%;
+  }
+  .quotes-wrapper {
+    padding: 15px 0;
+    max-width: 900px;
+    margin-bottom: 5%;
+  }
+  .quotes {
+    font-size: 32px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .author {
+    font-size: 24px;
+  }
+  .btn {
+    font-size: 20px;
+    width: 120px;
+    border-radius: 8px;
+  }
+}
+
+@media screen and (min-width: 1920px) {
+  .logo {
+    width: 200px;
+  }
+  .login-upper {
+    height: 40%;
+  }
+  .login-lower {
+    height: 60%;
+  }
+  .quotes-wrapper {
+    max-width: 800px;
+    margin-bottom: 3%;
+  }
+  .quotes {
+    font-size: 42px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .author {
+    font-size: 32px;
+  }
+  .btn {
+    font-size: 24px;
+    width: 150px;
+  }
+  .btn-login {
+    margin-bottom: 35px !important;
+  }
+  .audio-playing {
+    display: flex;
+    align-items: center;
+  }
+  .audio-playing span,
+  .audio-toggler {
+    font-size: 24px;
   }
 }
 </style>

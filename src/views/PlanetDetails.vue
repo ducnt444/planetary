@@ -236,9 +236,12 @@ h4 {
 }
 
 .flights-img {
+  display: block;
+  max-width: 500px;
+  margin: auto;
   width: 100%;
+  border-radius: 16px;
 }
-
 .attraction-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -247,6 +250,7 @@ h4 {
 .attraction-cell {
   position: relative;
   color: #fff;
+  cursor: pointer;
 }
 /* .attraction-link {
   display: block;
@@ -311,9 +315,10 @@ h4 {
 }
 ::v-deep .success .modal-content {
   background-image: url(~@/assets/images/misc/see-you.jpg);
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
-  background-position: bottom center;
+  background-position: left;
+  /* background-position: center bottom; */
 }
 /* .price-wrapper {
   margin: 15px auto;
@@ -341,6 +346,108 @@ h4 {
 @media screen and (min-width: 414px) {
   .img-area {
     height: 350px;
+  }
+}
+@media screen and (min-width: 768px) {
+  .planet-img {
+    width: 100%;
+    left: 0%;
+    top: -145%;
+  }
+  .img-area {
+    padding-left: 30px;
+  }
+  .info-area {
+    padding: 20px 30px;
+  }
+  h4 {
+    font-size: 18px;
+  }
+  ::v-deep .modal-dialog {
+    max-width: 420px;
+    margin: auto;
+  }
+}
+@media screen and (min-width: 1366px) {
+  .img-area,
+  .info-area {
+    max-width: 1140px;
+    margin: auto;
+  }
+  .img-area {
+    height: auto;
+    padding-top: 100px;
+  }
+
+  .planet-img {
+    width: 450px;
+    top: 100px;
+    left: 55%;
+  }
+  .info-area {
+    padding: 20px 30px;
+  }
+  .section:not(:first-child) {
+    padding-bottom: 75px;
+  }
+  .section-description p {
+    width: 50%;
+  }
+  .section-flights {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .header {
+    width: 100%;
+  }
+  .flights-img {
+    margin: 0 30px 0 0;
+    width: 40%;
+  }
+  .section-flights p {
+    width: 50%;
+  }
+  .attraction-grid {
+    gap: 30px;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  .attraction-name {
+    font-size: 20px;
+  }
+}
+@media screen and (min-width: 1920px) {
+  .img-area,
+  .info-area {
+    max-width: 1320px;
+  }
+  .planet-img {
+    width: 600px;
+    top: 120px;
+    left: 55%;
+  }
+  .planet-name {
+    font-size: 62px;
+  }
+  .planet-title {
+    font-size: 32px;
+  }
+  h4 {
+    font-size: 20px;
+  }
+  ::v-deep .modal-dialog {
+    max-width: 600px;
+  }
+  ::v-deep .attraction-modal .modal-body {
+    padding: 5px 35px 35px 35px;
+    font-size: 18px;
+  }
+  .header-modal-text {
+    margin: 10px 0 20px 0;
+    font-size: 28px;
+  }
+  .btn {
+    font-size: 20px;
   }
 }
 </style>

@@ -1,7 +1,6 @@
 import axios from "axios";
 import Vue from "vue";
 import Router from "vue-router";
-// import localStore from "./localStore";
 import store from "./store/store.js";
 
 Vue.use(Router);
@@ -58,14 +57,14 @@ const routes = [
       exists ? next() : next({ name: "PlanetsList" });
     },
   },
-  {
-    path: "/legacy",
-    name: "Legacy",
-    component: () =>
-      import(/* webpackChunkName: "Legacy" */ "./views/PlanetsListLegacy.vue"),
-    props: true,
-    meta: { requiresAuth: true },
-  },
+  // {
+  //   path: "/legacy",
+  //   name: "Legacy",
+  //   component: () =>
+  //     import(/* webpackChunkName: "Legacy" */ "./views/PlanetsListLegacy.vue"),
+  //   props: true,
+  //   meta: { requiresAuth: true },
+  // },
   {
     path: "/feed",
     name: "Feed",
@@ -93,16 +92,16 @@ const routes = [
       store.getters.isLoggedIn ? next({ name: "Home" }) : next();
     },
   },
-  {
-    path: "/play",
-    name: "Playground",
-    component: () =>
-      import(
-        /* webpackChunkName: "Playground" */
-        "./views/Playground.vue"
-      ),
-    props: true,
-  },
+  // {
+  //   path: "/play",
+  //   name: "Playground",
+  //   component: () =>
+  //     import(
+  //       /* webpackChunkName: "Playground" */
+  //       "./views/Playground.vue"
+  //     ),
+  //   props: true,
+  // },
   {
     path: "/404",
     alias: "*",

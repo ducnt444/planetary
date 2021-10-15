@@ -39,7 +39,7 @@
           All set! See you on {{ currentPlanet.name }}!
         </p>
         <p class="booking-check m-0">
-          You can check your flight plans on User tab
+          You can check your flight plans at Profile tab
         </p>
       </div>
     </transition>

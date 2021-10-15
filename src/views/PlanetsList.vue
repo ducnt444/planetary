@@ -17,6 +17,8 @@
         :planets="planets"
         :currentIndex="currentPlanetIndex"
         @childToggleClickToRight="clickToRight"
+        @arrowToLeft="clickArrowToLeft"
+        @arrowToRight="clickArrowToRight"
       />
 
       <div class="planets-info-area">
@@ -54,7 +56,7 @@
             d-flex
             align-items-center
             justify-content-between
-            my-2
+            my-2 my-md-3 my-xl-4
             px-2
           "
         >
@@ -129,6 +131,12 @@ export default {
     clickToRight(index) {
       if (index === this.currentPlanetIndex + 1) this.toRight();
     },
+    clickArrowToLeft() {
+      this.toRight();
+    },
+    clickArrowToRight() {
+      this.toLeft();
+    },
     toggleModal(index) {
       this.currentAttractionIndex = index;
       this.modalShow = !this.modalShow;
@@ -150,10 +158,10 @@ export default {
   height: 100%;
   z-index: 11;
 }
-.non-swipeable {
+/* .non-swipeable {
   position: relative;
   z-index: 20;
-}
+} */
 .page-content {
   /* transition: all 0.7s; */
   background-color: rgba(0, 0, 0, 0.876);
@@ -299,6 +307,142 @@ export default {
     width: 100px;
     margin: 10px auto;
     font-size: 16px;
+  }
+}
+@media screen and (min-width: 768px) {
+  .planets-info-area,
+  .planets-img-area {
+    padding: 0;
+    max-width: 600px;
+    margin: auto;
+  }
+  .planets-name {
+    font-size: 56px;
+    line-height: 1.25;
+  }
+  .planets-title {
+    font-size: 28px;
+  }
+  .planets-symbol-area {
+    margin-top: 15px;
+  }
+  .symbol-wrapper {
+    width: 35px;
+    height: 35px;
+  }
+  .preview-stats {
+    margin-bottom: 15px;
+  }
+  .cell-title {
+    font-size: 24px;
+    margin-bottom: 5px;
+  }
+  .cell-text {
+    font-size: 18px;
+  }
+  .btn {
+    padding: 7px;
+    width: 120px;
+    font-size: 20px;
+  }
+  ::v-deep .modal-dialog {
+    margin: auto;
+    max-width: 600px;
+  }
+}
+@media screen and (min-width: 1366px) {
+  .planets-img-area {
+    max-width: none;
+  }
+  .planets-img-area {
+    height: 30%;
+  }
+  .planets-info-area {
+    height: 70%;
+  }
+  .attraction-img-area {
+    max-width: 400px;
+    margin: auto;
+  }
+  .attraction-img-area img {
+    cursor: pointer;
+  }
+  .page-content {
+    padding: 0;
+  }
+  .planets-name {
+    font-size: 36px;
+    line-height: 1.25;
+  }
+  .planets-title {
+    font-size: 24px;
+  }
+  .planets-symbol-area {
+    margin-top: 10px;
+  }
+  .symbol-wrapper {
+    width: 30px;
+    height: 30px;
+  }
+  .preview-content {
+    grid-template-columns: 25% 25% 25% 25%;
+  }
+  .preview-stats {
+    margin-bottom: 10px;
+  }
+  .cell-title {
+    font-size: 18px;
+    margin-bottom: 0px;
+  }
+  .cell-text {
+    font-size: 16px;
+  }
+  .btn {
+    width: 100px;
+    font-size: 16px;
+  }
+}
+@media screen and (min-width: 1920px) {
+  .planets-img-area {
+    height: 35%;
+  }
+  .planets-info-area {
+    height: 65%;
+    max-width: 1000px;
+  }
+  .attraction-img-area {
+    max-width: 700px;
+  }
+  .planets-name {
+    font-size: 62px;
+  }
+  .planets-title {
+    font-size: 32px;
+  }
+  .planets-symbol-area {
+    margin-top: 15px;
+  }
+  .symbol-wrapper {
+    width: 40px;
+    height: 40px;
+  }
+  .preview-stats {
+    margin-bottom: 15px;
+  }
+  .cell-title {
+    font-size: 26px;
+    margin-bottom: 5px;
+  }
+  .cell-text {
+    font-size: 20px;
+  }
+  .btn {
+    width: 120px;
+    font-size: 20px;
+  }
+  ::v-deep .modal-dialog {
+    margin: auto;
+    max-width: 900px;
   }
 }
 </style>

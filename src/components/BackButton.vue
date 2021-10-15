@@ -5,13 +5,13 @@
 </template>
 
 <script>
-export default ({
+export default {
   methods: {
-    goBack: function() {
-      return this.$router.go(-1)
-    }
-  }
-})
+    goBack: function () {
+      return this.$router.go(-1);
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -28,5 +28,14 @@ export default ({
   background-color: rgba(0, 0, 0, 0.4);
   border: none;
   border-radius: 8px;
+}
+@media screen and (min-width: 1366px) {
+  .back-btn {
+    top: 40px;
+    left: calc(50vw - 650px);
+    width: 50px;
+    height: 50px;
+    font-size: 32px;
+  }
 }
 </style>

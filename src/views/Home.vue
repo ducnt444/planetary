@@ -25,10 +25,6 @@
                 Vuex, Bootstrap-Vue)
               </li>
               <li class="content-text">
-                - Due to time and resources limitations, Planetary is only
-                designed for <strong>mobile viewports</strong>.
-              </li>
-              <li class="content-text">
                 - Upon exiting the app, all data will be reset after
                 <strong>30 mins</strong>.
               </li>
@@ -48,6 +44,12 @@
                   >Changeable list</a
                 >: demo list manager (practicing DOM manipulation, Jquery, basic
                 uses of REST API)
+              </li>
+              <li class="content-text">
+                -
+                <a href="https://ducnt444.github.io/react-task-manager/" target="_blank"
+                  >Task manager</a
+                >: demo task manager (practicing ReactJS)
               </li>
             </ul>
             <button @click="toggleModal" class="btn neon-white">Close</button>
@@ -118,7 +120,7 @@ export default {
 .home {
   width: 100%;
   height: 100%;
-  background-image: url(~@/assets/images/home/bg2.jpg);
+  background-image: url(~@/assets/images/home/new-bg-min.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   animation: movingBG 45s linear infinite alternate;
@@ -164,6 +166,7 @@ export default {
   font-size: 14px;
   background-color: rgba(0, 0, 0, 0.486);
   border-radius: 16px;
+  max-width: 600px;
   max-height: 70vh;
   overflow: scroll;
 }
@@ -213,5 +216,79 @@ a {
 .audio-playing .audio-toggler {
   color: rgba(255, 255, 255, 1);
   border: 1px solid rgba(255, 255, 255, 1);
+}
+
+@media screen and (min-width: 768px) {
+  .logo {
+    width: 175px;
+  }
+  .home-content {
+    margin: auto;
+    padding: 30px;
+    font-size: 18px;
+    max-height: 70vh;
+    overflow: scroll;
+  }
+  h1 {
+    font-size: 28px;
+  }
+}
+
+@media screen and (min-width: 1366px) {
+  .home-logo {
+    height: 25%;
+  }
+  .logo {
+    width: 150px;
+  }
+  .home {
+    background-image: url(~@/assets/images/home/new-bg.jpg);
+    background-size: auto;
+  }
+  .home-content {
+    font-size: 16px;
+    max-height: none;
+    overflow: auto;
+  }
+  h1 {
+    font-size: 24px;
+  }
+}
+
+@media screen and (min-width: 1920px) {
+  .home-logo {
+    height: 30%;
+  }
+  .logo {
+    width: 175px;
+  }
+  .home-content {
+    font-size: 18px;
+  }
+  h1 {
+    font-size: 28px;
+  }
+  .audio-control {
+    right: 15px;
+  }
+}
+
+@media screen and (min-width: 2500px) {
+  .home {
+    background-image: url(~@/assets/images/home/new-bg-max.jpg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .home-logo {
+    height: 20%;
+  }
+  .logo {
+    width: 250px;
+  }
+  .home-content {
+    margin: 0 auto;
+  }
 }
 </style>

@@ -63,9 +63,9 @@ p:last-child {
 }
 #app {
   width: 100%;
-  max-width: 450px;
+  /* max-width: 450px;
+  max-height: 950px; */
   height: 100%;
-  max-height: 950px;
   font-family: Roboto;
   display: flex;
   flex-direction: column;
@@ -121,13 +121,13 @@ p:last-child {
 }
 
 /* 
-================ carousel settings ================
+================ settings ================
 */
-.carousel,
-.carousel-inner,
-.carousel-item {
-  height: 100%;
+.non-swipeable {
+  position: relative;
+  z-index: 20;
 }
+
 .slide-fade-enter-active {
   transition: all 0.3s ease;
 }
@@ -181,7 +181,7 @@ p:last-child {
 .neon-blue {
   border: #fff !important;
   animation: flicking 5s infinite reverse;
-  color: #fff !important;
+  color: rgba(255, 255, 255, 0.9) !important;
 }
 
 @keyframes flickingWhite {
@@ -206,7 +206,7 @@ p:last-child {
 .neon-white {
   border: #fff !important;
   animation: flickingWhite 5s infinite reverse;
-  color: #fff !important;
+  color: rgba(255, 255, 255, 0.9) !important;
 }
 
 @keyframes flickingBlack {
@@ -240,6 +240,22 @@ p:last-child {
   }
   to {
     opacity: 0.9;
+  }
+}
+
+.btn.neon-blue,
+.btn.neon-white {
+  transition: all 0.5s;
+}
+
+.btn.neon-blue:hover,
+.btn.neon-white:hover {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+@media screen and (min-width: 1366px) {
+  .container-900 {
+    max-width: 900;
   }
 }
 </style>

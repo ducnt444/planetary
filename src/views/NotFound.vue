@@ -28,7 +28,7 @@ export default {
 .not-found-wrapper {
   width: 100%;
   height: 100%;
-  background-image: url(~@/assets/images/404/bg.jpg);
+  background-image: url(~@/assets/images/404/bg-new.jpg);
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
@@ -78,6 +78,9 @@ export default {
   animation: renderBack 0.7s 4.5s 1 linear forwards;
   opacity: 0;
 }
+.not-found-back a:hover {
+  text-decoration: none;
+}
 .neon-blue {
   padding: 5px 10px;
   border-radius: 8px;
@@ -88,6 +91,18 @@ export default {
   }
   to {
     opacity: 1;
+  }
+}
+@media screen and (min-width: 1920px) {
+  .character {
+    animation: spinningCharacter 4.5s 0.5s 1 linear forwards;
+  }
+  .not-found-text {
+    font-size: 32px;
+    animation: renderText 2s 3s 1 steps(14, end) forwards;
+  }
+  .not-found-back {
+    animation: renderBack 0.7s 5.5s 1 linear forwards;
   }
 }
 </style> 
