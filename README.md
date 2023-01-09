@@ -3,7 +3,6 @@
 
 ## About:
 - PLANETARY is a personal demo project, powered by **Vue.JS** (with **Vue router**, **Vuex**, **Bootstrap-Vue**)
-- Due to time and resources limitations, Planetary is only designed for **mobile viewports.**
 - Upon exiting the app, all data will be reset after **30 mins.**
 
 ## My other projects:
